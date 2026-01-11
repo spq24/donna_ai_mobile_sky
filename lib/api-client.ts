@@ -1,0 +1,212 @@
+import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
+import { storage, StoredUser } from './storage';
+
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:8000';
+
+interface LoginResponse {
+  access_token: string;
+  refresh_token: string;
+  token_type: string;
+  user: StoredUser;
+}
+
+interface RefreshTokenResponse {
+  access_token: string;
+  refresh_token: string;
+  token_type: string;
+}
+
+class ApiClient {
+  private client: AxiosInstance;
+  private isRefreshing = false;
+  private failedQueue: Array<{
+    resolve: (value?: any) => void;
+    reject: (error?: any) => void;
+  }> = [];
+
+  constructor() {
+    this.client = axios.create({
+      baseURL: `${API_BASE_URL}/api/v1`,
+      timeout: 30000,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Request interceptor to add access token
+    this.client.interceptors.request.use(
+      async (config: InternalAxiosRequestConfig) => {
+        const accessToken = await storage.getAccessToken();
+        if (accessToken && config.headers) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+
+    // Response interceptor for automatic token refresh
+    this.client.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+        // Don't try to refresh tokens for auth endpoints (login, oauth, refresh)
+        const authEndpoints = ['/auth/login', '/auth/oauth/login', '/auth/refresh'];
+        const isAuthEndpoint = authEndpoints.some(endpoint => originalRequest.url?.includes(endpoint));
+
+        // Handle 401 errors with token refresh (but not for auth endpoints)
+        if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
+          if (this.isRefreshing) {
+            // If already refreshing, queue this request
+            return new Promise((resolve, reject) => {
+              this.failedQueue.push({ resolve, reject });
+            })
+              .then((token) => {
+                if (originalRequest.headers) {
+                  originalRequest.headers.Authorization = `Bearer ${token}`;
+                }
+                return this.client(originalRequest);
+              })
+              .catch((err) => Promise.reject(err));
+          }
+
+          originalRequest._retry = true;
+          this.isRefreshing = true;
+
+          try {
+            const refreshToken = await storage.getRefreshToken();
+            if (!refreshToken) {
+              throw new Error('No refresh token available');
+            }
+
+            // Using direct axios call for refresh to avoid interceptor loop
+            const response = await axios.post<RefreshTokenResponse>(
+              `${API_BASE_URL}/api/v1/auth/refresh`,
+              {
+                refresh_token: refreshToken,
+              }
+            );
+
+            const { access_token, refresh_token } = response.data;
+            await storage.setAccessToken(access_token);
+            await storage.setRefreshToken(refresh_token);
+
+            // Process queued requests
+            this.processQueue(null, access_token);
+
+            // Update original request and retry
+            if (originalRequest.headers) {
+              originalRequest.headers.Authorization = `Bearer ${access_token}`;
+            }
+            return this.client(originalRequest);
+          } catch (refreshError) {
+            // Refresh failed - clear storage and process queue with error
+            await storage.clearAll();
+            this.processQueue(refreshError, null);
+            return Promise.reject(refreshError);
+          } finally {
+            this.isRefreshing = false;
+          }
+        }
+
+        return Promise.reject(error);
+      }
+    );
+  }
+
+  private processQueue(error: any, token: string | null) {
+    this.failedQueue.forEach((prom) => {
+      if (error) {
+        prom.reject(error);
+      } else {
+        prom.resolve(token);
+      }
+    });
+    this.failedQueue = [];
+  }
+
+  // Auth methods
+  async login(email: string, password: string): Promise<LoginResponse> {
+    // Keys are already in snake_case as per API requirements
+    const response = await this.client.post<LoginResponse>('/auth/login', {
+      email,
+      password,
+    });
+    return response.data;
+  }
+
+  async loginWithOAuth(userInfo: {
+    email: string;
+    name: string;
+    provider: 'google' | 'azure' | 'apple';
+    providerId: string;
+    avatarUrl?: string;
+  }): Promise<LoginResponse> {
+    // Convert camelCase keys to snake_case for API request data
+    const requestData = {
+      user_info: {
+        email: userInfo.email,
+        name: userInfo.name,
+        provider: userInfo.provider,
+        provider_id: userInfo.providerId,
+        avatar_url: userInfo.avatarUrl,
+      },
+    };
+    const response = await this.client.post<LoginResponse>('/auth/oauth/login', requestData);
+    return response.data;
+  }
+
+  async refreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
+    const response = await axios.post<RefreshTokenResponse>(
+      `${API_BASE_URL}/api/v1/auth/refresh`,
+      {
+        refresh_token: refreshToken,
+      }
+    );
+    return response.data;
+  }
+
+  async logout(): Promise<void> {
+    try {
+      await this.client.post('/auth/logout');
+    } catch (error) {
+      // Even if logout fails, we still want to clear local storage
+      console.error('Logout API call failed:', error);
+    }
+  }
+
+  async getCurrentUser(): Promise<StoredUser> {
+    const response = await this.client.get<StoredUser>('/users/me');
+    return response.data;
+  }
+
+  // Generic HTTP methods
+  async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.client.get<T>(url, config);
+    return response.data;
+  }
+
+  async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.client.post<T>(url, data, config);
+    return response.data;
+  }
+
+  async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.client.put<T>(url, data, config);
+    return response.data;
+  }
+
+  async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.client.patch<T>(url, data, config);
+    return response.data;
+  }
+
+  async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.client.delete<T>(url, config);
+    return response.data;
+  }
+}
+
+export const apiClient = new ApiClient();
+

@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "newArchEnabled": true,
+    "name": "SkyAI",
+    "slug": "skyai",
+    "version": "1.0.0",
+    "runtimeVersion": "1.0.0",
+    "scheme": "skyai",
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f5f5f5"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.skyai.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#f5f5f5"
+      },
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.skyai.app"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "6d811ab2-0db8-4c0b-9aa7-11cdd4675692"
+      }
+    }
+  }
+}
