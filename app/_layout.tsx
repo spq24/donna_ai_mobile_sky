@@ -1,5 +1,5 @@
 import '../global.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { AuthProvider } from '@/contexts/AuthContext';
@@ -7,8 +7,25 @@ import { GuardProvider } from '@/contexts/GuardContext';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as WebBrowser from 'expo-web-browser';
+import * as Linking from 'expo-linking';
 
 export default function RootLayout() {
+  useEffect(() => {
+    // Call maybeCompleteAuthSession when app starts or receives a URL
+    // This helps handle OAuth redirects on some platforms
+    WebBrowser.maybeCompleteAuthSession();
+
+    // Also call it when app receives a deep link
+    const subscription = Linking.addEventListener('url', (event) => {
+      WebBrowser.maybeCompleteAuthSession();
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView className={`bg-light-primary dark:bg-dark-primary ${Platform.OS === 'ios' ? 'pb-0 ' : ''}`} style={{ flex: 1 }}>

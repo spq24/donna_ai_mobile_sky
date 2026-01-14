@@ -3,7 +3,7 @@ import * as Crypto from 'expo-crypto';
 import * as WebBrowser from 'expo-web-browser';
 import * as Linking from 'expo-linking';
 import Constants from 'expo-constants';
-import { Platform, Alert } from 'react-native';
+import { Platform, Alert, AppState } from 'react-native';
 import { apiClient } from '../api-client';
 
 // Lazy load GoogleSignin to prevent issues on non-native environments
@@ -21,12 +21,14 @@ export interface OAuthUserInfo {
  * Get redirect URI for OAuth callbacks
  */
 function getRedirectUri(): string {
-  // Using the app's custom scheme from app.json
-  const scheme = 'donnaai';
-  return AuthSession.makeRedirectUri({
+  // Using the app's custom scheme from app.json (should match expo.scheme)
+  const schemeConfig = Constants.expoConfig?.scheme;
+  const scheme = typeof schemeConfig === 'string' ? schemeConfig : (Array.isArray(schemeConfig) ? schemeConfig[0] : 'skyai');
+  const redirectUri = AuthSession.makeRedirectUri({
     scheme,
     path: 'oauth-callback',
   });
+  return redirectUri;
 }
 
 /**
@@ -184,85 +186,90 @@ export async function loginWithGoogle(): Promise<OAuthUserInfo> {
 }
 
 /**
- * Azure AD OAuth login using expo-auth-session
+ * Azure AD OAuth login using backend proxy (matches Google OAuth architecture)
+ * This avoids iOS deep linking issues with passkeys/MFA
  */
 export async function loginWithAzureAD(): Promise<OAuthUserInfo> {
   try {
-    const azureClientId = process.env.EXPO_PUBLIC_AZURE_CLIENT_ID;
-    const azureTenantId = process.env.EXPO_PUBLIC_AZURE_TENANT_ID || 'common';
+    const appScheme = Constants.expoConfig?.scheme || 'skyai';
 
-    if (!azureClientId) {
-      throw new Error('Azure AD client ID not configured');
-    }
-
-    const discovery = await AuthSession.fetchDiscoveryAsync(
-      `https://login.microsoftonline.com/${azureTenantId}/v2.0`
+    // Step 1: Get OAuth URL from backend
+    console.log('[Azure OAuth] Requesting OAuth URL from backend...');
+    const schemeParam = typeof appScheme === 'string' ? appScheme : String(appScheme);
+    const response = await apiClient.get<{ auth_url: string; state: string }>(
+      `/auth/oauth/azure/initiate?app_scheme=${encodeURIComponent(schemeParam)}`
     );
+    const { auth_url, state } = response;
 
-    const redirectUri = getRedirectUri();
-    const { codeVerifier, codeChallenge } = await generatePKCE();
+    // Step 2: Open OAuth URL in browser (don't wait for it to complete)
+    console.log('[Azure OAuth] Opening OAuth URL in browser...');
+    const callbackUrl = `${appScheme}://oauth/callback`;
 
-    const params = new URLSearchParams({
-      client_id: azureClientId,
-      redirect_uri: redirectUri,
-      response_type: 'code',
-      scope: 'openid profile email User.Read',
-      code_challenge: codeChallenge,
-      code_challenge_method: 'S256',
+    // We use openAuthSessionAsync but we don't rely on it returning the URL
+    // since we'll be polling the backend instead. This works better on iOS.
+    WebBrowser.openAuthSessionAsync(auth_url, callbackUrl).catch((error) => {
+      console.warn('[Azure OAuth] Browser session error (ignoring for polling):', error);
     });
 
-    const authUrl = `${discovery.authorizationEndpoint}?${params.toString()}`;
-    const result = await WebBrowser.openAuthSessionAsync(authUrl, redirectUri);
+    // Step 3: Poll backend with state to check if authentication completed
+    console.log('[Azure OAuth] Starting polling for authentication status...');
 
-    if (result.type !== 'success') {
-      throw new Error(`Azure AD sign-in failed: ${result.type}`);
+    const pollInterval = 1000; // Poll every 1 second
+    const maxPollTime = 120000; // Maximum 2 minutes
+    const startTime = Date.now();
+
+    let tokenData: {
+      access_token: string;
+      refresh_token: string;
+      token_type: string;
+      user: { id: string; email: string; full_name: string; is_active: boolean };
+    } | null = null;
+
+    while (!tokenData && (Date.now() - startTime) < maxPollTime) {
+      try {
+        const statusResponse = await apiClient.get<{
+          status: 'pending' | 'completed';
+          tokens?: {
+            access_token: string;
+            refresh_token: string;
+            token_type: string;
+            user: { id: string; email: string; full_name: string; is_active: boolean };
+          } | null;
+        }>(`/auth/oauth/azure/status?state=${encodeURIComponent(state)}`);
+
+        if (statusResponse.status === 'completed' && statusResponse.tokens) {
+          tokenData = statusResponse.tokens;
+          console.log('[Azure OAuth] Authentication completed!');
+          break;
+        }
+
+        // Wait before next poll
+        await new Promise(resolve => setTimeout(resolve, pollInterval));
+      } catch (error: any) {
+        // Log error but continue polling (might be temporary)
+        console.warn('[Azure OAuth] Poll error (continuing):', error.message);
+        await new Promise(resolve => setTimeout(resolve, pollInterval));
+      }
     }
 
-    const parsedUrl = Linking.parse(result.url);
-    const code = parsedUrl.queryParams?.code as string | undefined;
-
-    if (!code) {
-      throw new Error('No authorization code received from Azure AD');
+    if (!tokenData) {
+      throw new Error('Azure AD authentication timed out. Please try again.');
     }
 
-    const tokenResponse = await fetch(discovery.tokenEndpoint!, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        client_id: azureClientId,
-        code,
-        grant_type: 'authorization_code',
-        redirect_uri: redirectUri,
-        code_verifier: codeVerifier,
-      }).toString(),
-    });
-
-    if (!tokenResponse.ok) {
-      throw new Error('Failed to exchange authorization code for tokens');
-    }
-
-    const tokens = await tokenResponse.json();
-    const accessToken = tokens.access_token;
-
-    const userInfoResponse = await fetch('https://graph.microsoft.com/v1.0/me', {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-
-    if (!userInfoResponse.ok) {
-      throw new Error('Failed to fetch user info from Microsoft Graph');
-    }
-
-    const azureUserInfo = await userInfoResponse.json();
-
+    // Return tokens directly (backend already created/logged in user)
     return {
-      email: azureUserInfo.mail || azureUserInfo.userPrincipalName,
-      name: azureUserInfo.displayName || '',
-      provider: 'azure',
-      providerId: azureUserInfo.id,
-    };
+      email: tokenData.user.email,
+      name: tokenData.user.full_name,
+      provider: 'azure' as const,
+      providerId: tokenData.user.id,
+      accessToken: tokenData.access_token,
+      refreshToken: tokenData.refresh_token,
+      user: tokenData.user,
+    } as any;
   } catch (error: any) {
-    console.error('Azure AD OAuth error:', error);
+    console.error('Azure AD sign-in error:', error);
     throw error;
   }
 }
+
 

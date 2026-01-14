@@ -84,8 +84,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const loginWithOAuth = useCallback(async (provider: 'google' | 'azure' | 'apple') => {
     try {
       let oauthInfo: any;
-      if (provider === 'google') {
-        oauthInfo = await loginWithGoogle();
+      if (provider === 'google' || provider === 'azure') {
+        oauthInfo = provider === 'google' ? await loginWithGoogle() : await loginWithAzureAD();
         // Backend proxy already returns tokens, use them directly
         if ((oauthInfo as any).accessToken && (oauthInfo as any).refreshToken) {
           await storage.setAccessToken((oauthInfo as any).accessToken);
@@ -96,8 +96,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           router.replace('/');
           return;
         }
-      } else if (provider === 'azure') {
-        oauthInfo = await loginWithAzureAD();
       } else {
         throw new Error(`Provider ${provider} not supported yet`);
       }
