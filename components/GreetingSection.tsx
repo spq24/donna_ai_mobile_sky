@@ -41,24 +41,24 @@ export default function GreetingSection({
       {/* Quick Action Chips */}
       <View className="flex-row flex-wrap justify-center gap-3">
         <Chip
-          label="Summarize Text"
-          icon="FileText"
+          label="Schedule Doctor"
+          icon="Plus"
           iconSize={20}
-          onPress={() => onChipPress?.('Summarize Text')}
+          onPress={() => onChipPress?.('Schedule a Doctor Appointment Next Week')}
           className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-full px-3 py-2"
         />
         <Chip
-          label="Creative Writing"
-          icon="PenTool"
+          label="Schedule Dentist"
+          icon="Calendar"
           iconSize={20}
-          onPress={() => onChipPress?.('Creative Writing')}
+          onPress={() => onChipPress?.('Schedule a Dentist Appointment Next Week')}
           className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-full px-3 py-2"
         />
         <Chip
-          label="Answer Questions"
-          icon="Zap"
+          label="Restaurant Table"
+          icon="Coffee"
           iconSize={20}
-          onPress={() => onChipPress?.('Answer Questions')}
+          onPress={() => onChipPress?.('Schedule a restaurant reservation for 2 people next week')}
           className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-full px-3 py-2"
         />
       </View>

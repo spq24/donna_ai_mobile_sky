@@ -19,7 +19,17 @@ import AnimatedSidebar from '../../components/AnimatedSidebar';
 import ThemedScroller from '../../components/shared/ThemeScroller';
 import ThemedText from '../../components/shared/ThemedText';
 import Icon from '../../components/shared/Icon';
+import VendorCarousel from '../../components/VendorCarousel';
 import { useAuth } from '@/contexts/AuthContext';
+import { apiClient } from '../../lib/api-client';
+import { Vendor } from '../../types/vendor';
+
+// Unique ID generator to prevent duplicate keys
+let messageIdCounter = 0;
+const generateMessageId = (prefix: string = 'msg') => {
+  messageIdCounter++;
+  return `${prefix}-${Date.now()}-${messageIdCounter}`;
+};
 
 type MessageStatus = 'idle' | 'analyzing' | 'generating' | 'searching' | 'image_gen' | 'video_gen' | 'completed';
 type GenerationType = 'image' | 'video';
@@ -51,6 +61,9 @@ interface Message {
   retryMessage?: string; // Message shown during retry
   feedbackAcknowledged?: boolean; // Whether feedback acknowledgment is shown
   feedbackType?: 'up' | 'down'; // Type of feedback given
+  related_vendors?: Vendor[]; // Vendors to show for selection
+  conversationId?: string;
+  schedulingTaskId?: string;
 }
 
 type ViewMode = 'home' | 'explore' | 'media' | 'chatHistory' | 'settings';
@@ -70,6 +83,9 @@ export default function ChatScreen() {
   const [attachedFiles, setAttachedFiles] = useState<AttachedFile[]>([]);
   const [moreMenuVisible, setMoreMenuVisible] = useState<string | null>(null); // Message ID for which menu is open
   const [moreMenuPosition, setMoreMenuPosition] = useState<{ x: number; y: number } | undefined>();
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [schedulingTaskId, setSchedulingTaskId] = useState<string | null>(null);
+  const [selectedVendorId, setSelectedVendorId] = useState<number | undefined>();
   const scrollViewRef = useRef<ScrollView>(null);
 
   const hasMessages = messages.length > 0;
@@ -92,13 +108,13 @@ export default function ChatScreen() {
     handleSendMessage(label);
   };
 
-  const handleSendMessage = (text?: string) => {
+  const handleSendMessage = async (text?: string) => {
     const messageText = text || inputText.trim();
     if (!messageText && attachedImages.length === 0 && attachedFiles.length === 0) return;
 
     // Add user message
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: generateMessageId('user'),
       role: 'user',
       content: messageText || '',
       status: 'completed',
@@ -112,65 +128,61 @@ export default function ChatScreen() {
     setAttachedFiles([]);
     setImageMode(false);
 
-    // Determine if this is an image or video generation request
-    const isImageRequest = messageText.toLowerCase().includes('image') || messageText.toLowerCase().includes('figurine') || messageText.toLowerCase().includes('picture');
-    const isVideoRequest = messageText.toLowerCase().includes('video') || messageText.toLowerCase().includes('ad') || messageText.toLowerCase().includes('cinematic');
-
     // Add analyzing state
     const analyzingMessage: Message = {
-      id: `${Date.now()}-analyzing`,
+      id: generateMessageId('analyzing'),
       role: 'assistant',
       content: '',
       status: 'analyzing',
     };
     setMessages((prev: Message[]) => [...prev, analyzingMessage]);
 
-    // Simulate state progression
-    setTimeout(() => {
+    try {
+      let response;
+      if (!conversationId) {
+        // Create new conversation
+        response = await apiClient.createConversation({ message: messageText });
+        if (response?.conversation_id) {
+          setConversationId(response.conversation_id);
+          if (response.scheduling_task_id) {
+            setSchedulingTaskId(response.scheduling_task_id);
+          }
+        }
+      } else {
+        // Send to existing conversation
+        response = await apiClient.sendMessage(conversationId, { message: messageText });
+      }
+
+      if (response) {
+        setMessages((prev: Message[]) =>
+          prev.map((msg: Message) =>
+            msg.id === analyzingMessage.id
+              ? {
+                  ...msg,
+                  status: 'completed' as MessageStatus,
+                  content: response.response_message,
+                  related_vendors: response.related_vendors,
+                  variants: [response.response_message],
+                  currentVariantIndex: 0,
+                }
+              : msg
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error in conversation:', error);
       setMessages((prev: Message[]) =>
         prev.map((msg: Message) =>
           msg.id === analyzingMessage.id
-            ? { ...msg, status: 'generating' as MessageStatus }
+            ? {
+                ...msg,
+                status: 'completed' as MessageStatus,
+                content: "Sorry, I encountered an error. Please try again.",
+              }
             : msg
         )
       );
-
-      setTimeout(() => {
-        if (isImageRequest || isVideoRequest) {
-          // Show generation progress
-          setMessages((prev: Message[]) =>
-            prev.map((msg: Message) =>
-              msg.id === analyzingMessage.id
-                ? {
-                    ...msg,
-                    status: (isImageRequest ? 'image_gen' : 'video_gen') as MessageStatus,
-                    generationType: (isImageRequest ? 'image' : 'video') as GenerationType,
-                    content: isImageRequest
-                      ? "I'm generating your image. This could take a few minutes, so check back to see when your image is ready."
-                      : "I'm generating your video. This could take a few minutes, so check back to see when your video is ready.",
-                  }
-                : msg
-            )
-          );
-        } else {
-          // Regular text response
-          const responseContent = "Cool. What's your main goal with the redesign?";
-          setMessages((prev: Message[]) =>
-            prev.map((msg: Message) =>
-              msg.id === analyzingMessage.id
-                ? {
-                    ...msg,
-                    status: 'completed' as MessageStatus,
-                    content: responseContent,
-                    variants: [responseContent],
-                    currentVariantIndex: 0,
-                  }
-                : msg
-            )
-          );
-        }
-      }, 1500);
-    }, 1000);
+    }
   };
 
   const handlePlusPress = () => {
@@ -212,6 +224,67 @@ export default function ChatScreen() {
   const handleMicPress = () => {
     console.log('Mic pressed');
     // Handle mic press logic here
+  };
+
+  const handleVendorSelect = (vendor: Vendor) => {
+    setSelectedVendorId(vendor.id);
+  };
+
+  const handleVendorConfirm = async (messageId: string) => {
+    if (!selectedVendorId || !schedulingTaskId || !conversationId) return;
+
+    const message = messages.find((m: Message) => m.id === messageId);
+    const selectedVendor = message?.related_vendors?.find((v: Vendor) => v.id === selectedVendorId);
+
+    if (!selectedVendor) return;
+
+    try {
+      // Update the scheduling task with the selected vendor
+      await apiClient.updateSchedulingTask(schedulingTaskId, {
+        vendor_id: selectedVendorId,
+      });
+
+      // Add a confirmation message
+      const confirmationContent = `Great! I'll contact ${selectedVendor.name} for you. Let me just confirm the rest of the information with you and I'll get right on that!`;
+
+      const confirmationMessage: Message = {
+        id: generateMessageId('confirm'),
+        role: 'assistant',
+        content: confirmationContent,
+        status: 'completed',
+        variants: [confirmationContent],
+        currentVariantIndex: 0,
+      };
+
+      setMessages((prev: Message[]) => [
+        ...prev.map((msg: Message) =>
+          msg.id === messageId ? { ...msg, related_vendors: undefined } : msg
+        ),
+        confirmationMessage
+      ]);
+
+      setSelectedVendorId(undefined);
+
+      // Trigger preference confirmation or next step - wrapped in try/catch to prevent cascade
+      try {
+        const continuationMessage = "Please show me my preferences for this appointment.";
+        await handleSendMessage(continuationMessage);
+      } catch (sendErr) {
+        console.error("Failed to send continuation message:", sendErr);
+        // Don't throw - the vendor update succeeded
+      }
+
+    } catch (err) {
+      console.error("Failed to update vendor:", err);
+      // Add error message
+      const errorMessage: Message = {
+        id: generateMessageId('error'),
+        role: 'assistant',
+        content: "Sorry, I encountered an error while updating the vendor. Please try again.",
+        status: 'completed',
+      };
+      setMessages((prev: Message[]) => [...prev, errorMessage]);
+    }
   };
 
   const handleCopyMessage = (messageId: string) => {
@@ -664,7 +737,13 @@ export default function ChatScreen() {
               ref={scrollViewRef}
               contentContainerStyle={{ paddingBottom: 20, paddingTop: 16, paddingHorizontal: 16 }}
             >
-              {messages.map((message: Message) => {
+              {messages.map((message: Message, index: number) => {
+                // #region agent log - Defensive check for message validity
+                if (!message || !message.id) {
+                  console.warn('Invalid message at index', index, message);
+                  return null;
+                }
+                // #endregion
                 if (message.role === 'user') {
                   const UserBubble = UserMessageBubble as any;
                   return (
@@ -820,6 +899,16 @@ export default function ChatScreen() {
                       onVariantNext={() => handleVariantNavigation(message.id, 'next')}
                       isGeneratingVariant={message.isGeneratingVariant || message.isRetrying}
                     />
+                    {message.related_vendors && message.related_vendors.length > 0 && (
+                      <View style={{ marginLeft: 48 }}>
+                        <VendorCarousel
+                          vendors={message.related_vendors}
+                          selectedVendorId={selectedVendorId}
+                          onSelect={handleVendorSelect}
+                          onConfirm={() => handleVendorConfirm(message.id)}
+                        />
+                      </View>
+                    )}
                     {moreMenuVisible === message.id && (
                       <MoreOptionsMenu
                         visible={true}
