@@ -34,7 +34,7 @@ export default function GreetingSection({
           {getGreeting()}, {userName}
         </ThemedText>
         <ThemedText className="text-2xl font-semibold text-center leading-8 tracking-tight">
-          What's on your mind?
+          How can I help?
         </ThemedText>
       </View>
 

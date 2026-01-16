@@ -4,24 +4,6 @@ import { VendorSearchResponse } from '../types/vendor';
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:8000';
 
-// #region agent log
-const DEBUG_ENDPOINT = 'http://127.0.0.1:7242/ingest/2b64901b-60f5-4542-95e5-c353760fc3c6';
-const debugLog = (location: string, message: string, data: any, hypothesisId: string) => {
-  fetch(DEBUG_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ location, message, data, hypothesisId, timestamp: Date.now(), sessionId: 'debug-session' })
-  }).catch(() => {});
-};
-// #endregion
-
-// #region agent log - Hypothesis D: Log the actual base URL being used
-debugLog('api-client.ts:INIT', 'API_BASE_URL value', {
-  envValue: process.env.EXPO_PUBLIC_API_URL,
-  finalValue: API_BASE_URL
-}, 'D');
-// #endregion
-
 interface LoginResponse {
   access_token: string;
   refresh_token: string;
@@ -44,24 +26,13 @@ class ApiClient {
   }> = [];
 
   constructor() {
-    // #region agent log - Hypothesis A, D: Log full baseURL construction
-    const fullBaseURL = `${API_BASE_URL}/api/v1`;
-    debugLog('api-client.ts:constructor', 'Creating axios client', {
-      API_BASE_URL,
-      fullBaseURL,
-      hasHttps: fullBaseURL.startsWith('https'),
-      hasHttp: fullBaseURL.startsWith('http://')
-    }, 'A,D');
-    // #endregion
-
     this.client = axios.create({
-      baseURL: fullBaseURL,
+      baseURL: `${API_BASE_URL}/api/v1`,
       timeout: 30000,
       headers: {
         'Content-Type': 'application/json',
-        // #region agent log - Hypothesis F: Add ngrok bypass header
+        // Required for ngrok tunnels to bypass browser warning page
         'ngrok-skip-browser-warning': 'true',
-        // #endregion
       },
     });
 
@@ -69,15 +40,6 @@ class ApiClient {
     this.client.interceptors.request.use(
       async (config: InternalAxiosRequestConfig) => {
         const accessToken = await storage.getAccessToken();
-        // #region agent log - Hypothesis A, D: Log full request URL
-        debugLog('api-client.ts:request-interceptor', 'Outgoing request', {
-          method: config.method,
-          baseURL: config.baseURL,
-          url: config.url,
-          fullURL: `${config.baseURL}${config.url}`,
-          hasToken: !!accessToken
-        }, 'A,D');
-        // #endregion
         if (accessToken && config.headers) {
           config.headers.Authorization = `Bearer ${accessToken}`;
         }
@@ -88,28 +50,8 @@ class ApiClient {
 
     // Response interceptor for automatic token refresh
     this.client.interceptors.response.use(
-      (response) => {
-        // #region agent log - Hypothesis B, C: Log successful responses and 307s
-        if (response.status === 307) {
-          debugLog('api-client.ts:response-307', 'Got 307 redirect', {
-            requestURL: response.config.url,
-            requestMethod: response.config.method,
-            locationHeader: response.headers?.location
-          }, 'B,C');
-        }
-        // #endregion
-        return response;
-      },
+      (response) => response,
       async (error) => {
-        // #region agent log - Hypothesis B, C: Log error responses
-        debugLog('api-client.ts:response-error', 'Response error', {
-          status: error.response?.status,
-          requestURL: error.config?.url,
-          requestMethod: error.config?.method,
-          locationHeader: error.response?.headers?.location,
-          errorMessage: error.message
-        }, 'B,C');
-        // #endregion
         const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
         // Don't try to refresh tokens for auth endpoints (login, oauth, refresh)
@@ -271,18 +213,13 @@ class ApiClient {
   }
 
   // Conversation methods
-  // #region agent log - Hypothesis G: Use trailing slashes to avoid FastAPI 307 redirects
   async createConversation(data: { message: string }) {
-    debugLog('api-client.ts:createConversation', 'Creating conversation', { data }, 'G');
     return this.post('/conversations/', data);
   }
 
   async sendMessage(conversationId: string, data: { message: string }) {
-    debugLog('api-client.ts:sendMessage', 'Sending message', { conversationId, data }, 'G');
-    // Note: Backend defines endpoint WITHOUT trailing slash
     return this.post(`/conversations/${conversationId}/messages`, data);
   }
-  // #endregion
 
   // Scheduling methods
   async getSchedulingTask(id: string) {

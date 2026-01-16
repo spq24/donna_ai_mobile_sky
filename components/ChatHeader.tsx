@@ -7,14 +7,12 @@ import Avatar from './shared/Avatar';
 
 interface ChatHeaderProps {
   onMenuPress?: () => void;
-  onTitlePress?: () => void;
   userName?: string;
   userAvatar?: string;
 }
 
 export default function ChatHeader({
   onMenuPress,
-  onTitlePress,
   userName = 'User',
   userAvatar,
 }: ChatHeaderProps) {
@@ -31,16 +29,6 @@ export default function ChatHeader({
         className="w-10 h-10 rounded-full border border-light-secondary dark:border-dark-secondary items-center justify-center bg-light-primary dark:bg-dark-primary"
       >
         <Icon name="Menu" size={20} />
-      </Pressable>
-
-      {/* SkyAI 5o Title with Dropdown */}
-      <Pressable
-        onPress={onTitlePress}
-        className="flex-row items-center gap-2 px-3 py-1.5 rounded-full border border-light-secondary dark:border-dark-secondary bg-light-primary dark:bg-dark-primary"
-      >
-        <Icon name="Hexagon" size={14} className="text-dark-primary dark:text-light-primary" />
-        <ThemedText className="text-sm font-medium">SkyAI 5o</ThemedText>
-        <Icon name="ChevronDown" size={16} />
       </Pressable>
 
       {/* Profile Avatar */}
