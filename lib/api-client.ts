@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import { storage, StoredUser } from './storage';
 import { VendorSearchResponse } from '../types/vendor';
+import { GenerativeUIComponent } from '../types/generative-ui';
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:8000';
 
@@ -15,6 +16,41 @@ interface RefreshTokenResponse {
   access_token: string;
   refresh_token: string;
   token_type: string;
+}
+
+// Agentic conversation response types
+interface AgenticConversationResponse {
+  conversation_id: string;
+  response: string;
+  router_decision?: {
+    worker: string;
+    confidence: number;
+    reasoning: string;
+  };
+  tool_calls?: Array<{
+    tool_name: string;
+    success: boolean;
+    result?: any;
+    error?: string;
+  }>;
+  ui_components?: GenerativeUIComponent[];
+}
+
+interface AgenticMessageResponse {
+  message_id?: string;
+  response: string;
+  router_decision?: {
+    worker: string;
+    confidence: number;
+    reasoning: string;
+  };
+  tool_calls?: Array<{
+    tool_name: string;
+    success: boolean;
+    result?: any;
+    error?: string;
+  }>;
+  ui_components?: GenerativeUIComponent[];
 }
 
 class ApiClient {
@@ -212,13 +248,29 @@ class ApiClient {
     return response.data;
   }
 
-  // Conversation methods
+  // Conversation methods (legacy)
   async createConversation(data: { message: string }) {
     return this.post('/conversations/', data);
   }
 
   async sendMessage(conversationId: string, data: { message: string }) {
     return this.post(`/conversations/${conversationId}/messages`, data);
+  }
+
+  // Agentic conversation methods (with UI components support)
+  async createAgenticConversation(data: { message: string }): Promise<AgenticConversationResponse> {
+    return this.post<AgenticConversationResponse>('/agentic/', data);
+  }
+
+  async sendAgenticMessage(
+    conversationId: string,
+    data: { message: string }
+  ): Promise<AgenticMessageResponse> {
+    return this.post<AgenticMessageResponse>(`/agentic/${conversationId}/messages`, data);
+  }
+
+  async getAgenticConversationHistory(conversationId: string) {
+    return this.get(`/agentic/${conversationId}`);
   }
 
   // Scheduling methods

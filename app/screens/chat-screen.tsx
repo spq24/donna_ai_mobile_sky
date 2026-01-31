@@ -18,6 +18,8 @@ import ThemedScroller from '../../components/shared/ThemeScroller';
 import ThemedText from '../../components/shared/ThemedText';
 import Icon from '../../components/shared/Icon';
 import VendorCarousel from '../../components/VendorCarousel';
+import { GenerativeUIRenderer, GenerativeUIList } from '../../components/generative';
+import { GenerativeUIComponent, CardMode } from '../../types/generative-ui';
 import { useAuth } from '@/contexts/AuthContext';
 import { apiClient } from '../../lib/api-client';
 import { Vendor } from '../../types/vendor';
@@ -55,6 +57,7 @@ interface Message {
   feedbackAcknowledged?: boolean; // Whether feedback acknowledgment is shown
   feedbackType?: 'up' | 'down'; // Type of feedback given
   related_vendors?: Vendor[]; // Vendors to show for selection
+  ui_components?: GenerativeUIComponent[]; // Generative UI components to render
 }
 
 type ViewMode = 'home' | 'explore' | 'media' | 'chatHistory' | 'settings';
@@ -126,17 +129,14 @@ export default function ChatScreen() {
     try {
       let response;
       if (!conversationId) {
-        // Create new conversation
-        response = await apiClient.createConversation({ message: messageText });
+        // Create new agentic conversation
+        response = await apiClient.createAgenticConversation({ message: messageText });
         if (response?.conversation_id) {
           setConversationId(response.conversation_id);
-          if (response.scheduling_task_id) {
-            setSchedulingTaskId(response.scheduling_task_id);
-          }
         }
       } else {
-        // Send to existing conversation
-        response = await apiClient.sendMessage(conversationId, { message: messageText });
+        // Send to existing agentic conversation
+        response = await apiClient.sendAgenticMessage(conversationId, { message: messageText });
       }
 
       if (response) {
@@ -146,8 +146,8 @@ export default function ChatScreen() {
               ? {
                   ...msg,
                   status: 'completed' as MessageStatus,
-                  content: response.response_message,
-                  related_vendors: response.related_vendors,
+                  content: response.response,
+                  ui_components: response.ui_components,
                 }
               : msg
           )
@@ -212,6 +212,34 @@ export default function ChatScreen() {
 
   const handleVendorSelect = (vendor: Vendor) => {
     setSelectedVendorId(vendor.id);
+  };
+
+  // Handler for vendor selection from generative UI vendor cards
+  const handleGenerativeVendorSelect = async (vendorId: number) => {
+    setSelectedVendorId(vendorId);
+    
+    // Find the vendor details from ui_components
+    let vendorName = '';
+    let serviceType = '';
+    for (const msg of messages) {
+      if (msg.ui_components) {
+        const vendorComponent = msg.ui_components.find(
+          (c) => c.type === 'vendor_card' && c.props.id === vendorId
+        );
+        if (vendorComponent) {
+          vendorName = vendorComponent.props.name || '';
+          serviceType = vendorComponent.props.service_type || '';
+          break;
+        }
+      }
+    }
+
+    // Send a message to the agent with vendor_id encoded so LLM can extract it
+    const selectionMessage = vendorName 
+      ? `I want to schedule with ${vendorName} (vendor_id: ${vendorId})`
+      : `I selected vendor ${vendorId} for scheduling (vendor_id: ${vendorId})`;
+    
+    await handleSendMessage(selectionMessage);
   };
 
   const handleVendorConfirm = async (messageId: string) => {
@@ -319,7 +347,27 @@ export default function ChatScreen() {
     );
   };
 
+  // Handler to start a new chat
+  const handleNewChat = () => {
+    // Clear all chat state
+    setMessages([]);
+    setConversationId(null);
+    setSchedulingTaskId(null);
+    setSelectedVendorId(undefined);
+    setInputText('');
+    setAttachedImages([]);
+    setAttachedFiles([]);
+    // Switch to home view and close sidebar
+    setViewMode('home');
+    setSidebarVisible(false);
+  };
+
   const sidebarMenuItems = [
+    {
+      label: 'New Chat',
+      icon: 'PlusCircle',
+      onPress: handleNewChat,
+    },
     {
       label: 'Home',
       icon: 'Home',
@@ -560,6 +608,31 @@ export default function ChatScreen() {
                       onThumbsUp={() => handleThumbsUp(message.id)}
                       onThumbsDown={() => handleThumbsDown(message.id)}
                     />
+                    {/* Generative UI Components */}
+                    {message.ui_components && message.ui_components.length > 0 && (
+                      <View style={{ marginTop: 8 }}>
+                        <GenerativeUIList
+                          components={message.ui_components}
+                          onModeChange={(idx, newMode) => {
+                            // Update the component mode in state
+                            setMessages((prev: Message[]) =>
+                              prev.map((msg: Message) =>
+                                msg.id === message.id
+                                  ? {
+                                      ...msg,
+                                      ui_components: msg.ui_components?.map((c, i) =>
+                                        i === idx ? { ...c, mode: newMode } : c
+                                      ),
+                                    }
+                                  : msg
+                              )
+                            );
+                          }}
+                          onVendorSelect={handleGenerativeVendorSelect}
+                          selectedVendorId={selectedVendorId}
+                        />
+                      </View>
+                    )}
                     {message.related_vendors && message.related_vendors.length > 0 && (
                       <View style={{ marginLeft: 48 }}>
                         <VendorCarousel
