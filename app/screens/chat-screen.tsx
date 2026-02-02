@@ -86,7 +86,7 @@ export default function ChatScreen() {
         scrollViewRef.current?.scrollToEnd({ animated: true });
       }, 200);
     }
-  }, [messages.length]);
+  }, [messages]);
 
   const handleMenuPress = () => {
     setSidebarVisible(true);
