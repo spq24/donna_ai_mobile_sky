@@ -76,6 +76,10 @@ class ApiClient {
     this.client.interceptors.request.use(
       async (config: InternalAxiosRequestConfig) => {
         const accessToken = await storage.getAccessToken();
+        // #region agent log
+        const authHeader = accessToken ? `Bearer ${accessToken}` : undefined;
+        fetch('http://127.0.0.1:7242/ingest/2b64901b-60f5-4542-95e5-c353760fc3c6',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api-client.ts:interceptor',message:'Request Interceptor',data:{url: config.url, authHeaderStart: authHeader?.substring(0, 20), hasToken: !!accessToken},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2'})}).catch(()=>{});
+        // #endregion
         if (accessToken && config.headers) {
           config.headers.Authorization = `Bearer ${accessToken}`;
         }
@@ -295,6 +299,93 @@ class ApiClient {
         size: params.size,
       },
     });
+  }
+
+  // Task Management methods
+  async getTasks(params?: {
+    skip?: number;
+    limit?: number;
+    status?: string;
+    priority?: string;
+    assignee_type?: string;
+    intent?: string;
+  }) {
+    return this.get('/tasks/', { params });
+  }
+
+  async getTask(id: number) {
+    return this.get(`/tasks/${id}`);
+  }
+
+  async createTask(data: {
+    title: string;
+    description?: string;
+    status?: string;
+    priority?: string;
+    assignee_type?: string;
+    assignee_user_id?: number;
+    due_date?: string;
+    original_query?: string;
+    intent?: string;
+    intent_metadata?: any;
+    task_metadata?: any;
+  }) {
+    return this.post('/tasks/', data);
+  }
+
+  async updateTask(id: number, data: {
+    title?: string;
+    description?: string;
+    status?: string;
+    priority?: string;
+    assignee_type?: string;
+    assignee_user_id?: number;
+    due_date?: string;
+    intent?: string;
+    intent_confidence?: number;
+    intent_metadata?: any;
+    task_metadata?: any;
+    failure_reason?: string;
+    completed_at?: string;
+  }) {
+    return this.put(`/tasks/${id}`, data);
+  }
+
+  async deleteTask(id: number) {
+    return this.delete(`/tasks/${id}`);
+  }
+
+  async completeTask(id: number) {
+    return this.post(`/tasks/${id}/complete`);
+  }
+
+  async cancelTask(id: number) {
+    return this.post(`/tasks/${id}/cancel`);
+  }
+
+  async assignTaskToUser(taskId: number, userId: number) {
+    return this.post(`/tasks/${taskId}/assign/user/${userId}`);
+  }
+
+  async assignTaskToAI(taskId: number) {
+    return this.post(`/tasks/${taskId}/assign/ai`);
+  }
+
+  async getActionItems(params?: { skip?: number; limit?: number }) {
+    return this.get('/tasks/action-items', { params });
+  }
+
+  async getAssignedTasks(params?: { skip?: number; limit?: number }) {
+    return this.get('/tasks/assigned', { params });
+  }
+
+  async getOverdueTasks(params?: { skip?: number; limit?: number }) {
+    return this.get('/tasks/overdue', { params });
+  }
+
+  async getAvailableUsers() {
+    const response = await this.get<{ users: any[] }>('/contacts/available-users/association');
+    return response.users || [];
   }
 }
 

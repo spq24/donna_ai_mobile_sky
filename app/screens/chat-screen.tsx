@@ -7,6 +7,7 @@ import ExploreScreen from '../../components/ExploreScreen';
 import MediaScreen from './media-screen';
 import ChatHistoryScreen from './chat-history-screen';
 import SettingsScreen from './settings-screen';
+import TasksScreen from './tasks-screen';
 import ExpandableChatInput from '../../components/ExpandableChatInput';
 import UserMessageBubble from '../../components/UserMessageBubble';
 import AIMessageBubble from '../../components/AIMessageBubble';
@@ -60,7 +61,7 @@ interface Message {
   ui_components?: GenerativeUIComponent[]; // Generative UI components to render
 }
 
-type ViewMode = 'home' | 'explore' | 'media' | 'chatHistory' | 'settings';
+type ViewMode = 'home' | 'explore' | 'media' | 'chatHistory' | 'settings' | 'tasks';
 
 export default function ChatScreen() {
   const { user } = useAuth();
@@ -413,6 +414,15 @@ export default function ChatScreen() {
       },
     },
     {
+      label: 'Tasks',
+      icon: 'CheckSquare',
+      active: viewMode === 'tasks',
+      onPress: () => {
+        setViewMode('tasks');
+        setSidebarVisible(false);
+      },
+    },
+    {
       label: 'Settings',
       icon: 'Settings',
       active: viewMode === 'settings',
@@ -461,6 +471,8 @@ export default function ChatScreen() {
             onNavigateHome={() => setViewMode('home')}
             onMenuPress={handleMenuPress}
           />
+        ) : viewMode === 'tasks' ? (
+          <TasksScreen />
         ) : viewMode === 'settings' ? (
           <SettingsScreen
             onNavigateHome={() => setViewMode('home')}
