@@ -5,6 +5,9 @@ import ThemedText from '@/components/shared/ThemedText';
 import Icon from '@/components/shared/Icon';
 import Avatar from '@/components/shared/Avatar';
 import { Chip } from '@/components/shared/Chip';
+import CommentSection from '@/components/comments/CommentSection';
+import TagSection from '@/components/tags/TagSection';
+import { MentionDisplay } from '@/components/mentions';
 import { format } from 'date-fns';
 
 const priorityColors: Record<string, { bg: string; text: string }> = {
@@ -185,6 +188,13 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
             </View>
           )}
 
+          {/* Tags */}
+          <TagSection
+            entityType="task"
+            entityId={task.id}
+            canEdit={true}
+          />
+
           {/* Description */}
           {task.description && (
             <View className="mb-4">
@@ -192,7 +202,7 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
                 Description
               </ThemedText>
               <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl p-3">
-                <ThemedText className="text-base leading-6">{task.description}</ThemedText>
+                <MentionDisplay content={task.description} />
               </View>
             </View>
           )}
@@ -222,6 +232,12 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
               </View>
             </View>
           )}
+
+          {/* Comments Section */}
+          <CommentSection
+            commentableType="task"
+            commentableId={task.id}
+          />
         </ScrollView>
 
         {/* Action Buttons */}

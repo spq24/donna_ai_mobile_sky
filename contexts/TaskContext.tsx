@@ -41,6 +41,7 @@ export interface Task {
   group_scheduling_task_id?: number;
   conversation_id?: string;
   source_list_item_id?: number;
+  mentioned_user_ids?: number[];
   created_at: string;
   updated_at: string;
 }
@@ -200,8 +201,9 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
 
   const fetchAvailableUsers = useCallback(async () => {
     try {
-      const users = await apiClient.getAvailableUsers();
-      setAvailableUsers(users);
+      const response = await apiClient.getAvailableUsers();
+      // API returns { users: [...] }, so extract the users array
+      setAvailableUsers(response?.users || []);
     } catch (error) {
       console.error('Failed to fetch users:', error);
     }

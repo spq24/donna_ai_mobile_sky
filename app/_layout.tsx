@@ -5,6 +5,8 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { GuardProvider } from '@/contexts/GuardContext';
 import { TaskProvider } from '@/contexts/TaskContext';
+import { CommentProvider } from '@/contexts/CommentContext';
+import { TagProvider } from '@/contexts/TagContext';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -33,7 +35,9 @@ export default function RootLayout() {
         <ThemeProvider>
           <AuthProvider>
             <TaskProvider>
-              <GuardProvider>
+              <CommentProvider>
+                <TagProvider>
+                  <GuardProvider>
                 <Stack screenOptions={{ headerShown: false }}>
                   <Stack.Screen
                     name="index"
@@ -48,7 +52,9 @@ export default function RootLayout() {
                     options={{ headerShown: false }}
                   />
                 </Stack>
-              </GuardProvider>
+                  </GuardProvider>
+                </TagProvider>
+              </CommentProvider>
             </TaskProvider>
           </AuthProvider>
         </ThemeProvider>

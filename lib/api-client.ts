@@ -76,10 +76,6 @@ class ApiClient {
     this.client.interceptors.request.use(
       async (config: InternalAxiosRequestConfig) => {
         const accessToken = await storage.getAccessToken();
-        // #region agent log
-        const authHeader = accessToken ? `Bearer ${accessToken}` : undefined;
-        fetch('http://127.0.0.1:7242/ingest/2b64901b-60f5-4542-95e5-c353760fc3c6',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api-client.ts:interceptor',message:'Request Interceptor',data:{url: config.url, authHeaderStart: authHeader?.substring(0, 20), hasToken: !!accessToken},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2'})}).catch(()=>{});
-        // #endregion
         if (accessToken && config.headers) {
           config.headers.Authorization = `Bearer ${accessToken}`;
         }
@@ -384,8 +380,70 @@ class ApiClient {
   }
 
   async getAvailableUsers() {
-    const response = await this.get<{ users: any[] }>('/contacts/available-users/association');
-    return response.users || [];
+    return this.get('/contacts/available-users/association');
+  }
+
+  // Account methods
+  accounts = {
+    getUsersForMentions: () => this.get('/accounts/users/for-mentions'),
+  };
+
+  // Comment methods
+  async getComments(params: {
+    commentable_type: string;
+    commentable_id: number;
+    include_replies?: boolean;
+    skip?: number;
+    limit?: number;
+  }) {
+    return this.get('/comments/', { params });
+  }
+
+  async getComment(commentId: string) {
+    return this.get(`/comments/${commentId}`);
+  }
+
+  async createComment(data: {
+    content: string;
+    commentable_type: string;
+    commentable_id: number;
+    parent_comment_id?: string;
+    mentioned_user_ids?: number[];
+  }) {
+    return this.post('/comments/', data);
+  }
+
+  async updateComment(commentId: string, data: { content: string; mentioned_user_ids?: number[] }) {
+    return this.put(`/comments/${commentId}`, data);
+  }
+
+  async deleteComment(commentId: string) {
+    return this.delete(`/comments/${commentId}`);
+  }
+
+  // Tag methods
+  async getTags(params?: { skip?: number; limit?: number; search?: string }) {
+    return this.get('/tags/', { params });
+  }
+
+  async createTag(data: { name: string }) {
+    return this.post('/tags/', data);
+  }
+
+  async deleteTag(tagId: number) {
+    return this.delete(`/tags/${tagId}`);
+  }
+
+  async getTaskTags(taskId: number) {
+    return this.get(`/tags/tasks/${taskId}`);
+  }
+
+  async addTagToTaskByName(taskId: number, tagName: string) {
+    return this.post(`/tags/tasks/${taskId}/by-name`, { tag_name: tagName });
+  }
+
+  async removeTagFromTask(taskId: number, tagId: number) {
+    return this.delete(`/tags/tasks/${taskId}/${tagId}`);
   }
 }
 

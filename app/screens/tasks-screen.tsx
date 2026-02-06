@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTask, Task, TaskStatus, TaskPriority, AssigneeType } from '@/contexts/TaskContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { TaskList } from '@/components/tasks/TaskList';
 import { TaskDetailModal } from '@/components/tasks/TaskDetailModal';
 import { TaskFormModal } from '@/components/tasks/TaskFormModal';
+import ChatHeader from '@/components/ChatHeader';
+import AnimatedSidebar from '@/components/AnimatedSidebar';
+import AnimatedView from '@/components/shared/AnimatedView';
 import ThemedText from '@/components/shared/ThemedText';
 import Icon from '@/components/shared/Icon';
 
 export default function TasksScreen() {
   const router = useRouter();
+  const { user } = useAuth();
   const { fetchTasks, isLoading, getFilteredTasks, filters, setFilters, setSelectedTask, selectedTask } = useTask();
+  const [sidebarVisible, setSidebarVisible] = useState(false);
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [formModalVisible, setFormModalVisible] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
@@ -47,19 +52,37 @@ export default function TasksScreen() {
     setEditingTask(null);
   };
 
+  const handleMenuPress = () => {
+    setSidebarVisible(true);
+  };
+
+  const sidebarMenuItems = [
+    { label: 'Home', icon: 'Home', onPress: () => router.push('/') },
+    { label: 'Chat History', icon: 'MessageCircle', onPress: () => router.push('/screens/chat-history-screen') },
+    { label: 'Tasks', icon: 'CheckSquare', active: true },
+    { label: 'Media', icon: 'Image', onPress: () => router.push('/screens/media-screen') },
+    { label: 'Settings', icon: 'Settings', onPress: () => router.push('/screens/settings-screen') },
+  ];
+
   const filteredTasks = getFilteredTasks();
 
   return (
-    <SafeAreaView className="flex-1 bg-light-primary dark:bg-dark-primary" edges={['top']}>
+    <AnimatedView
+      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      animation="fadeIn"
+      duration={350}
+    >
       {/* Header */}
+      <ChatHeader
+        onMenuPress={handleMenuPress}
+        userName={user?.full_name || 'User'}
+        userAvatar={undefined}
+      />
+
+      {/* Tasks Header Section */}
       <View className="px-4 py-4 border-b border-light-secondary dark:border-dark-secondary">
         <View className="flex-row items-center justify-between mb-3">
-          <View className="flex-row items-center gap-3">
-            <TouchableOpacity onPress={() => router.back()}>
-              <Icon name="ArrowLeft" size={24} className="text-black dark:text-white" />
-            </TouchableOpacity>
-            <ThemedText className="text-2xl font-bold">Tasks</ThemedText>
-          </View>
+          <ThemedText className="text-2xl font-bold">Tasks</ThemedText>
           <TouchableOpacity
             onPress={handleCreateTask}
             className="bg-blue-500 rounded-full w-12 h-12 items-center justify-center"
@@ -306,6 +329,16 @@ export default function TasksScreen() {
         isVisible={formModalVisible}
         onClose={handleCloseFormModal}
       />
-    </SafeAreaView>
+
+      {/* Sidebar */}
+      <AnimatedSidebar
+        visible={sidebarVisible}
+        onClose={() => setSidebarVisible(false)}
+        menuItems={sidebarMenuItems}
+        userName={user?.full_name || 'User'}
+        userEmail={user?.email || 'user@example.com'}
+        userAvatar={undefined}
+      />
+    </AnimatedView>
   );
 }

@@ -59,6 +59,7 @@ interface Message {
   feedbackType?: 'up' | 'down'; // Type of feedback given
   related_vendors?: Vendor[]; // Vendors to show for selection
   ui_components?: GenerativeUIComponent[]; // Generative UI components to render
+  mentioned_user_ids?: number[]; // IDs of users mentioned with @ in this message
 }
 
 type ViewMode = 'home' | 'explore' | 'media' | 'chatHistory' | 'settings' | 'tasks';
@@ -98,7 +99,7 @@ export default function ChatScreen() {
     handleSendMessage(label);
   };
 
-  const handleSendMessage = async (text?: string) => {
+  const handleSendMessage = async (text?: string, mentionedUserIds?: number[]) => {
     const messageText = text || inputText.trim();
     if (!messageText && attachedImages.length === 0 && attachedFiles.length === 0) return;
 
@@ -110,6 +111,7 @@ export default function ChatScreen() {
       status: 'completed',
       attachedImages: attachedImages.length > 0 ? [...attachedImages] : undefined,
       attachedFiles: attachedFiles.length > 0 ? [...attachedFiles] : undefined,
+      mentioned_user_ids: mentionedUserIds,
     };
 
     setMessages((prev: Message[]) => [...prev, userMessage]);
@@ -218,7 +220,7 @@ export default function ChatScreen() {
   // Handler for vendor selection from generative UI vendor cards
   const handleGenerativeVendorSelect = async (vendorId: number) => {
     setSelectedVendorId(vendorId);
-    
+
     // Find the vendor details from ui_components
     let vendorName = '';
     let serviceType = '';
@@ -236,10 +238,10 @@ export default function ChatScreen() {
     }
 
     // Send a message to the agent with vendor_id encoded so LLM can extract it
-    const selectionMessage = vendorName 
+    const selectionMessage = vendorName
       ? `I want to schedule with ${vendorName} (vendor_id: ${vendorId})`
       : `I selected vendor ${vendorId} for scheduling (vendor_id: ${vendorId})`;
-    
+
     await handleSendMessage(selectionMessage);
   };
 

@@ -4,6 +4,7 @@ import { Task } from '@/contexts/TaskContext';
 import ThemedText from '@/components/shared/ThemedText';
 import Icon from '@/components/shared/Icon';
 import Avatar from '@/components/shared/Avatar';
+import { MentionDisplay } from '@/components/mentions';
 import { format } from 'date-fns';
 
 const priorityColors: Record<string, { bg: string; text: string }> = {
@@ -85,9 +86,13 @@ function TaskListItem({ task, onPress }: { task: Task; onPress: () => void }) {
 
       {/* Description */}
       {task.description && (
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-3" numberOfLines={2}>
-          {task.description}
-        </ThemedText>
+        <View className="mb-3">
+          <MentionDisplay
+            content={task.description}
+            numberOfLines={2}
+            textStyle={{ fontSize: 14 }}
+          />
+        </View>
       )}
 
       {/* Bottom Row */}

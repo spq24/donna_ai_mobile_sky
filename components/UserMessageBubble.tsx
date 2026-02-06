@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Pressable } from 'react-native';
 import ThemedText from './shared/ThemedText';
 import Icon from './shared/Icon';
+import { MentionDisplay } from './mentions';
 import { shadowPresets } from '../utils/useShadow';
 
 interface UserMessageBubbleProps {
@@ -29,12 +30,13 @@ export default function UserMessageBubble({
         className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-2xl rounded-tr-sm px-4 py-4 max-w-[85%] flex-row items-start gap-3"
         style={shadowPresets.medium}
       >
-        <ThemedText
-          className="text-sm leading-5 text-left whitespace-pre-wrap flex-1"
-          numberOfLines={shouldShowCollapse && !isExpanded ? maxCollapsedLines : undefined}
-        >
-          {content}
-        </ThemedText>
+        <View className="flex-1">
+          <MentionDisplay
+            content={content}
+            numberOfLines={shouldShowCollapse && !isExpanded ? maxCollapsedLines : undefined}
+            textStyle={{ fontSize: 14, lineHeight: 20 }}
+          />
+        </View>
         {shouldShowCollapse && (
           <Pressable
             onPress={() => setIsExpanded(!isExpanded)}

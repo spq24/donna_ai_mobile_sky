@@ -4,6 +4,7 @@ import { Task, useTask, TaskStatus, TaskPriority, AssigneeType } from '@/context
 import ThemedText from '@/components/shared/ThemedText';
 import Icon from '@/components/shared/Icon';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { MentionInput } from '@/components/mentions';
 
 interface TaskFormModalProps {
   task?: Task | null;
@@ -40,6 +41,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
   // Form state
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [mentionedUserIds, setMentionedUserIds] = useState<number[]>([]);
   const [status, setStatus] = useState<TaskStatus>('pending');
   const [priority, setPriority] = useState<TaskPriority>('medium');
   const [assigneeType, setAssigneeType] = useState<AssigneeType>('ai_agent');
@@ -53,6 +55,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
         // Edit mode
         setTitle(task.title);
         setDescription(task.description || '');
+        setMentionedUserIds(task.mentioned_user_ids || []);
         setStatus(task.status);
         setPriority(task.priority);
         setAssigneeType(task.assignee_type);
@@ -69,6 +72,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
   const resetForm = () => {
     setTitle('');
     setDescription('');
+    setMentionedUserIds([]);
     setStatus('pending');
     setPriority('medium');
     setAssigneeType('ai_agent');
@@ -92,6 +96,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
       assignee_type: assigneeType,
       assignee_user_id: assigneeType === 'user' ? assigneeUserId : undefined,
       due_date: dueDate ? dueDate.toISOString() : undefined,
+      mentioned_user_ids: mentionedUserIds.length > 0 ? mentionedUserIds : undefined,
     };
 
     try {
@@ -103,7 +108,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
         const result = await createTask(data);
         success = !!result;
       }
-      
+
       if (success) {
         onClose();
       }
@@ -146,15 +151,14 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
             <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
               Description
             </ThemedText>
-            <TextInput
+            <MentionInput
               value={description}
-              onChangeText={setDescription}
-              placeholder="Enter task description"
-              placeholderTextColor="#999"
-              multiline
+              onChange={(value, userIds) => {
+                setDescription(value);
+                setMentionedUserIds(userIds);
+              }}
+              placeholder="Enter task description... Type @ to mention"
               numberOfLines={4}
-              textAlignVertical="top"
-              className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-4 py-3 text-base text-black dark:text-white min-h-[100px]"
             />
           </View>
 
