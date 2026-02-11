@@ -81,7 +81,7 @@ export function MentionDisplay({ content, style, textStyle, numberOfLines }: Men
     return (
       <Text
         numberOfLines={numberOfLines}
-        style={[styles.text, { color: colors.subtext }, textStyle]}
+        style={[styles.text, { color: colors.mutedForeground }, textStyle]}
       >
         {parts.map((part, index) => {
           if (part.type === 'mention') {
@@ -129,7 +129,7 @@ export function MentionDisplay({ content, style, textStyle, numberOfLines }: Men
         return (
           <Text
             key={index}
-            style={[styles.text, { color: colors.text }, textStyle]}
+            style={[styles.text, { color: colors.foreground }, textStyle]}
           >
             {part.value}
           </Text>
@@ -148,7 +148,7 @@ export function MentionPlainText({ content, style }: MentionDisplayProps) {
 
   const plainText = useMemo(() => mentionToPlainText(content), [content]);
 
-  return <Text style={[{ color: colors.text }, style]}>{plainText}</Text>;
+  return <Text style={[{ color: colors.foreground }, style]}>{plainText}</Text>;
 }
 
 const styles = StyleSheet.create({

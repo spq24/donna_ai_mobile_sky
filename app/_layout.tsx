@@ -31,7 +31,7 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <GestureHandlerRootView className={`bg-light-primary dark:bg-dark-primary ${Platform.OS === 'ios' ? 'pb-0 ' : ''}`} style={{ flex: 1 }}>
+      <GestureHandlerRootView className={`bg-background dark:bg-darkBackground ${Platform.OS === 'ios' ? 'pb-0 ' : ''}`} style={{ flex: 1 }}>
         <ThemeProvider>
           <AuthProvider>
             <TaskProvider>

@@ -107,7 +107,7 @@ export const Chip = ({
       <View className="flex-row items-center">
         {renderLeftContent()}
         <Text
-          className={`text-${textSizeClass} ${isChipSelected ? 'text-light-primary dark:text-dark-primary' : 'text-light-subtext dark:text-dark-subtext'}`}
+          className={`text-${textSizeClass} ${isChipSelected ? 'text-foreground dark:text-darkForeground' : 'text-muted-foreground dark:text-darkMutedForeground'}`}
         >
           {label}
         </Text>
@@ -121,7 +121,7 @@ export const Chip = ({
       style={style}
     >
       <View
-        className={`${paddingClasses} rounded-lg ${isChipSelected ? 'bg-dark-primary dark:bg-light-primary' : 'bg-light-secondary dark:bg-dark-secondary'} flex-row items-center justify-center`}
+        className={`${paddingClasses} rounded-lg ${isChipSelected ? 'bg-foreground dark:bg-darkForeground' : 'bg-muted dark:bg-darkMuted'} flex-row items-center justify-center`}
       >
         {children}
       </View>

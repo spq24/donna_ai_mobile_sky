@@ -66,13 +66,13 @@ export function CalendarCard({
         <ThemedText className="text-sm font-medium" numberOfLines={1}>
           {event.title}
         </ThemedText>
-        <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+        <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
           {formatTime(event.start)} - {formatTime(event.end)}
         </ThemedText>
         {event.location && (
           <View className="flex-row items-center gap-1 mt-0.5">
             <Icon name="MapPin" size={10} />
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext" numberOfLines={1}>
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground" numberOfLines={1}>
               {event.location}
             </ThemedText>
           </View>
@@ -91,15 +91,15 @@ export function CalendarCard({
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}
-        className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4"
+        className="bg-muted dark:bg-darkMuted rounded-2xl p-4"
       >
         {/* Header with date */}
         <View className="flex-row items-start justify-between mb-3">
           {dateInfo ? (
             <View className="flex-row items-center gap-3">
-              <View className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 items-center">
+              <View className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 items-center">
                 <ThemedText className="text-lg font-bold">{dateInfo.day}</ThemedText>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   {dateInfo.weekday}
                 </ThemedText>
               </View>
@@ -107,7 +107,7 @@ export function CalendarCard({
                 <ThemedText className="text-base font-semibold">
                   {dateInfo.date}
                 </ThemedText>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   {event_count} event{event_count !== 1 ? 's' : ''}
                 </ThemedText>
               </View>
@@ -127,14 +127,14 @@ export function CalendarCard({
           <View className="gap-1">
             {displayEvents.map((event, idx) => renderEventItem(event, idx))}
             {remainingCount > 0 && (
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext mt-1">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground mt-1">
                 +{remainingCount} more event{remainingCount !== 1 ? 's' : ''}
               </ThemedText>
             )}
           </View>
         ) : (
           <View className="py-4 items-center">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
               No events scheduled
             </ThemedText>
           </View>
@@ -147,12 +147,12 @@ export function CalendarCard({
   if (mode === 'detail' && single_event && events.length === 1) {
     const event = events[0];
     return (
-      <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+      <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
         {/* Header */}
         <View className="flex-row items-center justify-between mb-4">
           <View className="flex-row items-center gap-2">
             <View className={`w-3 h-3 rounded-full ${getEventColor(0)}`} />
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
               Calendar Event
             </ThemedText>
           </View>
@@ -196,7 +196,7 @@ export function CalendarCard({
         {/* Description */}
         {event.description && (
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
               Description
             </ThemedText>
             <ThemedText className="text-sm">{event.description}</ThemedText>
@@ -205,7 +205,7 @@ export function CalendarCard({
 
         {/* Actions */}
         <View className="flex-row gap-3 mt-2">
-          <TouchableOpacity className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-3 flex-row items-center justify-center gap-2">
+          <TouchableOpacity className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-3 flex-row items-center justify-center gap-2">
             <Icon name="Edit" size={16} />
             <ThemedText className="text-sm font-medium">Edit</ThemedText>
           </TouchableOpacity>
@@ -220,7 +220,7 @@ export function CalendarCard({
 
   // Detail Mode - Multiple events by date
   return (
-    <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+    <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
       {/* Header */}
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center gap-2">
@@ -238,7 +238,7 @@ export function CalendarCard({
       {events_by_date ? (
         Object.entries(events_by_date).map(([date, dateEvents]) => (
           <View key={date} className="mb-4">
-            <ThemedText className="text-sm font-medium text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm font-medium text-muted-foreground dark:text-darkMutedForeground mb-2">
               {new Date(date).toLocaleDateString('en-US', {
                 weekday: 'long',
                 month: 'short',
@@ -257,7 +257,7 @@ export function CalendarCard({
       {events.length === 0 && (
         <View className="py-8 items-center">
           <Icon name="CalendarX" size={32} />
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mt-2">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mt-2">
             No events in this period
           </ThemedText>
         </View>

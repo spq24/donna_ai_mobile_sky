@@ -27,14 +27,14 @@ export default function NotificationsSettings({ onBack }: NotificationsSettingsP
       <View className="flex-row items-center justify-between">
         <View className="flex-1">
           <ThemedText className="text-sm font-medium mb-1">{title}</ThemedText>
-          <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+          <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
             {description}
           </ThemedText>
         </View>
         <Switch
           value={enabled}
           onValueChange={onToggle}
-          trackColor={{ false: colors.backgroundSecondary, true: colors.primary }}
+          trackColor={{ false: colors.muted, true: colors.primary }}
           thumbColor={enabled ? '#fff' : '#f4f3f4'}
         />
       </View>
@@ -43,7 +43,7 @@ export default function NotificationsSettings({ onBack }: NotificationsSettingsP
 
   return (
     <AnimatedView
-      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      className="flex-1 bg-background dark:bg-darkBackground"
       animation="fadeIn"
       duration={350}
     >
@@ -62,7 +62,7 @@ export default function NotificationsSettings({ onBack }: NotificationsSettingsP
           {/* Header */}
           <View className="mb-4">
             <ThemedText className="text-2xl font-semibold">Header</ThemedText>
-            <View className="h-px bg-light-secondary dark:bg-dark-secondary mt-4" />
+            <View className="h-px bg-muted dark:bg-darkMuted mt-4" />
           </View>
 
           {/* Notification Items */}

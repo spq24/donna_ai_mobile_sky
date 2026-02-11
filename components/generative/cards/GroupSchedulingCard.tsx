@@ -50,13 +50,13 @@ export function GroupSchedulingCard({
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}
-        className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4"
+        className="bg-muted dark:bg-darkMuted rounded-2xl p-4"
       >
         {/* Header */}
         <View className="flex-row items-center justify-between mb-2">
           <View className="flex-row items-center gap-2">
             <Icon name="Users" size={16} />
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
               Group Scheduling
             </ThemedText>
           </View>
@@ -81,7 +81,7 @@ export function GroupSchedulingCard({
               ))}
             </View>
             {participants.length > 4 && (
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                 +{participants.length - 4} more
               </ThemedText>
             )}
@@ -92,10 +92,10 @@ export function GroupSchedulingCard({
         {proposed_dates.length > 0 && (
           <View className="flex-row items-center gap-2">
             <Icon name="Calendar" size={14} />
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
               {formatDate(proposed_dates[0].date)}
             </ThemedText>
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
               ({proposed_dates[0].vote_count} votes)
             </ThemedText>
           </View>
@@ -106,7 +106,7 @@ export function GroupSchedulingCard({
 
   // Detail Mode
   return (
-    <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+    <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
       {/* Header */}
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center gap-2">
@@ -130,7 +130,7 @@ export function GroupSchedulingCard({
 
       {/* Description */}
       {description && (
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-4">
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-4">
           {description}
         </ThemedText>
       )}
@@ -176,7 +176,7 @@ export function GroupSchedulingCard({
                 key={idx}
                 className={`flex-row items-center justify-between p-3 rounded-xl ${
                   d.is_selected ? 'bg-blue-100 dark:bg-blue-900 border border-blue-500' :
-                  'bg-light-primary dark:bg-dark-primary'
+                  'bg-background dark:bg-darkBackground'
                 }`}
               >
                 <View className="flex-row items-center gap-2">
@@ -202,7 +202,7 @@ export function GroupSchedulingCard({
       {(time_range_start || time_range_end) && (
         <View className="flex-row items-center gap-2 mb-4">
           <Icon name="Clock" size={16} />
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
             {time_range_start} - {time_range_end}
           </ThemedText>
         </View>
@@ -214,7 +214,7 @@ export function GroupSchedulingCard({
           <TouchableOpacity className="flex-1 bg-blue-500 rounded-xl py-3 items-center">
             <ThemedText className="text-sm font-medium text-white">Vote</ThemedText>
           </TouchableOpacity>
-          <TouchableOpacity className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-3 items-center">
+          <TouchableOpacity className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-3 items-center">
             <ThemedText className="text-sm font-medium">Decline</ThemedText>
           </TouchableOpacity>
         </View>

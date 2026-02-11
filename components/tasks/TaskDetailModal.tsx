@@ -94,12 +94,12 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
 
   return (
     <Modal visible={isVisible} animationType="slide" presentationStyle="pageSheet" onRequestClose={onClose}>
-      <View className="flex-1 bg-light-primary dark:bg-dark-primary">
+      <View className="flex-1 bg-background dark:bg-darkBackground">
         {/* Header */}
-        <View className="flex-row items-center justify-between px-4 py-4 border-b border-light-secondary dark:border-dark-secondary">
+        <View className="flex-row items-center justify-between px-4 py-4 border-b border-border dark:border-darkBorder">
           <View className="flex-row items-center gap-2">
             <Icon name="CheckSquare" size={24} />
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
               Task #{task.id}
             </ThemedText>
           </View>
@@ -115,10 +115,10 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
 
           {/* Status */}
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Status
             </ThemedText>
-            <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2">
+            <View className="bg-muted dark:bg-darkMuted rounded-xl px-3 py-2">
               <ThemedText className="text-base">
                 {statusLabels[task.status] || task.status}
               </ThemedText>
@@ -127,7 +127,7 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
 
           {/* Priority */}
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Priority
             </ThemedText>
             <View className={`rounded-xl px-3 py-2 self-start ${priorityStyle.bg}`}>
@@ -140,10 +140,10 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
           {/* Due Date */}
           {task.due_date && (
             <View className="mb-4">
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
                 Due Date
               </ThemedText>
-              <View className="flex-row items-center gap-2 bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2">
+              <View className="flex-row items-center gap-2 bg-muted dark:bg-darkMuted rounded-xl px-3 py-2">
                 <Icon name="Calendar" size={18} />
                 <ThemedText className="text-base">
                   {format(new Date(task.due_date), 'MMMM d, yyyy')}
@@ -154,10 +154,10 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
 
           {/* Assignee */}
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Assignee
             </ThemedText>
-            <View className="flex-row items-center gap-3 bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2">
+            <View className="flex-row items-center gap-3 bg-muted dark:bg-darkMuted rounded-xl px-3 py-2">
               {task.assignee_type === 'ai_agent' ? (
                 <>
                   <View className="w-8 h-8 rounded-full bg-purple-500 items-center justify-center">
@@ -171,7 +171,7 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
                   <ThemedText className="text-base">User</ThemedText>
                 </>
               ) : (
-                <ThemedText className="text-base text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-base text-muted-foreground dark:text-darkMutedForeground">
                   Unassigned
                 </ThemedText>
               )}
@@ -181,7 +181,7 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
           {/* Intent */}
           {task.intent && (
             <View className="mb-4">
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
                 Intent
               </ThemedText>
               <Chip label={task.intent} />
@@ -198,10 +198,10 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
           {/* Description */}
           {task.description && (
             <View className="mb-4">
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
                 Description
               </ThemedText>
-              <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl p-3">
+              <View className="bg-muted dark:bg-darkMuted rounded-xl p-3">
                 <MentionDisplay content={task.description} />
               </View>
             </View>
@@ -209,10 +209,10 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
 
           {/* Created At */}
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Created
             </ThemedText>
-            <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2">
+            <View className="bg-muted dark:bg-darkMuted rounded-xl px-3 py-2">
               <ThemedText className="text-base">
                 {format(new Date(task.created_at), 'MMMM d, yyyy \'at\' h:mm a')}
               </ThemedText>
@@ -222,10 +222,10 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
           {/* Completed At */}
           {task.completed_at && (
             <View className="mb-4">
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
                 Completed
               </ThemedText>
-              <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2">
+              <View className="bg-muted dark:bg-darkMuted rounded-xl px-3 py-2">
                 <ThemedText className="text-base">
                   {format(new Date(task.completed_at), 'MMMM d, yyyy \'at\' h:mm a')}
                 </ThemedText>
@@ -241,12 +241,12 @@ export function TaskDetailModal({ task, isVisible, onClose, onEdit }: TaskDetail
         </ScrollView>
 
         {/* Action Buttons */}
-        <View className="px-4 py-4 border-t border-light-secondary dark:border-dark-secondary gap-3">
+        <View className="px-4 py-4 border-t border-border dark:border-darkBorder gap-3">
           <View className="flex-row gap-3">
             <TouchableOpacity
               onPress={onEdit}
               disabled={isProcessing}
-              className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl py-3 items-center"
+              className="flex-1 bg-muted dark:bg-darkMuted rounded-xl py-3 items-center"
             >
               <ThemedText className="text-base font-medium">Edit</ThemedText>
             </TouchableOpacity>

@@ -45,7 +45,7 @@ export default function HomeScreen() {
 
   return (
     <AnimatedView
-      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      className="flex-1 bg-background dark:bg-darkBackground"
       animation="fadeIn"
       duration={350}
     >

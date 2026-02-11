@@ -77,7 +77,7 @@ export default function ImageSettingsModal({
           onPress={onClose}
         />
         <View
-          className="bg-light-primary dark:bg-dark-primary rounded-t-3xl"
+          className="bg-background dark:bg-darkBackground rounded-t-3xl"
           style={{
             paddingBottom: insets.bottom + 16,
             paddingTop: 16,

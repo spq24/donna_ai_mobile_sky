@@ -54,7 +54,7 @@ function TaskListItem({ task, onPress }: { task: Task; onPress: () => void }) {
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
-      className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4 mb-3"
+      className="bg-muted dark:bg-darkMuted rounded-2xl p-4 mb-3"
     >
       {/* Priority & Status Row */}
       <View className="flex-row items-center gap-2 mb-2">
@@ -108,8 +108,8 @@ function TaskListItem({ task, onPress }: { task: Task; onPress: () => void }) {
           )}
 
           {/* Status */}
-          <View className="bg-light-primary dark:bg-dark-primary rounded-full px-2 py-0.5">
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+          <View className="bg-background dark:bg-darkBackground rounded-full px-2 py-0.5">
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
               {statusLabels[task.status] || task.status}
             </ThemedText>
           </View>
@@ -127,7 +127,7 @@ function TaskListItem({ task, onPress }: { task: Task; onPress: () => void }) {
               className={`text-xs ${
                 isOverdue
                   ? 'text-red-600 dark:text-red-400 font-semibold'
-                  : 'text-light-subtext dark:text-dark-subtext'
+                  : 'text-muted-foreground dark:text-darkMutedForeground'
               }`}
             >
               {format(new Date(task.due_date), 'MMM d, yyyy')}
@@ -148,8 +148,8 @@ function TaskListItem({ task, onPress }: { task: Task; onPress: () => void }) {
       {/* Intent Badge */}
       {task.intent && (
         <View className="mt-2">
-          <View className="bg-light-primary dark:bg-dark-primary rounded-lg px-2 py-1 self-start">
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+          <View className="bg-background dark:bg-darkBackground rounded-lg px-2 py-1 self-start">
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
               {task.intent}
             </ThemedText>
           </View>
@@ -163,11 +163,11 @@ export function TaskList({ tasks, onTaskPress, isRefreshing = false, onRefresh }
   if (tasks.length === 0) {
     return (
       <View className="flex-1 items-center justify-center px-6">
-        <View className="w-20 h-20 rounded-full bg-light-secondary dark:bg-dark-secondary items-center justify-center mb-4">
-          <Icon name="CheckSquare" size={40} className="text-light-subtext dark:text-dark-subtext" />
+        <View className="w-20 h-20 rounded-full bg-muted dark:bg-darkMuted items-center justify-center mb-4">
+          <Icon name="CheckSquare" size={40} className="text-muted-foreground dark:text-darkMutedForeground" />
         </View>
         <ThemedText className="text-lg font-semibold mb-2">No tasks found</ThemedText>
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext text-center">
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground text-center">
           Try adjusting your filters or create a new task to get started
         </ThemedText>
       </View>

@@ -44,8 +44,8 @@ export default function FeaturedSection({
                 resizeMode="cover"
               />
             ) : (
-              <View className="w-full h-full bg-light-secondary dark:bg-dark-secondary items-center justify-center">
-                <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+              <View className="w-full h-full bg-muted dark:bg-darkMuted items-center justify-center">
+                <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
                   {item.title || 'Item'}
                 </ThemedText>
               </View>

@@ -17,11 +17,11 @@ export default function GenerationProgress({
 }: GenerationProgressProps) {
   return (
     <View
-      className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-2xl px-4 py-3 flex-row items-center gap-3"
+      className="bg-muted dark:bg-darkMuted border border-border dark:border-darkBorder rounded-2xl px-4 py-3 flex-row items-center gap-3"
       style={shadowPresets.medium}
     >
       {/* Progress Icon */}
-      <View className="w-10 h-10 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center relative">
+      <View className="w-10 h-10 rounded-full bg-background dark:bg-darkBackground items-center justify-center relative">
         <View className="w-10 h-10 rounded-full bg-light-secondary/50 dark:bg-dark-secondary/50 absolute" />
         <Icon
           name={type === 'image' ? 'Image' : 'Play'}
@@ -34,7 +34,7 @@ export default function GenerationProgress({
         <ThemedText className="text-sm font-normal">
           {message}
         </ThemedText>
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
           {subMessage}
         </ThemedText>
       </View>

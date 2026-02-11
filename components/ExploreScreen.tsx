@@ -25,19 +25,19 @@ export default function ExploreScreen({
     },
     {
       id: 'writing-tools',
-      icon: 'PenNib',
+      icon: 'PenTool',
       title: 'Explore Writing Tools',
       description: 'Create stories or new content ideas.',
     },
     {
       id: 'ai-assistant',
-      icon: 'Lightning',
+      icon: 'Zap',
       title: 'Explore AI Assistant',
       description: 'Ask anything for facts or advice.',
     },
     {
       id: 'ai-prompts',
-      icon: 'Lightning',
+      icon: 'Zap',
       title: 'Browse AI Prompts',
       description: 'Seek guidance to find the best solution.',
     },
@@ -64,20 +64,20 @@ export default function ExploreScreen({
       {/* Hero Section */}
       <View className="mb-8 relative overflow-hidden rounded-3xl bg-light-secondary/50 dark:bg-dark-secondary/50" style={{ minHeight: 220 }}>
         <View className="p-6 items-center">
-          <View className="w-11 h-11 rounded-full bg-dark-primary dark:bg-light-primary items-center justify-center mb-4">
-            <View className="w-5.5 h-5.5 rounded-full bg-light-primary dark:bg-dark-primary" />
+          <View className="w-11 h-11 rounded-full bg-foreground dark:bg-darkForeground items-center justify-center mb-4">
+            <View className="w-5.5 h-5.5 rounded-full bg-background dark:bg-darkBackground" />
           </View>
           <ThemedText className="text-2xl font-bold mb-2 text-center">
             Introducing SkyAI
           </ThemedText>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext text-center mb-6">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground text-center mb-6">
             Discover worlds beyond imagination with SkyAI
           </ThemedText>
           <Pressable
             onPress={onLearnMorePress}
-            className="bg-dark-primary dark:bg-light-primary px-4 py-2 rounded-full"
+            className="bg-foreground dark:bg-darkForeground px-4 py-2 rounded-full"
           >
-            <ThemedText className="text-sm font-medium text-light-primary dark:text-dark-primary">
+            <ThemedText className="text-sm font-medium text-foreground dark:text-darkForeground">
               Learn more
             </ThemedText>
           </Pressable>

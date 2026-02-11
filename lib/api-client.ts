@@ -53,13 +53,21 @@ interface AgenticMessageResponse {
   ui_components?: GenerativeUIComponent[];
 }
 
+/** Called when token refresh fails (e.g. 401 and no valid refresh). Set by app to clear auth state and redirect. */
+export type SessionExpiredHandler = () => void;
+
 class ApiClient {
   private client: AxiosInstance;
   private isRefreshing = false;
+  private sessionExpiredHandler: SessionExpiredHandler | null = null;
   private failedQueue: Array<{
     resolve: (value?: any) => void;
     reject: (error?: any) => void;
   }> = [];
+
+  setSessionExpiredHandler(handler: SessionExpiredHandler | null): void {
+    this.sessionExpiredHandler = handler;
+  }
 
   constructor() {
     this.client = axios.create({
@@ -142,8 +150,9 @@ class ApiClient {
             }
             return this.client(originalRequest);
           } catch (refreshError) {
-            // Refresh failed - clear storage and process queue with error
+            // Refresh failed - clear storage, notify app to clear auth state and redirect, then reject
             await storage.clearAll();
+            this.sessionExpiredHandler?.();
             this.processQueue(refreshError, null);
             return Promise.reject(refreshError);
           } finally {

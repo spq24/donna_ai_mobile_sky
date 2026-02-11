@@ -45,8 +45,8 @@ export default function MediaGrid({
                   resizeMode="cover"
                 />
               ) : (
-                <View className="w-full h-full bg-light-secondary dark:bg-dark-secondary items-center justify-center">
-                  <View className="w-12 h-12 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+                <View className="w-full h-full bg-muted dark:bg-darkMuted items-center justify-center">
+                  <View className="w-12 h-12 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
                     {/* Video play icon would go here */}
                   </View>
                 </View>

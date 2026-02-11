@@ -47,7 +47,7 @@ export default function MoreOptionsMenu({
           onStartShouldSetResponder={() => true}
         >
           <View
-            className="bg-light-primary dark:bg-dark-primary rounded-2xl overflow-hidden min-w-[212px]"
+            className="bg-background dark:bg-darkBackground rounded-2xl overflow-hidden min-w-[212px]"
             style={shadowPresets.large}
           >
             {items.map((item, index) => (

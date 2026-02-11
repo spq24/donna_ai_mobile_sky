@@ -68,7 +68,7 @@ export default function TasksScreen() {
 
   return (
     <AnimatedView
-      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      className="flex-1 bg-background dark:bg-darkBackground"
       animation="fadeIn"
       duration={350}
     >
@@ -80,7 +80,7 @@ export default function TasksScreen() {
       />
 
       {/* Tasks Header Section */}
-      <View className="px-4 py-4 border-b border-light-secondary dark:border-dark-secondary">
+      <View className="px-4 py-4 border-b border-border dark:border-darkBorder">
         <View className="flex-row items-center justify-between mb-3">
           <ThemedText className="text-2xl font-bold">Tasks</ThemedText>
           <TouchableOpacity
@@ -93,18 +93,18 @@ export default function TasksScreen() {
 
         {/* Search Bar */}
         <View className="flex-row items-center gap-2 mb-3">
-          <View className="flex-1 flex-row items-center bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2">
-            <Icon name="Search" size={20} className="mr-2 text-light-subtext dark:text-dark-subtext" />
+          <View className="flex-1 flex-row items-center bg-muted dark:bg-darkMuted rounded-xl px-3 py-2">
+            <Icon name="Search" size={20} className="mr-2 text-muted-foreground dark:text-darkMutedForeground" />
             <TextInput
               value={filters.search}
               onChangeText={(text) => setFilters({ search: text })}
               placeholder="Search tasks..."
               placeholderTextColor="#999"
-              className="flex-1 text-base text-black dark:text-white"
+              className="flex-1 text-base text-foreground dark:text-darkForeground"
             />
             {filters.search && (
               <TouchableOpacity onPress={() => setFilters({ search: '' })}>
-                <Icon name="X" size={20} className="text-light-subtext dark:text-dark-subtext" />
+                <Icon name="X" size={20} className="text-muted-foreground dark:text-darkMutedForeground" />
               </TouchableOpacity>
             )}
           </View>
@@ -113,7 +113,7 @@ export default function TasksScreen() {
             className={`w-12 h-12 rounded-xl items-center justify-center ${
               showFilters
                 ? 'bg-blue-500'
-                : 'bg-light-secondary dark:bg-dark-secondary'
+                : 'bg-muted dark:bg-darkMuted'
             }`}
           >
             <Icon
@@ -129,7 +129,7 @@ export default function TasksScreen() {
           <View className="gap-3 mt-2">
             {/* Sort Order */}
             <View>
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
                 Sort By
               </ThemedText>
               <View className="flex-row gap-2">
@@ -138,7 +138,7 @@ export default function TasksScreen() {
                   className={`rounded-xl px-3 py-1 ${
                     filters.sortBy === 'newest'
                       ? 'bg-blue-500'
-                      : 'bg-light-secondary dark:bg-dark-secondary'
+                      : 'bg-muted dark:bg-darkMuted'
                   }`}
                 >
                   <ThemedText
@@ -152,7 +152,7 @@ export default function TasksScreen() {
                   className={`rounded-xl px-3 py-1 ${
                     filters.sortBy === 'oldest'
                       ? 'bg-blue-500'
-                      : 'bg-light-secondary dark:bg-dark-secondary'
+                      : 'bg-muted dark:bg-darkMuted'
                   }`}
                 >
                   <ThemedText
@@ -166,7 +166,7 @@ export default function TasksScreen() {
 
             {/* Status Filter */}
             <View>
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
                 Status
               </ThemedText>
               <View className="flex-row flex-wrap gap-2">
@@ -175,7 +175,7 @@ export default function TasksScreen() {
                   className={`rounded-xl px-3 py-1 ${
                     !filters.status
                       ? 'bg-blue-500'
-                      : 'bg-light-secondary dark:bg-dark-secondary'
+                      : 'bg-muted dark:bg-darkMuted'
                   }`}
                 >
                   <ThemedText
@@ -191,7 +191,7 @@ export default function TasksScreen() {
                     className={`rounded-xl px-3 py-1 ${
                       filters.status === status
                         ? 'bg-blue-500'
-                        : 'bg-light-secondary dark:bg-dark-secondary'
+                        : 'bg-muted dark:bg-darkMuted'
                     }`}
                   >
                     <ThemedText
@@ -208,7 +208,7 @@ export default function TasksScreen() {
 
             {/* Priority Filter */}
             <View>
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
                 Priority
               </ThemedText>
               <View className="flex-row flex-wrap gap-2">
@@ -217,7 +217,7 @@ export default function TasksScreen() {
                   className={`rounded-xl px-3 py-1 ${
                     !filters.priority
                       ? 'bg-blue-500'
-                      : 'bg-light-secondary dark:bg-dark-secondary'
+                      : 'bg-muted dark:bg-darkMuted'
                   }`}
                 >
                   <ThemedText
@@ -233,7 +233,7 @@ export default function TasksScreen() {
                     className={`rounded-xl px-3 py-1 ${
                       filters.priority === priority
                         ? 'bg-blue-500'
-                        : 'bg-light-secondary dark:bg-dark-secondary'
+                        : 'bg-muted dark:bg-darkMuted'
                     }`}
                   >
                     <ThemedText
@@ -250,7 +250,7 @@ export default function TasksScreen() {
 
             {/* Assignee Type Filter */}
             <View>
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
                 Assignee
               </ThemedText>
               <View className="flex-row flex-wrap gap-2">
@@ -259,7 +259,7 @@ export default function TasksScreen() {
                   className={`rounded-xl px-3 py-1 ${
                     !filters.assignee_type
                       ? 'bg-blue-500'
-                      : 'bg-light-secondary dark:bg-dark-secondary'
+                      : 'bg-muted dark:bg-darkMuted'
                   }`}
                 >
                   <ThemedText
@@ -277,7 +277,7 @@ export default function TasksScreen() {
                     className={`rounded-xl px-3 py-1 ${
                       filters.assignee_type === type
                         ? 'bg-blue-500'
-                        : 'bg-light-secondary dark:bg-dark-secondary'
+                        : 'bg-muted dark:bg-darkMuted'
                     }`}
                   >
                     <ThemedText
@@ -296,7 +296,7 @@ export default function TasksScreen() {
 
         {/* Task Count */}
         <View className="mt-3">
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
             {filteredTasks.length} {filteredTasks.length === 1 ? 'task' : 'tasks'}
           </ThemedText>
         </View>

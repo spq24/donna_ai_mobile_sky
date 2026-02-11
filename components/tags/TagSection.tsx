@@ -97,7 +97,7 @@ export default function TagSection({ entityType, entityId, canEdit = true }: Tag
 
   return (
     <View className="mb-4">
-      <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+      <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
         Tags
       </ThemedText>
 
@@ -129,10 +129,10 @@ export default function TagSection({ entityType, entityId, canEdit = true }: Tag
         {canEdit && (
           <TouchableOpacity
             onPress={() => setIsModalOpen(true)}
-            className="flex-row items-center rounded-full px-3 py-1 bg-light-secondary dark:bg-dark-secondary"
+            className="flex-row items-center rounded-full px-3 py-1 bg-muted dark:bg-darkMuted"
           >
-            <Icon name="Plus" size={14} className="text-light-subtext dark:text-dark-subtext" />
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext ml-1">
+            <Icon name="Plus" size={14} className="text-muted-foreground dark:text-darkMutedForeground" />
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground ml-1">
               Add
             </ThemedText>
           </TouchableOpacity>
@@ -140,7 +140,7 @@ export default function TagSection({ entityType, entityId, canEdit = true }: Tag
 
         {/* Empty state */}
         {!canEdit && entityTags.length === 0 && !isLoading && (
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
             No tags
           </ThemedText>
         )}
@@ -153,9 +153,9 @@ export default function TagSection({ entityType, entityId, canEdit = true }: Tag
         presentationStyle="pageSheet"
         onRequestClose={() => setIsModalOpen(false)}
       >
-        <View className="flex-1 bg-light-primary dark:bg-dark-primary">
+        <View className="flex-1 bg-background dark:bg-darkBackground">
           {/* Header */}
-          <View className="flex-row items-center justify-between px-4 py-4 border-b border-light-secondary dark:border-dark-secondary">
+          <View className="flex-row items-center justify-between px-4 py-4 border-b border-border dark:border-darkBorder">
             <ThemedText className="text-xl font-bold">Add Tag</ThemedText>
             <TouchableOpacity onPress={() => setIsModalOpen(false)}>
               <Icon name="X" size={24} />
@@ -170,14 +170,14 @@ export default function TagSection({ entityType, entityId, canEdit = true }: Tag
                 onChangeText={setInputValue}
                 placeholder="Type to search or create..."
                 placeholderTextColor="#999"
-                className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl px-4 py-3 text-base text-black dark:text-white"
+                className="flex-1 bg-muted dark:bg-darkMuted rounded-xl px-4 py-3 text-base text-foreground dark:text-darkForeground"
                 autoFocus
               />
               <TouchableOpacity
                 onPress={() => handleAddTag(inputValue)}
                 disabled={isAdding || !inputValue.trim()}
                 className={`w-12 h-12 rounded-xl items-center justify-center ${
-                  inputValue.trim() ? 'bg-blue-500' : 'bg-light-secondary dark:bg-dark-secondary'
+                  inputValue.trim() ? 'bg-blue-500' : 'bg-muted dark:bg-darkMuted'
                 }`}
               >
                 {isAdding ? (
@@ -196,10 +196,10 @@ export default function TagSection({ entityType, entityId, canEdit = true }: Tag
                 <TouchableOpacity
                   onPress={() => handleAddTag(inputValue)}
                   disabled={isAdding}
-                  className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-4 py-3 mb-4"
+                  className="bg-muted dark:bg-darkMuted rounded-xl px-4 py-3 mb-4"
                 >
                   <ThemedText className="text-base">
-                    <ThemedText className="text-light-subtext dark:text-dark-subtext">Create: </ThemedText>
+                    <ThemedText className="text-muted-foreground dark:text-darkMutedForeground">Create: </ThemedText>
                     <ThemedText className="font-medium">{inputValue.trim()}</ThemedText>
                   </ThemedText>
                 </TouchableOpacity>
@@ -208,7 +208,7 @@ export default function TagSection({ entityType, entityId, canEdit = true }: Tag
             {/* Suggestions */}
             {suggestions.length > 0 && (
               <View>
-                <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+                <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
                   {inputValue ? 'Matching tags' : 'Your tags'}
                 </ThemedText>
                 <ScrollView className="max-h-80">
@@ -218,7 +218,7 @@ export default function TagSection({ entityType, entityId, canEdit = true }: Tag
                       <TouchableOpacity
                         key={tag.id}
                         onPress={() => handleAddTag(tag.name)}
-                        className="flex-row items-center py-3 border-b border-light-secondary dark:border-dark-secondary"
+                        className="flex-row items-center py-3 border-b border-border dark:border-darkBorder"
                       >
                         <View className={`rounded-full px-3 py-1 ${colors.bg}`}>
                           <ThemedText className={`text-sm ${colors.text}`}>{tag.name}</ThemedText>
@@ -231,7 +231,7 @@ export default function TagSection({ entityType, entityId, canEdit = true }: Tag
             )}
 
             {!suggestions.length && !inputValue && (
-              <ThemedText className="text-center text-light-subtext dark:text-dark-subtext py-4">
+              <ThemedText className="text-center text-muted-foreground dark:text-darkMutedForeground py-4">
                 Type to create a new tag
               </ThemedText>
             )}

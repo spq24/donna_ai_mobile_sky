@@ -31,7 +31,7 @@ export default function SubscriptionSettings({ onBack }: SubscriptionSettingsPro
 
   return (
     <AnimatedView
-      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      className="flex-1 bg-background dark:bg-darkBackground"
       animation="fadeIn"
       duration={350}
     >
@@ -50,16 +50,16 @@ export default function SubscriptionSettings({ onBack }: SubscriptionSettingsPro
           {/* Header */}
           <View className="mb-4">
             <ThemedText className="text-2xl font-semibold">Header</ThemedText>
-            <View className="h-px bg-light-secondary dark:bg-dark-secondary mt-4" />
+            <View className="h-px bg-muted dark:bg-darkMuted mt-4" />
           </View>
 
           {/* Current Plan */}
           <View className="mb-6">
-            <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4 mb-4">
+            <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4 mb-4">
               <View className="flex-row items-center justify-between mb-3">
                 <ThemedText className="text-lg font-semibold">Professional</ThemedText>
-                <View className="bg-dark-primary dark:bg-light-primary rounded-lg px-2 py-1">
-                  <ThemedText className="text-xs text-light-primary dark:text-dark-primary">
+                <View className="bg-foreground dark:bg-darkForeground rounded-lg px-2 py-1">
+                  <ThemedText className="text-xs text-foreground dark:text-darkForeground">
                     Current plan
                   </ThemedText>
                 </View>
@@ -67,11 +67,11 @@ export default function SubscriptionSettings({ onBack }: SubscriptionSettingsPro
               <View className="mb-4">
                 <View className="flex-row items-baseline gap-1 mb-2">
                   <ThemedText className="text-2xl font-semibold">$20</ThemedText>
-                  <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+                  <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
                     /month
                   </ThemedText>
                 </View>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   Renews Oct 30, 2029
                 </ThemedText>
               </View>
@@ -99,15 +99,15 @@ export default function SubscriptionSettings({ onBack }: SubscriptionSettingsPro
               </View>
               <View className="flex-row gap-2">
                 <Pressable
-                  className="flex-1 bg-dark-primary dark:bg-light-primary rounded-xl py-2 items-center"
+                  className="flex-1 bg-foreground dark:bg-darkForeground rounded-xl py-2 items-center"
                   style={shadowPresets.small}
                 >
-                  <ThemedText className="text-xs text-light-primary dark:text-dark-primary font-medium">
+                  <ThemedText className="text-xs text-foreground dark:text-darkForeground font-medium">
                     Upgrade plan
                   </ThemedText>
                 </Pressable>
                 <Pressable
-                  className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-2 items-center border border-light-secondary dark:border-dark-secondary"
+                  className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-2 items-center border border-border dark:border-darkBorder"
                 >
                   <ThemedText className="text-xs">Cancel subscription</ThemedText>
                 </Pressable>
@@ -119,22 +119,22 @@ export default function SubscriptionSettings({ onBack }: SubscriptionSettingsPro
           <View className="mb-6">
             <View className="mb-2">
               <ThemedText className="text-lg font-semibold">Payment Method</ThemedText>
-              <View className="h-px bg-light-secondary dark:bg-dark-secondary mt-2" />
+              <View className="h-px bg-muted dark:bg-darkMuted mt-2" />
             </View>
-            <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl p-3 mt-4">
+            <View className="bg-muted dark:bg-darkMuted rounded-xl p-3 mt-4">
               <View className="flex-row items-center justify-between">
                 <View className="flex-row items-center gap-3">
-                  <View className="w-11 h-11 rounded-lg bg-light-primary dark:bg-dark-primary items-center justify-center">
+                  <View className="w-11 h-11 rounded-lg bg-background dark:bg-darkBackground items-center justify-center">
                     <Icon name="CreditCard" size={24} />
                   </View>
                   <View>
                     <ThemedText className="text-sm font-medium">Visa **** 8880</ThemedText>
-                    <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                    <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                       Expiry 09/28
                     </ThemedText>
                   </View>
                 </View>
-                <Pressable className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2">
+                <Pressable className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2">
                   <ThemedText className="text-xs">Manage</ThemedText>
                 </Pressable>
               </View>
@@ -145,32 +145,32 @@ export default function SubscriptionSettings({ onBack }: SubscriptionSettingsPro
           <View className="mb-6">
             <View className="mb-2">
               <ThemedText className="text-lg font-semibold">Invoices</ThemedText>
-              <View className="h-px bg-light-secondary dark:bg-dark-secondary mt-2" />
+              <View className="h-px bg-muted dark:bg-darkMuted mt-2" />
             </View>
             <View className="mt-4">
               {/* Table Header */}
-              <View className="flex-row mb-2 pb-2 border-b border-light-secondary dark:border-dark-secondary">
+              <View className="flex-row mb-2 pb-2 border-b border-border dark:border-darkBorder">
                 <View className="flex-1">
-                  <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Date</ThemedText>
+                  <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Date</ThemedText>
                 </View>
                 <View className="flex-1">
-                  <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Plan</ThemedText>
+                  <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Plan</ThemedText>
                 </View>
                 <View className="flex-1">
-                  <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Amount</ThemedText>
+                  <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Amount</ThemedText>
                 </View>
                 <View className="flex-1">
-                  <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Status</ThemedText>
+                  <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Status</ThemedText>
                 </View>
                 <View className="flex-1">
-                  <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Action</ThemedText>
+                  <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Action</ThemedText>
                 </View>
               </View>
               {/* Table Rows */}
               {mockInvoices.map((invoice) => (
                 <View
                   key={invoice.id}
-                  className="flex-row items-center py-3 border-b border-light-secondary dark:border-dark-secondary"
+                  className="flex-row items-center py-3 border-b border-border dark:border-darkBorder"
                 >
                   <View className="flex-1">
                     <ThemedText className="text-xs">{invoice.date}</ThemedText>

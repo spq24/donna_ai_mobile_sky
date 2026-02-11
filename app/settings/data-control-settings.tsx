@@ -29,7 +29,7 @@ export default function DataControlSettings({ onBack }: DataControlSettingsProps
     <View className="mb-6">
       <View className="mb-3">
         <ThemedText className="text-sm font-medium mb-1">{title}</ThemedText>
-        <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+        <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
           {description}
         </ThemedText>
       </View>
@@ -39,14 +39,14 @@ export default function DataControlSettings({ onBack }: DataControlSettingsProps
           <Switch
             value={toggleValue}
             onValueChange={onToggle}
-            trackColor={{ false: colors.backgroundSecondary, true: colors.primary }}
+            trackColor={{ false: colors.muted, true: colors.primary }}
             thumbColor={toggleValue ? '#fff' : '#f4f3f4'}
           />
         </View>
       ) : (
         <Pressable
           onPress={onActionPress}
-          className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2 self-start"
+          className="bg-muted dark:bg-darkMuted rounded-xl px-3 py-2 self-start"
           style={shadowPresets.small}
         >
           <ThemedText className="text-xs">{actionLabel}</ThemedText>
@@ -57,7 +57,7 @@ export default function DataControlSettings({ onBack }: DataControlSettingsProps
 
   return (
     <AnimatedView
-      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      className="flex-1 bg-background dark:bg-darkBackground"
       animation="fadeIn"
       duration={350}
     >
@@ -76,7 +76,7 @@ export default function DataControlSettings({ onBack }: DataControlSettingsProps
           {/* Header */}
           <View className="mb-4">
             <ThemedText className="text-2xl font-semibold">Header</ThemedText>
-            <View className="h-px bg-light-secondary dark:bg-dark-secondary mt-4" />
+            <View className="h-px bg-muted dark:bg-darkMuted mt-4" />
           </View>
 
           {/* Chat History */}

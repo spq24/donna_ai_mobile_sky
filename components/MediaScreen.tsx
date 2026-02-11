@@ -50,7 +50,7 @@ export default function MediaScreen({
   const currentItems = activeTab === 'images' ? mockImages : mockVideos;
 
   return (
-    <View className="flex-1 bg-light-primary dark:bg-dark-primary">
+    <View className="flex-1 bg-background dark:bg-darkBackground">
       {/* Chat Header */}
       <ChatHeader
         onMenuPress={onMenuPress}
@@ -66,16 +66,16 @@ export default function MediaScreen({
             onPress={() => setActiveTab('images')}
             className={`px-4 py-2 rounded-lg ${
               activeTab === 'images'
-                ? 'bg-dark-primary dark:bg-light-primary'
-                : 'bg-light-secondary dark:bg-dark-secondary'
+                ? 'bg-foreground dark:bg-darkForeground'
+                : 'bg-muted dark:bg-darkMuted'
             }`}
             style={activeTab === 'images' ? shadowPresets.small : undefined}
           >
             <ThemedText
               className={`text-sm ${
                 activeTab === 'images'
-                  ? 'text-light-primary dark:text-dark-primary font-medium'
-                  : 'text-light-subtext dark:text-dark-subtext'
+                  ? 'text-foreground dark:text-darkForeground font-medium'
+                  : 'text-muted-foreground dark:text-darkMutedForeground'
               }`}
             >
               Images
@@ -85,16 +85,16 @@ export default function MediaScreen({
             onPress={() => setActiveTab('videos')}
             className={`px-4 py-2 rounded-lg ${
               activeTab === 'videos'
-                ? 'bg-dark-primary dark:bg-light-primary'
-                : 'bg-light-secondary dark:bg-dark-secondary'
+                ? 'bg-foreground dark:bg-darkForeground'
+                : 'bg-muted dark:bg-darkMuted'
             }`}
             style={activeTab === 'videos' ? shadowPresets.small : undefined}
           >
             <ThemedText
               className={`text-sm ${
                 activeTab === 'videos'
-                  ? 'text-light-primary dark:text-dark-primary font-medium'
-                  : 'text-light-subtext dark:text-dark-subtext'
+                  ? 'text-foreground dark:text-darkForeground font-medium'
+                  : 'text-muted-foreground dark:text-darkMutedForeground'
               }`}
             >
               Videos
@@ -105,9 +105,9 @@ export default function MediaScreen({
         {/* Remove All Button */}
         <Pressable
           onPress={onRemoveAll}
-          className="px-3 py-2 rounded-lg bg-light-secondary dark:bg-dark-secondary"
+          className="px-3 py-2 rounded-lg bg-muted dark:bg-darkMuted"
         >
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
             Remove All
           </ThemedText>
         </Pressable>

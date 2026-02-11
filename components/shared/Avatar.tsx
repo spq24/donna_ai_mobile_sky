@@ -20,7 +20,7 @@ const Avatar: React.FC<AvatarProps> = ({
   src,
   name,
   border = false,
-  bgColor = 'bg-light-secondary dark:bg-dark-secondary',
+  bgColor = 'bg-muted dark:bg-darkMuted',
   onPress,
   link,
   className,
@@ -36,7 +36,7 @@ const Avatar: React.FC<AvatarProps> = ({
     xxl: 'w-24 h-24',
   };
 
-  const borderStyle = border ? 'border-2 border-light-secondary dark:border-dark-secondary' : '';
+  const borderStyle = border ? 'border-2 border-border dark:border-darkBorder' : '';
 
   const renderInitials = () => {
     if (!name) return null;

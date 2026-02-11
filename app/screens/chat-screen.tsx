@@ -445,7 +445,7 @@ export default function ChatScreen() {
 
   return (
     <AnimatedView
-      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      className="flex-1 bg-background dark:bg-darkBackground"
       animation="fadeIn"
       duration={350}
     >
@@ -523,17 +523,17 @@ export default function ChatScreen() {
                           {message.attachedFiles?.map((file, index) => (
                             <View
                               key={`file-${index}`}
-                              className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-xl px-3 py-2 flex-row items-center gap-2"
+                              className="bg-muted dark:bg-darkMuted border border-border dark:border-darkBorder rounded-xl px-3 py-2 flex-row items-center gap-2"
                               style={{ minWidth: 191, maxWidth: 275 }}
                             >
-                              <View className="w-12 h-12 rounded-lg bg-light-primary dark:bg-dark-primary items-center justify-center">
+                              <View className="w-12 h-12 rounded-lg bg-background dark:bg-darkBackground items-center justify-center">
                                 <Icon name="File" size={20} />
                               </View>
                               <View className="flex-1 min-w-0">
                                 <ThemedText className="text-sm font-medium" numberOfLines={1}>
                                   {file.fileName}
                                 </ThemedText>
-                                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                                   {file.fileType || 'File'}
                                 </ThemedText>
                               </View>
@@ -593,7 +593,7 @@ export default function ChatScreen() {
                       {/* Feedback Acknowledgment Message */}
                       {message.feedbackAcknowledged && (
                         <View className="mt-2 flex-row items-start justify-end">
-                          <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl rounded-tr-sm px-3 py-3 flex-row items-center gap-2 max-w-[343px]">
+                          <View className="bg-muted dark:bg-darkMuted rounded-2xl rounded-tr-sm px-3 py-3 flex-row items-center gap-2 max-w-[343px]">
                             <ThemedText className="text-sm flex-1">
                               {message.feedbackType === 'down'
                                 ? "Feedback saved. I'll use this to improve future answers"
@@ -660,7 +660,7 @@ export default function ChatScreen() {
                     {/* Feedback Acknowledgment Message */}
                     {message.feedbackAcknowledged && (
                       <View className="mt-2 flex-row items-start justify-end">
-                        <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl rounded-tr-sm px-3 py-3 flex-row items-center gap-2 max-w-[343px]">
+                        <View className="bg-muted dark:bg-darkMuted rounded-2xl rounded-tr-sm px-3 py-3 flex-row items-center gap-2 max-w-[343px]">
                           <ThemedText className="text-sm flex-1">
                             {message.feedbackType === 'down'
                               ? "Feedback saved. I'll use this to improve future answers"

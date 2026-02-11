@@ -89,7 +89,7 @@ export function ReminderCard({
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}
-        className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4"
+        className="bg-muted dark:bg-darkMuted rounded-2xl p-4"
       >
         <View className="flex-row items-start gap-3">
           {/* Bell icon */}
@@ -106,12 +106,12 @@ export function ReminderCard({
             {/* Time info */}
             <View className="flex-row items-center gap-2">
               <Icon name="Clock" size={14} />
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
                 {formatReminderTime(remind_at)}
               </ThemedText>
               {remind_at && (
-                <View className="bg-light-primary dark:bg-dark-primary rounded-full px-2 py-0.5">
-                  <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <View className="bg-background dark:bg-darkBackground rounded-full px-2 py-0.5">
+                  <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                     {formatRelativeTime(remind_at)}
                   </ThemedText>
                 </View>
@@ -122,7 +122,7 @@ export function ReminderCard({
             {recurrence_type && recurrence_type !== 'none' && (
               <View className="flex-row items-center gap-1 mt-1">
                 <Icon name="Repeat" size={12} />
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   {recurrenceLabels[recurrence_type] || recurrence_type}
                 </ThemedText>
               </View>
@@ -142,14 +142,14 @@ export function ReminderCard({
 
   // Detail Mode - Expanded reminder with actions
   return (
-    <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+    <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
       {/* Header */}
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center gap-2">
           <View className={`w-8 h-8 rounded-lg items-center justify-center ${statusStyle.bg}`}>
             <Icon name={statusStyle.icon} size={16} />
           </View>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
             Reminder
           </ThemedText>
         </View>
@@ -163,7 +163,7 @@ export function ReminderCard({
 
       {/* Status */}
       <View className="flex-row items-center gap-2 mb-3">
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-20">
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-20">
           Status
         </ThemedText>
         <View className={`rounded-full px-3 py-1 ${statusStyle.bg}`}>
@@ -175,7 +175,7 @@ export function ReminderCard({
 
       {/* Remind at */}
       <View className="flex-row items-center gap-2 mb-3">
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-20">
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-20">
           Time
         </ThemedText>
         <View className="flex-row items-center gap-2">
@@ -187,7 +187,7 @@ export function ReminderCard({
       {/* Recurrence */}
       {recurrence_type && (
         <View className="flex-row items-center gap-2 mb-3">
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-20">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-20">
             Repeats
           </ThemedText>
           <View className="flex-row items-center gap-2">
@@ -202,7 +202,7 @@ export function ReminderCard({
       {/* Description */}
       {description && (
         <View className="mb-4">
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
             Notes
           </ThemedText>
           <ThemedText className="text-sm">{description}</ThemedText>
@@ -225,7 +225,7 @@ export function ReminderCard({
 
       {/* Edit/Delete buttons */}
       <View className="flex-row gap-3 mt-3">
-        <TouchableOpacity className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-3 flex-row items-center justify-center gap-2">
+        <TouchableOpacity className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-3 flex-row items-center justify-center gap-2">
           <Icon name="Edit" size={16} />
           <ThemedText className="text-sm font-medium">Edit</ThemedText>
         </TouchableOpacity>

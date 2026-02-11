@@ -136,7 +136,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
   const renderGridItem = (item: ChatHistoryItem) => (
     <View
       key={item.id}
-      className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-3 mb-4"
+      className="bg-muted dark:bg-darkMuted rounded-2xl p-3 mb-4"
       style={shadowPresets.small}
     >
       {/* Header */}
@@ -162,7 +162,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
         <ThemedText className="text-xs mb-2" numberOfLines={1}>
           {item.userMessage}
         </ThemedText>
-        <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext" numberOfLines={2}>
+        <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground" numberOfLines={2}>
           {item.aiResponse}
         </ThemedText>
       </View>
@@ -173,7 +173,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
           {item.attachments.map((attachment, index) => (
             <View
               key={index}
-              className="bg-light-primary dark:bg-dark-primary rounded-lg px-2.5 py-1.5 flex-row items-center gap-2"
+              className="bg-background dark:bg-darkBackground rounded-lg px-2.5 py-1.5 flex-row items-center gap-2"
             >
               <Icon name={getAttachmentIcon(attachment.type) as any} size={14} />
               <ThemedText className="text-xs" numberOfLines={1} style={{ maxWidth: 120 }}>
@@ -212,7 +212,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
           <ThemedText className="text-xs mb-2" numberOfLines={1}>
             {item.userMessage}
           </ThemedText>
-          <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext" numberOfLines={2}>
+          <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground" numberOfLines={2}>
             {item.aiResponse}
           </ThemedText>
         </View>
@@ -223,7 +223,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
             {item.attachments.map((attachment, index) => (
               <View
                 key={index}
-                className="bg-light-primary dark:bg-dark-primary rounded-lg px-2.5 py-1.5 flex-row items-center gap-2"
+                className="bg-background dark:bg-darkBackground rounded-lg px-2.5 py-1.5 flex-row items-center gap-2"
               >
                 <Icon name={getAttachmentIcon(attachment.type) as any} size={14} />
                 <ThemedText className="text-xs" numberOfLines={1} style={{ maxWidth: 120 }}>
@@ -235,7 +235,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
         )}
       </View>
       {!isLast && (
-        <View className="h-px bg-light-secondary dark:bg-dark-secondary mb-4" />
+        <View className="h-px bg-muted dark:bg-darkMuted mb-4" />
       )}
     </View>
   );
@@ -251,21 +251,21 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
       <View className="px-4 pt-4 pb-3">
         {/* Search Bar and View Toggle */}
         <View className="flex-row items-center gap-2 mb-3">
-          <View className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2 flex-row items-center gap-2">
+          <View className="flex-1 bg-muted dark:bg-darkMuted rounded-xl px-3 py-2 flex-row items-center gap-2">
             <Icon name="Search" size={20} />
             <TextInput
               placeholder="Search"
-              placeholderTextColor={colors.textSecondary}
+              placeholderTextColor={colors.mutedForeground}
               value={searchText}
               onChangeText={setSearchText}
               className="flex-1 text-sm"
-              style={{ color: colors.text }}
+              style={{ color: colors.foreground }}
             />
           </View>
-          <View className="flex-row gap-1 bg-light-secondary dark:bg-dark-secondary rounded-xl p-1">
+          <View className="flex-row gap-1 bg-muted dark:bg-darkMuted rounded-xl p-1">
             <Pressable
               onPress={() => setViewMode('grid')}
-              className={`px-2 py-1.5 rounded-lg ${viewMode === 'grid' ? 'bg-dark-primary dark:bg-light-primary' : ''}`}
+              className={`px-2 py-1.5 rounded-lg ${viewMode === 'grid' ? 'bg-foreground dark:bg-darkForeground' : ''}`}
             >
               <Icon
                 name="LayoutGrid"
@@ -275,7 +275,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
             </Pressable>
             <Pressable
               onPress={() => setViewMode('list')}
-              className={`px-2 py-1.5 rounded-lg ${viewMode === 'list' ? 'bg-dark-primary dark:bg-light-primary' : ''}`}
+              className={`px-2 py-1.5 rounded-lg ${viewMode === 'list' ? 'bg-foreground dark:bg-darkForeground' : ''}`}
             >
               <Icon
                 name="List"
@@ -293,7 +293,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
               setFilterMenuVisible(!filterMenuVisible);
               setSortMenuVisible(false);
             }}
-            className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2.5 flex-row items-center justify-between"
+            className="flex-1 bg-muted dark:bg-darkMuted rounded-xl px-3 py-2.5 flex-row items-center justify-between"
           >
             <View className="flex-row items-center gap-2">
               <Icon name="Filter" size={20} />
@@ -311,7 +311,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
               setSortMenuVisible(!sortMenuVisible);
               setFilterMenuVisible(false);
             }}
-            className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2.5 flex-row items-center justify-between"
+            className="flex-1 bg-muted dark:bg-darkMuted rounded-xl px-3 py-2.5 flex-row items-center justify-between"
           >
             <View className="flex-row items-center gap-2">
               <Icon name="Clock" size={20} />
@@ -329,7 +329,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
         {/* Filter Menu */}
         {filterMenuVisible && (
           <View
-            className="absolute left-4 right-4 top-32 bg-light-primary dark:bg-dark-primary rounded-2xl overflow-hidden z-50"
+            className="absolute left-4 right-4 top-32 bg-background dark:bg-darkBackground rounded-2xl overflow-hidden z-50"
             style={shadowPresets.large}
           >
             {filterOptions.map((option) => (
@@ -351,7 +351,7 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
         {/* Sort Menu */}
         {sortMenuVisible && (
           <View
-            className="absolute right-4 top-32 w-[165px] bg-light-primary dark:bg-dark-primary rounded-2xl overflow-hidden z-50"
+            className="absolute right-4 top-32 w-[165px] bg-background dark:bg-darkBackground rounded-2xl overflow-hidden z-50"
             style={shadowPresets.large}
           >
             {sortOptions.map((option) => (

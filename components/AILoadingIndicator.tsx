@@ -17,13 +17,13 @@ export default function AILoadingIndicator({ status }: AILoadingIndicatorProps) 
   return (
     <View className="flex-row gap-3 items-center mb-4">
       {/* AI Avatar */}
-      <View className="w-9 h-9 rounded-full bg-dark-primary dark:bg-light-primary items-center justify-center flex-shrink-0">
-        <View className="w-4.5 h-4.5 rounded-full bg-light-primary dark:bg-dark-primary" />
+      <View className="w-9 h-9 rounded-full bg-foreground dark:bg-darkForeground items-center justify-center flex-shrink-0">
+        <View className="w-4.5 h-4.5 rounded-full bg-background dark:bg-darkBackground" />
       </View>
 
       {/* Loading Message */}
       <View
-        className="bg-light-secondary dark:bg-dark-secondary rounded-2xl rounded-tl-sm px-4 py-2 flex-1"
+        className="bg-muted dark:bg-darkMuted rounded-2xl rounded-tl-sm px-4 py-2 flex-1"
         style={shadowPresets.medium}
       >
         <ThemedText className="text-sm leading-5 text-left">

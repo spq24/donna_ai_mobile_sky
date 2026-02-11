@@ -117,7 +117,7 @@ export default function AnimatedSidebar({
               transform: [{ translateX: translateX }],
             },
           ]}
-          className="bg-light-secondary dark:bg-dark-secondary"
+          className="bg-muted dark:bg-darkMuted"
         >
           <View className="flex-1 justify-between">
             {/* Top Section */}
@@ -125,8 +125,8 @@ export default function AnimatedSidebar({
               {/* Header */}
               <View className="flex-row items-center justify-between">
                 <View className="flex-row items-center gap-3 flex-1">
-                  <View className="w-8 h-8 rounded-full bg-dark-primary dark:bg-light-primary items-center justify-center">
-                    <View className="w-4 h-4 rounded-full bg-light-primary dark:bg-dark-primary" />
+                  <View className="w-8 h-8 rounded-full bg-foreground dark:bg-darkForeground items-center justify-center">
+                    <View className="w-4 h-4 rounded-full bg-background dark:bg-darkBackground" />
                   </View>
                   <ThemedText className="text-base font-normal">SkyAI</ThemedText>
                 </View>
@@ -188,7 +188,7 @@ export default function AnimatedSidebar({
                   <ThemedText className="text-sm font-normal">
                     {userName}
                   </ThemedText>
-                  <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                  <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                     {userEmail}
                   </ThemedText>
                 </View>

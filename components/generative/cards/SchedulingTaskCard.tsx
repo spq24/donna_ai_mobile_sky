@@ -58,7 +58,7 @@ export function SchedulingTaskCard({
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}
-        className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4 border-l-4 border-purple-500"
+        className="bg-muted dark:bg-darkMuted rounded-2xl p-4 border-l-4 border-purple-500"
       >
         {/* Header with AI badge */}
         <View className="flex-row items-center justify-between mb-2">
@@ -66,7 +66,7 @@ export function SchedulingTaskCard({
             <View className="w-6 h-6 rounded-full bg-purple-500 items-center justify-center">
               <Icon name="Bot" size={14} color="#fff" />
             </View>
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
               AI Scheduling Task
             </ThemedText>
           </View>
@@ -87,7 +87,7 @@ export function SchedulingTaskCard({
         {scheduling_task?.vendor_name && (
           <View className="flex-row items-center gap-2 mb-2">
             <Icon name="Building" size={14} />
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
               {scheduling_task.vendor_name}
             </ThemedText>
             {scheduling_task.vendor_category && (
@@ -101,7 +101,7 @@ export function SchedulingTaskCard({
           {scheduling_task?.requested_service && (
             <View className="flex-row items-center gap-1">
               <Icon name="FileText" size={14} />
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                 {scheduling_task.requested_service}
               </ThemedText>
             </View>
@@ -109,7 +109,7 @@ export function SchedulingTaskCard({
           {scheduling_task?.timing_preferences && (
             <View className="flex-row items-center gap-1">
               <Icon name="Clock" size={14} />
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                 {scheduling_task.timing_preferences}
               </ThemedText>
             </View>
@@ -122,7 +122,7 @@ export function SchedulingTaskCard({
   // Detail Mode - Expanded scheduling card
   if (mode === 'detail') {
     return (
-      <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4 border-l-4 border-purple-500">
+      <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4 border-l-4 border-purple-500">
         {/* Header */}
         <View className="flex-row items-center justify-between mb-4">
           <View className="flex-row items-center gap-2">
@@ -131,7 +131,7 @@ export function SchedulingTaskCard({
             </View>
             <View>
               <ThemedText className="text-sm font-medium">AI Scheduling</ThemedText>
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                 Task #{id}
               </ThemedText>
             </View>
@@ -146,7 +146,7 @@ export function SchedulingTaskCard({
 
         {/* Status */}
         <View className="flex-row items-center gap-2 mb-3">
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-24">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-24">
             Call Status
           </ThemedText>
           <View className={`rounded-full px-3 py-1 flex-row items-center gap-1 ${statusStyle.bg}`}>
@@ -161,7 +161,7 @@ export function SchedulingTaskCard({
         {scheduling_task?.vendor_name && (
           <>
             <View className="flex-row items-center gap-2 mb-3">
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-24">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-24">
                 Vendor
               </ThemedText>
               <View className="flex-row items-center gap-2">
@@ -172,7 +172,7 @@ export function SchedulingTaskCard({
 
             {scheduling_task.vendor_phone && (
               <View className="flex-row items-center gap-2 mb-3">
-                <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-24">
+                <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-24">
                   Phone
                 </ThemedText>
                 <View className="flex-row items-center gap-2">
@@ -184,7 +184,7 @@ export function SchedulingTaskCard({
 
             {scheduling_task.vendor_category && (
               <View className="flex-row items-center gap-2 mb-3">
-                <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-24">
+                <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-24">
                   Category
                 </ThemedText>
                 <Chip label={scheduling_task.vendor_category} size="sm" />
@@ -196,7 +196,7 @@ export function SchedulingTaskCard({
         {/* Service */}
         {scheduling_task?.requested_service && (
           <View className="flex-row items-center gap-2 mb-3">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-24">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-24">
               Service
             </ThemedText>
             <ThemedText className="text-sm">{scheduling_task.requested_service}</ThemedText>
@@ -206,7 +206,7 @@ export function SchedulingTaskCard({
         {/* Timing preferences */}
         {scheduling_task?.timing_preferences && (
           <View className="flex-row items-center gap-2 mb-3">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-24">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-24">
               Preferred Time
             </ThemedText>
             <ThemedText className="text-sm">{scheduling_task.timing_preferences}</ThemedText>
@@ -216,7 +216,7 @@ export function SchedulingTaskCard({
         {/* Description */}
         {description && (
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
               Notes
             </ThemedText>
             <ThemedText className="text-sm">{description}</ThemedText>
@@ -229,7 +229,7 @@ export function SchedulingTaskCard({
             <Icon name="Phone" size={16} color="#fff" />
             <ThemedText className="text-sm font-medium text-white">Call Now</ThemedText>
           </TouchableOpacity>
-          <TouchableOpacity className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-3 flex-row items-center justify-center gap-2">
+          <TouchableOpacity className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-3 flex-row items-center justify-center gap-2">
             <Icon name="Calendar" size={16} />
             <ThemedText className="text-sm font-medium">Reschedule</ThemedText>
           </TouchableOpacity>
@@ -240,7 +240,7 @@ export function SchedulingTaskCard({
 
   // Form mode not typical for scheduling cards, fallback to detail
   return (
-    <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+    <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
       <ThemedText>Scheduling Task #{id}</ThemedText>
     </View>
   );

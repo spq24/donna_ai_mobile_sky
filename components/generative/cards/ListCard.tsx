@@ -56,21 +56,21 @@ export function ListCard({
       <View className="flex-1 flex-row items-center justify-between">
         <ThemedText
           className={`text-sm ${
-            item.checked ? 'text-light-subtext dark:text-dark-subtext line-through' : ''
+            item.checked ? 'text-muted-foreground dark:text-darkMutedForeground line-through' : ''
           }`}
           numberOfLines={1}
         >
           {item.name}
         </ThemedText>
         {showDetails && item.quantity && (
-          <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+          <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
             {item.quantity}
           </ThemedText>
         )}
       </View>
       {showDetails && item.category && (
-        <View className="bg-light-primary dark:bg-dark-primary rounded-md px-2 py-0.5">
-          <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+        <View className="bg-background dark:bg-darkBackground rounded-md px-2 py-0.5">
+          <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
             {item.category}
           </ThemedText>
         </View>
@@ -86,7 +86,7 @@ export function ListCard({
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}
-        className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4"
+        className="bg-muted dark:bg-darkMuted rounded-2xl p-4"
       >
         {/* Header */}
         <View className="flex-row items-center justify-between mb-3">
@@ -98,14 +98,14 @@ export function ListCard({
               <ThemedText className="text-base font-semibold" numberOfLines={1}>
                 {name}
               </ThemedText>
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                 {checkedCount}/{item_count} completed
               </ThemedText>
             </View>
           </View>
           <View className="flex-row items-center gap-2">
             {is_shared && (
-              <View className="w-6 h-6 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+              <View className="w-6 h-6 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
                 <Icon name="Users" size={12} />
               </View>
             )}
@@ -114,7 +114,7 @@ export function ListCard({
         </View>
 
         {/* Progress bar */}
-        <View className="h-1 bg-light-primary dark:bg-dark-primary rounded-full mb-3 overflow-hidden">
+        <View className="h-1 bg-background dark:bg-darkBackground rounded-full mb-3 overflow-hidden">
           <View
             className="h-full bg-green-500 rounded-full"
             style={{ width: item_count > 0 ? `${(checkedCount / item_count) * 100}%` : '0%' }}
@@ -126,14 +126,14 @@ export function ListCard({
           <View>
             {displayItems.map((item) => renderListItem(item))}
             {has_more_items && (
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext mt-1">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground mt-1">
                 +{item_count - displayItems.length} more items
               </ThemedText>
             )}
           </View>
         ) : (
           <View className="py-2">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
               No items yet
             </ThemedText>
           </View>
@@ -144,7 +144,7 @@ export function ListCard({
 
   // Detail Mode - Full list with all items
   return (
-    <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+    <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
       {/* Header */}
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center gap-3">
@@ -153,7 +153,7 @@ export function ListCard({
           </View>
           <View>
             <ThemedText className="text-lg font-bold">{name}</ThemedText>
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
               {checkedCount} of {item_count} completed
             </ThemedText>
           </View>
@@ -164,7 +164,7 @@ export function ListCard({
       </View>
 
       {/* Progress bar */}
-      <View className="h-2 bg-light-primary dark:bg-dark-primary rounded-full mb-4 overflow-hidden">
+      <View className="h-2 bg-background dark:bg-darkBackground rounded-full mb-4 overflow-hidden">
         <View
           className="h-full bg-green-500 rounded-full"
           style={{ width: item_count > 0 ? `${(checkedCount / item_count) * 100}%` : '0%' }}
@@ -175,7 +175,7 @@ export function ListCard({
       <View className="flex-row items-center gap-2 mb-4">
         <Chip label={list_type} size="sm" />
         {is_shared && (
-          <View className="flex-row items-center gap-1 bg-light-primary dark:bg-dark-primary rounded-full px-2 py-0.5">
+          <View className="flex-row items-center gap-1 bg-background dark:bg-darkBackground rounded-full px-2 py-0.5">
             <Icon name="Users" size={12} />
             <ThemedText className="text-xs">Shared</ThemedText>
           </View>
@@ -192,8 +192,8 @@ export function ListCard({
           
           {/* Checked items */}
           {items.filter((item) => item.checked).length > 0 && (
-            <View className="mt-2 pt-2 border-t border-light-primary dark:border-dark-primary">
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext mb-2">
+            <View className="mt-2 pt-2 border-t border-border dark:border-darkBorder">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground mb-2">
                 Completed ({checkedCount})
               </ThemedText>
               {items
@@ -205,7 +205,7 @@ export function ListCard({
       ) : (
         <View className="py-8 items-center">
           <Icon name="List" size={32} />
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mt-2">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mt-2">
             No items in this list
           </ThemedText>
         </View>
@@ -218,7 +218,7 @@ export function ListCard({
       )}
 
       {/* Add item button */}
-      <TouchableOpacity className="mt-4 bg-light-primary dark:bg-dark-primary rounded-xl py-3 flex-row items-center justify-center gap-2">
+      <TouchableOpacity className="mt-4 bg-background dark:bg-darkBackground rounded-xl py-3 flex-row items-center justify-center gap-2">
         <Icon name="Plus" size={16} />
         <ThemedText className="text-sm font-medium">Add Item</ThemedText>
       </TouchableOpacity>

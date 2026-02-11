@@ -27,6 +27,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     loadUser();
   }, []);
 
+  // When API client gives up after 401 (e.g. refresh failed), clear auth state and send user to sign-in
+  useEffect(() => {
+    apiClient.setSessionExpiredHandler(() => {
+      setUser(null);
+      router.replace('/screens/sign-in');
+    });
+    return () => apiClient.setSessionExpiredHandler(null);
+  }, []);
+
   const loadUser = async () => {
     try {
       const storedUser = await storage.getUser();

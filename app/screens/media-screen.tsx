@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
 import MediaGrid from '../../components/MediaGrid';
 import ChatHeader from '../../components/ChatHeader';
 import ThemedText from '../../components/shared/ThemedText';
@@ -20,8 +21,17 @@ interface MediaScreenProps {
 }
 
 export default function MediaScreen({ onNavigateHome, onMenuPress }: MediaScreenProps = {}) {
+  const router = useRouter();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<MediaTab>('images');
+
+  const handleMenuPress = () => {
+    if (onMenuPress) {
+      onMenuPress();
+    } else {
+      onNavigateHome?.() ?? router.replace('/');
+    }
+  };
 
   // Mock data - in real app, this would come from storage/API
   const mockImages: MediaItem[] = [
@@ -57,7 +67,7 @@ export default function MediaScreen({ onNavigateHome, onMenuPress }: MediaScreen
   return (
     <View className="flex-1">
       <ChatHeader
-        onMenuPress={onMenuPress}
+        onMenuPress={handleMenuPress}
         userName={user?.full_name || 'User'}
         userAvatar={undefined}
       />
@@ -69,16 +79,16 @@ export default function MediaScreen({ onNavigateHome, onMenuPress }: MediaScreen
             onPress={() => setActiveTab('images')}
             className={`px-4 py-2 rounded-lg ${
               activeTab === 'images'
-                ? 'bg-dark-primary dark:bg-light-primary'
-                : 'bg-light-secondary dark:bg-dark-secondary'
+                ? 'bg-foreground dark:bg-darkForeground'
+                : 'bg-muted dark:bg-darkMuted'
             }`}
             style={activeTab === 'images' ? shadowPresets.small : undefined}
           >
             <ThemedText
               className={`text-sm ${
                 activeTab === 'images'
-                  ? 'text-light-primary dark:text-dark-primary font-medium'
-                  : 'text-light-subtext dark:text-dark-subtext'
+                  ? 'text-primary-foreground dark:text-darkPrimaryForeground font-medium'
+                  : 'text-muted-foreground dark:text-darkMutedForeground'
               }`}
             >
               Images
@@ -88,16 +98,16 @@ export default function MediaScreen({ onNavigateHome, onMenuPress }: MediaScreen
             onPress={() => setActiveTab('videos')}
             className={`px-4 py-2 rounded-lg ${
               activeTab === 'videos'
-                ? 'bg-dark-primary dark:bg-light-primary'
-                : 'bg-light-secondary dark:bg-dark-secondary'
+                ? 'bg-foreground dark:bg-darkForeground'
+                : 'bg-muted dark:bg-darkMuted'
             }`}
             style={activeTab === 'videos' ? shadowPresets.small : undefined}
           >
             <ThemedText
               className={`text-sm ${
                 activeTab === 'videos'
-                  ? 'text-light-primary dark:text-dark-primary font-medium'
-                  : 'text-light-subtext dark:text-dark-subtext'
+                  ? 'text-primary-foreground dark:text-darkPrimaryForeground font-medium'
+                  : 'text-muted-foreground dark:text-darkMutedForeground'
               }`}
             >
               Videos
@@ -108,9 +118,9 @@ export default function MediaScreen({ onNavigateHome, onMenuPress }: MediaScreen
         {/* Remove All Button */}
         <Pressable
           onPress={handleRemoveAll}
-          className="px-3 py-2 rounded-lg bg-light-secondary dark:bg-dark-secondary"
+          className="px-3 py-2 rounded-lg bg-muted dark:bg-darkMuted"
         >
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
             Remove All
           </ThemedText>
         </Pressable>

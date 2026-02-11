@@ -26,7 +26,7 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
 
   return (
     <AnimatedView
-      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      className="flex-1 bg-background dark:bg-darkBackground"
       animation="fadeIn"
       duration={350}
     >
@@ -45,23 +45,23 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
           {/* Header */}
           <View className="mb-4">
             <ThemedText className="text-2xl font-semibold">Header</ThemedText>
-            <View className="h-px bg-light-secondary dark:bg-dark-secondary mt-4" />
+            <View className="h-px bg-muted dark:bg-darkMuted mt-4" />
           </View>
 
           {/* Avatar Section */}
           <View className="mb-6">
             <View className="flex-row items-center justify-between mb-4">
               <View className="flex-row items-center gap-3">
-                <View className="w-10 h-10 rounded-full bg-light-secondary dark:bg-dark-secondary items-center justify-center">
+                <View className="w-10 h-10 rounded-full bg-muted dark:bg-darkMuted items-center justify-center">
                   <Icon name="User" size={24} />
                 </View>
                 <View>
                   <ThemedText className="text-sm font-medium">{fullName}</ThemedText>
-                  <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">{username}</ThemedText>
+                  <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">{username}</ThemedText>
                 </View>
               </View>
               <Pressable
-                className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2"
+                className="bg-muted dark:bg-darkMuted rounded-xl px-3 py-2"
                 style={shadowPresets.small}
               >
                 <ThemedText className="text-xs">Change avatar</ThemedText>
@@ -72,14 +72,14 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
           {/* Full Name */}
           <View className="mb-6">
             <ThemedText className="text-sm mb-2">Full Name</ThemedText>
-            <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2">
+            <View className="bg-muted dark:bg-darkMuted rounded-xl px-3 py-2">
               <TextInput
                 value={fullName}
                 onChangeText={setFullName}
                 className="text-sm"
-                style={{ color: colors.text }}
+                style={{ color: colors.foreground }}
                 placeholder="Enter full name"
-                placeholderTextColor={colors.textSecondary}
+                placeholderTextColor={colors.mutedForeground}
               />
             </View>
           </View>
@@ -87,14 +87,14 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
           {/* Username */}
           <View className="mb-6">
             <ThemedText className="text-sm mb-2">Username</ThemedText>
-            <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2">
+            <View className="bg-muted dark:bg-darkMuted rounded-xl px-3 py-2">
               <TextInput
                 value={username}
                 onChangeText={setUsername}
                 className="text-sm"
-                style={{ color: colors.text }}
+                style={{ color: colors.foreground }}
                 placeholder="Enter username"
-                placeholderTextColor={colors.textSecondary}
+                placeholderTextColor={colors.mutedForeground}
               />
             </View>
           </View>
@@ -102,14 +102,14 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
           {/* Email */}
           <View className="mb-6">
             <ThemedText className="text-sm mb-2">Email</ThemedText>
-            <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2">
+            <View className="bg-muted dark:bg-darkMuted rounded-xl px-3 py-2">
               <TextInput
                 value={email}
                 onChangeText={setEmail}
                 className="text-sm"
-                style={{ color: colors.text }}
+                style={{ color: colors.foreground }}
                 placeholder="Enter email"
-                placeholderTextColor={colors.textSecondary}
+                placeholderTextColor={colors.mutedForeground}
                 keyboardType="email-address"
                 autoCapitalize="none"
               />
@@ -119,17 +119,17 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
           {/* Action Buttons */}
           <View className="flex-row gap-2 mt-4">
             <Pressable
-              className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl py-2 items-center"
+              className="flex-1 bg-muted dark:bg-darkMuted rounded-xl py-2 items-center"
               onPress={onBack}
             >
               <ThemedText className="text-sm">Cancel</ThemedText>
             </Pressable>
             <Pressable
-              className="flex-1 bg-dark-primary dark:bg-light-primary rounded-xl py-2 items-center"
+              className="flex-1 bg-foreground dark:bg-darkForeground rounded-xl py-2 items-center"
               style={shadowPresets.small}
               onPress={() => setSaveModalVisible(true)}
             >
-              <ThemedText className="text-sm text-light-primary dark:text-dark-primary font-medium">
+              <ThemedText className="text-sm text-foreground dark:text-darkForeground font-medium">
                 Save Changes
               </ThemedText>
             </Pressable>
@@ -149,7 +149,7 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
           style={{ paddingHorizontal: 16 }}
         >
           <View
-            className="bg-light-primary dark:bg-dark-primary rounded-2xl w-full"
+            className="bg-background dark:bg-darkBackground rounded-2xl w-full"
             style={{ maxWidth: 343, padding: 16, ...shadowPresets.large }}
           >
             {/* Header */}
@@ -158,20 +158,20 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
             </View>
 
             {/* Message */}
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-6">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-6">
               Are you sure you want to save these changes to your account?
             </ThemedText>
 
             {/* Action Buttons */}
             <View className="flex-row gap-2">
               <Pressable
-                className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl py-2 items-center"
+                className="flex-1 bg-muted dark:bg-darkMuted rounded-xl py-2 items-center"
                 onPress={() => setSaveModalVisible(false)}
               >
                 <ThemedText className="text-sm">Cancel</ThemedText>
               </Pressable>
               <Pressable
-                className="flex-1 bg-dark-primary dark:bg-light-primary rounded-xl py-2 items-center"
+                className="flex-1 bg-foreground dark:bg-darkForeground rounded-xl py-2 items-center"
                 style={shadowPresets.small}
                 onPress={() => {
                   setSaveModalVisible(false);
@@ -185,7 +185,7 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
                   }, 500);
                 }}
               >
-                <ThemedText className="text-sm text-light-primary dark:text-dark-primary font-medium">
+                <ThemedText className="text-sm text-foreground dark:text-darkForeground font-medium">
                   Save Changes
                 </ThemedText>
               </Pressable>
@@ -197,7 +197,7 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
       {/* Success Notification Banner */}
       {successNotificationVisible && (
         <View
-          className="absolute left-0 right-0 bg-light-secondary dark:bg-dark-secondary mx-4 rounded-xl"
+          className="absolute left-0 right-0 bg-muted dark:bg-darkMuted mx-4 rounded-xl"
           style={{
             top: insets.top + 64 + 8, // Below header
             paddingVertical: 12,

@@ -147,7 +147,7 @@ export function GenerativeUIList({
         </ScrollView>
         <View className="flex-row items-center gap-1 mt-2 ml-1">
           <Icon name="ArrowRightLeft" size={10} color="#999" />
-          <ThemedText className="text-[10px] text-light-subtext dark:text-dark-subtext italic">
+          <ThemedText className="text-[10px] text-muted-foreground dark:text-darkMutedForeground italic">
             Swipe to see all {components.length} options
           </ThemedText>
         </View>
@@ -175,7 +175,7 @@ export function GenerativeUIList({
       {hasMore && !showAll && (
         <TouchableOpacity 
           onPress={() => setShowAll(true)}
-          className="bg-light-primary dark:bg-dark-primary rounded-xl py-2 items-center border border-light-border dark:border-dark-border"
+          className="bg-background dark:bg-darkBackground rounded-xl py-2 items-center border border-light-border dark:border-dark-border"
         >
           <View className="flex-row items-center gap-2">
             <ThemedText className="text-sm font-medium">
@@ -192,7 +192,7 @@ export function GenerativeUIList({
           className="py-2 items-center"
         >
           <View className="flex-row items-center gap-2">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
               Show less
             </ThemedText>
             <Icon name="ChevronUp" size={16} color="#999" />

@@ -84,7 +84,7 @@ export default function ExpandableChatInput({
   return (
     <View className="px-4 pb-2" style={styles.outerContainer}>
       <View
-        className="bg-light-primary dark:bg-dark-primary border border-light-secondary dark:border-dark-secondary rounded-2xl"
+        className="bg-background dark:bg-darkBackground border border-border dark:border-darkBorder rounded-2xl"
         style={styles.inputWrapper}
       >
         {/* Attached Files and Images Preview */}
@@ -129,7 +129,7 @@ export default function ExpandableChatInput({
                 {
                   minHeight: 20,
                   maxHeight: 180,
-                  color: colors.text,
+                  color: colors.foreground,
                 },
               ]}
             />
@@ -138,7 +138,7 @@ export default function ExpandableChatInput({
               value={inputText}
               onChangeText={handleChangeText}
               multiline
-              className="text-sm text-light-text dark:text-dark-text min-h-[20px] max-h-[180px]"
+              className="text-sm text-foreground dark:text-darkForeground min-h-[20px] max-h-[180px]"
               placeholder={displayPlaceholder}
               placeholderTextColor={colors.placeholder}
               style={{
@@ -158,7 +158,7 @@ export default function ExpandableChatInput({
           {/* Plus Button */}
           <Pressable
             onPress={onPlusPress}
-            className="w-9 h-9 rounded-full border border-light-secondary dark:border-dark-secondary items-center justify-center bg-light-primary dark:bg-dark-primary"
+            className="w-9 h-9 rounded-full border border-border dark:border-darkBorder items-center justify-center bg-background dark:bg-darkBackground"
           >
             <Icon name="Plus" size={20} />
           </Pressable>
@@ -170,7 +170,7 @@ export default function ExpandableChatInput({
                 // Handle image picker
                 console.log('Open image picker');
               }}
-              className="h-7 px-3 rounded-lg bg-light-secondary dark:bg-dark-secondary flex-row items-center gap-2"
+              className="h-7 px-3 rounded-lg bg-muted dark:bg-darkMuted flex-row items-center gap-2"
             >
               <Icon name="Image" size={14} />
               <Pressable
@@ -191,7 +191,7 @@ export default function ExpandableChatInput({
           {/* Microphone Button */}
           <Pressable
             onPress={onMicPress}
-            className="w-9 h-9 rounded-full border border-light-secondary dark:border-dark-secondary items-center justify-center bg-light-primary dark:bg-dark-primary"
+            className="w-9 h-9 rounded-full border border-border dark:border-darkBorder items-center justify-center bg-background dark:bg-darkBackground"
           >
             <Icon name="Mic" size={20} />
           </Pressable>
@@ -200,7 +200,7 @@ export default function ExpandableChatInput({
           {imageMode && onSettingsPress && (
             <Pressable
               onPress={onSettingsPress}
-              className="w-9 h-9 rounded-full border border-light-secondary dark:border-dark-secondary items-center justify-center bg-light-primary dark:bg-dark-primary"
+              className="w-9 h-9 rounded-full border border-border dark:border-darkBorder items-center justify-center bg-background dark:bg-darkBackground"
             >
               <Icon name="Settings" size={20} />
             </Pressable>
@@ -209,7 +209,7 @@ export default function ExpandableChatInput({
           {/* Send Button */}
           <Pressable
             onPress={handleSend}
-            className="w-9 h-9 rounded-full items-center justify-center bg-dark-primary dark:bg-light-primary"
+            className="w-9 h-9 rounded-full items-center justify-center bg-foreground dark:bg-darkForeground"
           >
             <Icon name="ArrowUp" size={20} color="white" />
           </Pressable>
@@ -221,7 +221,7 @@ export default function ExpandableChatInput({
         className="h-8.5 items-center justify-end"
         style={{ paddingBottom: insets.bottom + 8 }}
       >
-        <View className="w-33.5 h-1.25 rounded-full bg-dark-primary dark:bg-light-primary" />
+        <View className="w-33.5 h-1.25 rounded-full bg-foreground dark:bg-darkForeground" />
       </View>
     </View>
   );

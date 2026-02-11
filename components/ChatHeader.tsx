@@ -26,7 +26,8 @@ export default function ChatHeader({
       {/* Menu Button */}
       <Pressable
         onPress={onMenuPress}
-        className="w-10 h-10 rounded-full border border-light-secondary dark:border-dark-secondary items-center justify-center bg-light-primary dark:bg-dark-primary"
+        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+        className="w-10 h-10 rounded-full border border-border dark:border-darkBorder items-center justify-center bg-background dark:bg-darkBackground"
       >
         <Icon name="Menu" size={20} />
       </Pressable>

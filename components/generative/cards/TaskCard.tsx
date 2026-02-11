@@ -72,14 +72,14 @@ export function TaskCard({
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}
-        className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4"
+        className="bg-muted dark:bg-darkMuted rounded-2xl p-4"
       >
         {/* Tags row */}
         {tags.length > 0 && (
           <View className="flex-row flex-wrap gap-1 mb-2">
             {tags.slice(0, 3).map((tag, idx) => (
-              <View key={idx} className="bg-light-primary dark:bg-dark-primary rounded-md px-2 py-0.5">
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+              <View key={idx} className="bg-background dark:bg-darkBackground rounded-md px-2 py-0.5">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   {tag}
                 </ThemedText>
               </View>
@@ -94,7 +94,7 @@ export function TaskCard({
 
         {/* Description snippet */}
         {description && (
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-3" numberOfLines={2}>
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-3" numberOfLines={2}>
             {description}
           </ThemedText>
         )}
@@ -120,7 +120,7 @@ export function TaskCard({
             {due_date && (
               <View className="flex-row items-center gap-1">
                 <Icon name="Calendar" size={14} />
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   {formatDate(due_date)}
                 </ThemedText>
               </View>
@@ -128,7 +128,7 @@ export function TaskCard({
             {attachments_count > 0 && (
               <View className="flex-row items-center gap-1">
                 <Icon name="Paperclip" size={14} />
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   {attachments_count}
                 </ThemedText>
               </View>
@@ -136,7 +136,7 @@ export function TaskCard({
             {comments_count > 0 && (
               <View className="flex-row items-center gap-1">
                 <Icon name="MessageCircle" size={14} />
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   {comments_count}
                 </ThemedText>
               </View>
@@ -150,12 +150,12 @@ export function TaskCard({
   // Detail Mode - Expanded card
   if (mode === 'detail') {
     return (
-      <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+      <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
         {/* Header with close button */}
         <View className="flex-row items-center justify-between mb-4">
           <View className="flex-row items-center gap-2">
             <Icon name="CheckSquare" size={20} />
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
               Task #{id}
             </ThemedText>
           </View>
@@ -169,7 +169,7 @@ export function TaskCard({
 
         {/* Status row */}
         <View className="flex-row items-center gap-2 mb-3">
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-20">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-20">
             Status
           </ThemedText>
           <View className={`rounded-full px-3 py-1 ${statusStyle.bg}`}>
@@ -181,7 +181,7 @@ export function TaskCard({
 
         {/* Priority row */}
         <View className="flex-row items-center gap-2 mb-3">
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-20">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-20">
             Priority
           </ThemedText>
           <View className={`rounded-full px-3 py-1 ${priorityStyle.bg}`}>
@@ -194,7 +194,7 @@ export function TaskCard({
         {/* Due date row */}
         {due_date && (
           <View className="flex-row items-center gap-2 mb-3">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-20">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-20">
               Due Date
             </ThemedText>
             <View className="flex-row items-center gap-2">
@@ -206,7 +206,7 @@ export function TaskCard({
 
         {/* Assignee row */}
         <View className="flex-row items-center gap-2 mb-3">
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext w-20">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground w-20">
             Assignee
           </ThemedText>
           <View className="flex-row items-center gap-2">
@@ -229,7 +229,7 @@ export function TaskCard({
         {/* Tags row */}
         {tags.length > 0 && (
           <View className="mb-3">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Tags
             </ThemedText>
             <View className="flex-row flex-wrap gap-2">
@@ -243,7 +243,7 @@ export function TaskCard({
         {/* Description */}
         {description && (
           <View className="mb-3">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Description
             </ThemedText>
             <ThemedText className="text-sm">{description}</ThemedText>
@@ -254,7 +254,7 @@ export function TaskCard({
         <View className="flex-row gap-3 mt-4">
           <TouchableOpacity
             onPress={() => onModeChange?.('form')}
-            className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-2 items-center"
+            className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-2 items-center"
           >
             <ThemedText className="text-sm font-medium">Edit</ThemedText>
           </TouchableOpacity>
@@ -270,7 +270,7 @@ export function TaskCard({
 
   // Form Mode - Editable card
   return (
-    <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+    <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
       {/* Header */}
       <View className="flex-row items-center justify-between mb-4">
         <ThemedText className="text-lg font-bold">Edit Task</ThemedText>
@@ -281,11 +281,11 @@ export function TaskCard({
 
       {/* Title input */}
       <View className="mb-3">
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
           Title
         </ThemedText>
         <TextInput
-          className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+          className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
           defaultValue={title}
           placeholder="Task title"
           placeholderTextColor="#999"
@@ -294,11 +294,11 @@ export function TaskCard({
 
       {/* Description input */}
       <View className="mb-3">
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
           Description
         </ThemedText>
         <TextInput
-          className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+          className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
           defaultValue={description || ''}
           placeholder="Description"
           placeholderTextColor="#999"
@@ -310,7 +310,7 @@ export function TaskCard({
 
       {/* Priority selector */}
       <View className="mb-3">
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
           Priority
         </ThemedText>
         <View className="flex-row gap-2">
@@ -320,14 +320,14 @@ export function TaskCard({
               className={`flex-1 rounded-xl py-2 items-center ${
                 priority.toLowerCase() === p
                   ? priorityColors[p].bg
-                  : 'bg-light-primary dark:bg-dark-primary'
+                  : 'bg-background dark:bg-darkBackground'
               }`}
             >
               <ThemedText
                 className={`text-sm ${
                   priority.toLowerCase() === p
                     ? priorityColors[p].text
-                    : 'text-light-subtext dark:text-dark-subtext'
+                    : 'text-muted-foreground dark:text-darkMutedForeground'
                 }`}
               >
                 {p.charAt(0).toUpperCase() + p.slice(1)}
@@ -341,7 +341,7 @@ export function TaskCard({
       <View className="flex-row gap-3 mt-4">
         <TouchableOpacity
           onPress={() => onModeChange?.('detail')}
-          className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-3 items-center"
+          className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-3 items-center"
         >
           <ThemedText className="text-sm font-medium">Cancel</ThemedText>
         </TouchableOpacity>

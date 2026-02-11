@@ -22,7 +22,7 @@ export default function PlusMenu({ visible, items, onClose }: PlusMenuProps) {
   return (
     <View className="absolute bottom-full left-4 mb-2">
       <View
-        className="bg-light-primary dark:bg-dark-primary rounded-2xl p-2 min-w-[203]"
+        className="bg-background dark:bg-darkBackground rounded-2xl p-2 min-w-[203]"
         style={shadowPresets.large}
       >
         {items.map((item, index) => (

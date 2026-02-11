@@ -9,7 +9,7 @@ interface ThemedTextProps extends TextProps {
 export default function ThemedText({ children, className, ...props }: ThemedTextProps) {
   return (
     <Text
-      className={`text-black dark:text-white ${className || ''}`}
+      className={`text-foreground dark:text-darkForeground ${className || ''}`}
       {...props}
     >
       {children}

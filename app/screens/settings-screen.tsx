@@ -109,10 +109,10 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
 
         {/* Account Settings Section */}
         <View className="mb-6">
-          <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext mb-2 px-3">
+          <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground mb-2 px-3">
             Account Settings
           </ThemedText>
-          <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl overflow-hidden">
+          <View className="bg-muted dark:bg-darkMuted rounded-2xl overflow-hidden">
             {renderSettingsItem('User', 'Account', () => handleNavigateToScreen('account'))}
             {renderSettingsItem('Wrench', 'Personalization', () => handleNavigateToScreen('personalization'))}
             {renderSettingsItem('Bell', 'Notifications', () => handleNavigateToScreen('notifications'))}
@@ -125,16 +125,16 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
 
         {/* Artificial Intelligence Section */}
         <View className="mb-6">
-          <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext mb-2 px-3">
+          <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground mb-2 px-3">
             Artificial Intelligence
           </ThemedText>
-          <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl overflow-hidden">
+          <View className="bg-muted dark:bg-darkMuted rounded-2xl overflow-hidden">
             {renderSettingsItem(
               'Moon',
               'AI Model',
               () => handleNavigateToScreen('aiModel'),
               <View className="flex-row items-center gap-2">
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">System</ThemedText>
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">System</ThemedText>
                 <Icon name="ChevronRight" size={16} />
               </View>
             )}
@@ -143,7 +143,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
               'Image Generate Model',
               () => handleNavigateToScreen('imageGenerateModel'),
               <View className="flex-row items-center gap-2">
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Auto Detection</ThemedText>
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Auto Detection</ThemedText>
                 <Icon name="ChevronRight" size={16} />
               </View>
             )}
@@ -153,16 +153,16 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
 
         {/* App Section */}
         <View className="mb-6">
-          <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext mb-2 px-3">
+          <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground mb-2 px-3">
             App
           </ThemedText>
-          <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl overflow-hidden">
+          <View className="bg-muted dark:bg-darkMuted rounded-2xl overflow-hidden">
             {renderSettingsItem(
               'Moon',
               'Appearance',
               () => handleNavigateToScreen('appearance'),
               <View className="flex-row items-center gap-2">
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">System</ThemedText>
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">System</ThemedText>
                 <Icon name="ChevronRight" size={16} />
               </View>
             )}
@@ -171,7 +171,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
               'App Language',
               () => handleNavigateToScreen('appLanguage'),
               <View className="flex-row items-center gap-2">
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Auto Detection</ThemedText>
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Auto Detection</ThemedText>
                 <Icon name="ChevronRight" size={16} />
               </View>
             )}
@@ -180,7 +180,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
               'Spoken Language',
               () => console.log('Spoken Language'),
               <View className="flex-row items-center gap-2">
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Auto Detection</ThemedText>
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Auto Detection</ThemedText>
                 <Icon name="ChevronRight" size={16} />
               </View>
             )}
@@ -189,7 +189,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
               'Voice',
               () => handleNavigateToScreen('voice'),
               <View className="flex-row items-center gap-2">
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Willow</ThemedText>
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Willow</ThemedText>
                 <Icon name="ChevronRight" size={16} />
               </View>
             )}
@@ -199,10 +199,10 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
 
         {/* About Section */}
         <View className="mb-6">
-          <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext mb-2 px-3">
+          <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground mb-2 px-3">
             About
           </ThemedText>
-          <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl overflow-hidden">
+          <View className="bg-muted dark:bg-darkMuted rounded-2xl overflow-hidden">
             {renderSettingsItem('Info', 'Support', () => console.log('Support'), undefined, false)}
             {renderSettingsItem('FileText', 'Terms of Use', () => console.log('Terms of Use'), undefined, false)}
             {renderSettingsItem('Lock', 'Privacy Policy', () => console.log('Privacy Policy'), undefined, false)}
@@ -212,7 +212,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
 
         {/* Logout and Delete Account */}
         <View className="mb-6">
-          <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl overflow-hidden">
+          <View className="bg-muted dark:bg-darkMuted rounded-2xl overflow-hidden">
             {renderSettingsItem('LogOut', 'Logout', () => setLogoutModalVisible(true), undefined, false)}
             {renderSettingsItem('Trash2', 'Delete Account', () => setDeleteAccountModalVisible(true), undefined, false)}
           </View>
@@ -249,7 +249,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
           style={{ paddingHorizontal: 16 }}
         >
           <View
-            className="bg-light-primary dark:bg-dark-primary rounded-2xl w-full"
+            className="bg-background dark:bg-darkBackground rounded-2xl w-full"
             style={{ maxWidth: 327, padding: 16, ...shadowPresets.large }}
           >
             {/* Header */}
@@ -258,7 +258,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
             </View>
 
             {/* Message */}
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-6">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-6">
               Are you sure you want to sign out? You'll need to sign in again to access your account.
             </ThemedText>
 
@@ -271,7 +271,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
                 <ThemedText className="text-sm">Cancel</ThemedText>
               </Pressable>
               <Pressable
-                className="bg-dark-primary dark:bg-light-primary rounded-xl px-4 py-2"
+                className="bg-foreground dark:bg-darkForeground rounded-xl px-4 py-2"
                 style={shadowPresets.small}
                 onPress={async () => {
                   setLogoutModalVisible(false);
@@ -283,7 +283,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
                   }, 1000);
                 }}
               >
-                <ThemedText className="text-sm text-light-primary dark:text-dark-primary font-medium">
+                <ThemedText className="text-sm text-foreground dark:text-darkForeground font-medium">
                   Sign Out
                 </ThemedText>
               </Pressable>
@@ -304,7 +304,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
           style={{ paddingHorizontal: 16 }}
         >
           <View
-            className="bg-light-primary dark:bg-dark-primary rounded-2xl w-full"
+            className="bg-background dark:bg-darkBackground rounded-2xl w-full"
             style={{ maxWidth: 327, padding: 16, ...shadowPresets.large }}
           >
             {/* Header */}
@@ -314,10 +314,10 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
 
             {/* Information */}
             <View className="mb-6">
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-4">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-4">
                 Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed.
               </ThemedText>
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-4">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-4">
                 This will permanently delete:
                 {'\n'}• All your conversations and chat history
                 {'\n'}• Your account settings and preferences
@@ -361,7 +361,7 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
       {/* Logout Success Notification Banner */}
       {logoutNotificationVisible && (
         <View
-          className="absolute left-0 right-0 bg-light-secondary dark:bg-dark-secondary mx-4 rounded-xl"
+          className="absolute left-0 right-0 bg-muted dark:bg-darkMuted mx-4 rounded-xl"
           style={{
             top: insets.top + 64 + 8, // Below header
             paddingVertical: 12,

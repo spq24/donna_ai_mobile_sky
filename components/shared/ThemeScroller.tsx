@@ -28,7 +28,7 @@ function ThemedScrollerInner(
       style={{ width: "100%" }}
       bounces={false}
       overScrollMode='never'
-      className={`bg-light-primary dark:bg-dark-primary flex-1 px-global ${className || ''}`}
+      className={`bg-background dark:bg-darkBackground flex-1 px-global ${className || ''}`}
       onScroll={onScroll}
       scrollEventThrottle={scrollEventThrottle}
       contentContainerStyle={[

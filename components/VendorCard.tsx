@@ -23,10 +23,10 @@ export default function VendorCard({
     <Pressable
       onPress={onPress}
       disabled={disabled}
-      className={`bg-light-secondary dark:bg-dark-secondary border rounded-2xl p-4 w-64 ${
+      className={`bg-muted dark:bg-darkMuted border rounded-2xl p-4 w-64 ${
         isSelected
           ? 'border-light-primary dark:border-dark-accent'
-          : 'border-light-secondary dark:border-dark-secondary'
+          : 'border-border dark:border-darkBorder'
       }`}
       style={shadowPresets.medium}
     >
@@ -44,15 +44,15 @@ export default function VendorCard({
       </View>
 
       <View className="flex-row items-center gap-1.5 mb-1">
-        <Icon name="MapPin" size={14} className="text-light-subtext dark:text-dark-subtext" />
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext flex-1" numberOfLines={1}>
+        <Icon name="MapPin" size={14} className="text-muted-foreground dark:text-darkMutedForeground" />
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground flex-1" numberOfLines={1}>
           {vendor.address || 'No address provided'}
         </ThemedText>
       </View>
 
       <View className="flex-row items-center gap-1.5 mb-3">
-        <Icon name="Phone" size={14} className="text-light-subtext dark:text-dark-subtext" />
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+        <Icon name="Phone" size={14} className="text-muted-foreground dark:text-darkMutedForeground" />
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
           {vendor.phone_number}
         </ThemedText>
       </View>
@@ -64,8 +64,8 @@ export default function VendorCard({
           </ThemedText>
         </View>
         {vendor.subcategory && (
-          <View className="bg-light-secondary dark:bg-dark-secondary border border-light-primary/20 dark:border-dark-primary/30 px-2 py-1 rounded-md">
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+          <View className="bg-muted dark:bg-darkMuted border border-light-primary/20 dark:border-dark-primary/30 px-2 py-1 rounded-md">
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
               {vendor.subcategory.name}
             </ThemedText>
           </View>

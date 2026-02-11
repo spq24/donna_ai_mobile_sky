@@ -35,18 +35,18 @@ export default function AIMessageBubble({
   return (
     <View className="flex-row gap-3 items-start mb-4">
       {/* AI Avatar */}
-      <View className="w-9 h-9 rounded-full bg-dark-primary dark:bg-light-primary items-center justify-center flex-shrink-0">
-        <View className="w-4.5 h-4.5 rounded-full bg-light-primary dark:bg-dark-primary" />
+      <View className="w-9 h-9 rounded-full bg-foreground dark:bg-darkForeground items-center justify-center flex-shrink-0">
+        <View className="w-4.5 h-4.5 rounded-full bg-background dark:bg-darkBackground" />
       </View>
 
       {/* Message Content */}
       <View className="flex-1 flex-col gap-3">
         {/* Message Bubble */}
         <View
-          className="bg-light-secondary dark:bg-dark-secondary rounded-2xl rounded-tl-sm px-4 py-4"
+          className="bg-muted dark:bg-darkMuted rounded-2xl rounded-tl-sm px-4 py-4"
           style={shadowPresets.medium}
         >
-          <ThemedText className={`text-sm leading-5 text-left whitespace-pre-wrap ${isRetrying ? 'text-light-subtext dark:text-dark-subtext' : ''}`}>
+          <ThemedText className={`text-sm leading-5 text-left whitespace-pre-wrap ${isRetrying ? 'text-muted-foreground dark:text-darkMutedForeground' : ''}`}>
             {content}
           </ThemedText>
         </View>
@@ -67,7 +67,7 @@ export default function AIMessageBubble({
                   color={currentVariantIndex === 0 ? undefined : undefined}
                 />
               </Pressable>
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                 {((currentVariantIndex || 0) + 1)}/{variantCount}
               </ThemedText>
               <Pressable

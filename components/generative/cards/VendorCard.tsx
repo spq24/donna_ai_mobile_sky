@@ -45,14 +45,14 @@ export function VendorCard({
   if (mode === 'view') {
     return (
       <View
-        className={`bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4 ${
+        className={`bg-muted dark:bg-darkMuted rounded-2xl p-4 ${
           isSelected ? 'border-2 border-green-500' : ''
         }`}
       >
         <TouchableOpacity onPress={handlePress} activeOpacity={0.7}>
           <View className="flex-row items-start gap-3">
             {/* Vendor Icon */}
-            <View className="w-12 h-12 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+            <View className="w-12 h-12 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
               <Icon name="Building2" size={24} />
             </View>
             
@@ -73,7 +73,7 @@ export function VendorCard({
               
               {/* Category/Subcategory */}
               {(category || subcategory) && (
-                <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
                   {subcategory || category}
                 </ThemedText>
               )}
@@ -82,7 +82,7 @@ export function VendorCard({
               {phone && (
                 <View className="flex-row items-center gap-1 mt-1">
                   <Icon name="Phone" size={12} />
-                  <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+                  <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
                     {phone}
                   </ThemedText>
                 </View>
@@ -92,7 +92,7 @@ export function VendorCard({
               {address && (
                 <View className="flex-row items-center gap-1 mt-0.5">
                   <Icon name="MapPin" size={12} />
-                  <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext" numberOfLines={1}>
+                  <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground" numberOfLines={1}>
                     {address}
                   </ThemedText>
                 </View>
@@ -127,11 +127,11 @@ export function VendorCard({
   // Detail Mode - Full vendor information
   if (mode === 'detail') {
     return (
-      <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+      <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
         {/* Header */}
         <View className="flex-row items-start justify-between mb-4">
           <View className="flex-row items-center gap-3">
-            <View className="w-14 h-14 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+            <View className="w-14 h-14 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
               <Icon name="Building2" size={28} />
             </View>
             <View className="flex-1">
@@ -142,7 +142,7 @@ export function VendorCard({
                 )}
               </View>
               {(category || subcategory) && (
-                <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
                   {[subcategory, category].filter(Boolean).join(' • ')}
                 </ThemedText>
               )}
@@ -158,12 +158,12 @@ export function VendorCard({
           {/* Phone */}
           {phone && (
             <View className="flex-row items-center gap-3">
-              <View className="w-8 h-8 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+              <View className="w-8 h-8 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
                 <Icon name="Phone" size={16} />
               </View>
               <View className="flex-1">
                 <ThemedText className="text-sm">{phone}</ThemedText>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   Phone (AI will call this number)
                 </ThemedText>
               </View>
@@ -173,12 +173,12 @@ export function VendorCard({
           {/* Address */}
           {address && (
             <View className="flex-row items-center gap-3">
-              <View className="w-8 h-8 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+              <View className="w-8 h-8 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
                 <Icon name="MapPin" size={16} />
               </View>
               <View className="flex-1">
                 <ThemedText className="text-sm">{address}</ThemedText>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   Address
                 </ThemedText>
               </View>
@@ -188,12 +188,12 @@ export function VendorCard({
           {/* Service Type */}
           {service_type && (
             <View className="flex-row items-center gap-3">
-              <View className="w-8 h-8 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+              <View className="w-8 h-8 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
                 <Icon name="Calendar" size={16} />
               </View>
               <View className="flex-1">
                 <ThemedText className="text-sm">{service_type}</ThemedText>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   Service Type
                 </ThemedText>
               </View>
@@ -203,8 +203,8 @@ export function VendorCard({
 
         {/* Notes */}
         {notes && (
-          <View className="p-3 bg-light-primary dark:bg-dark-primary rounded-xl mb-4">
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext mb-1">
+          <View className="p-3 bg-background dark:bg-darkBackground rounded-xl mb-4">
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground mb-1">
               Notes
             </ThemedText>
             <ThemedText className="text-sm">{notes}</ThemedText>
@@ -215,7 +215,7 @@ export function VendorCard({
         <View className="flex-row gap-3">
           <TouchableOpacity
             onPress={() => onModeChange?.('form')}
-            className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-3 flex-row items-center justify-center gap-2"
+            className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-3 flex-row items-center justify-center gap-2"
           >
             <Icon name="Edit" size={16} />
             <ThemedText className="text-sm font-medium">Edit</ThemedText>
@@ -241,7 +241,7 @@ export function VendorCard({
 
   // Form Mode - Add/Edit vendor
   return (
-    <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+    <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
       {/* Header */}
       <View className="flex-row items-center justify-between mb-4">
         <ThemedText className="text-lg font-bold">
@@ -255,11 +255,11 @@ export function VendorCard({
       {/* Form fields */}
       <View className="gap-3">
         <View>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
             Name *
           </ThemedText>
           <TextInput
-            className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+            className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
             defaultValue={name || ''}
             placeholder="Vendor name (e.g., Dr. Smith's Office)"
             placeholderTextColor="#999"
@@ -267,11 +267,11 @@ export function VendorCard({
         </View>
 
         <View>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
             Phone Number *
           </ThemedText>
           <TextInput
-            className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+            className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
             defaultValue={phone || ''}
             placeholder="Phone number to call"
             placeholderTextColor="#999"
@@ -280,11 +280,11 @@ export function VendorCard({
         </View>
 
         <View>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
             Category
           </ThemedText>
           <TextInput
-            className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+            className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
             defaultValue={category || ''}
             placeholder="e.g., Healthcare, Beauty, Automotive"
             placeholderTextColor="#999"
@@ -292,11 +292,11 @@ export function VendorCard({
         </View>
 
         <View>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
             Address
           </ThemedText>
           <TextInput
-            className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+            className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
             defaultValue={address || ''}
             placeholder="Address (optional)"
             placeholderTextColor="#999"
@@ -304,11 +304,11 @@ export function VendorCard({
         </View>
 
         <View>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
             Notes
           </ThemedText>
           <TextInput
-            className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+            className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
             defaultValue={notes || ''}
             placeholder="Any special instructions..."
             placeholderTextColor="#999"
@@ -322,7 +322,7 @@ export function VendorCard({
       <View className="flex-row gap-3 mt-4">
         <TouchableOpacity
           onPress={() => onModeChange?.('view')}
-          className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-3 items-center"
+          className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-3 items-center"
         >
           <ThemedText className="text-sm font-medium">Cancel</ThemedText>
         </TouchableOpacity>

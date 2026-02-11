@@ -24,7 +24,7 @@ export default function GreetingSection({
     <View className="flex-col items-center justify-center gap-8 pt-8">
       {/* Avatar with animated background */}
       <View className="w-16 h-16 rounded-full bg-white dark:bg-dark-secondary items-center justify-center shadow-md overflow-hidden" style={{ elevation: 4 }}>
-        <View className="absolute inset-0 bg-light-secondary dark:bg-dark-secondary opacity-50" />
+        <View className="absolute inset-0 bg-muted dark:bg-darkMuted opacity-50" />
         <Icon name="Sparkle" size={38} className="text-dark-primary dark:text-light-primary" />
       </View>
 
@@ -45,21 +45,21 @@ export default function GreetingSection({
           icon="Plus"
           iconSize={20}
           onPress={() => onChipPress?.('Schedule a Doctor Appointment Next Week')}
-          className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-full px-3 py-2"
+          className="bg-muted dark:bg-darkMuted border border-border dark:border-darkBorder rounded-full px-3 py-2"
         />
         <Chip
           label="Schedule Dentist"
           icon="Calendar"
           iconSize={20}
           onPress={() => onChipPress?.('Schedule a Dentist Appointment Next Week')}
-          className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-full px-3 py-2"
+          className="bg-muted dark:bg-darkMuted border border-border dark:border-darkBorder rounded-full px-3 py-2"
         />
         <Chip
           label="Restaurant Table"
           icon="Coffee"
           iconSize={20}
           onPress={() => onChipPress?.('Schedule a restaurant reservation for 2 people next week')}
-          className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-full px-3 py-2"
+          className="bg-muted dark:bg-darkMuted border border-border dark:border-darkBorder rounded-full px-3 py-2"
         />
       </View>
     </View>

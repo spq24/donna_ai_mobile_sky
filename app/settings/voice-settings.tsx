@@ -45,7 +45,7 @@ export default function VoiceSettings({ onBack }: VoiceSettingsProps) {
       <Pressable
         key={voice.code}
         onPress={() => handleSelectVoice(voice.code)}
-        className="flex-row items-center justify-between py-3 px-3 rounded-xl mb-2 bg-light-secondary dark:bg-dark-secondary"
+        className="flex-row items-center justify-between py-3 px-3 rounded-xl mb-2 bg-muted dark:bg-darkMuted"
       >
         <ThemedText className="text-sm">{voice.label}</ThemedText>
         {isSelected ? (
@@ -59,7 +59,7 @@ export default function VoiceSettings({ onBack }: VoiceSettingsProps) {
 
   return (
     <AnimatedView
-      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      className="flex-1 bg-background dark:bg-darkBackground"
       animation="fadeIn"
       duration={350}
     >

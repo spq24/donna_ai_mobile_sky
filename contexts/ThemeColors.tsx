@@ -4,22 +4,21 @@ export const useThemeColors = () => {
   const { isDark } = useTheme();
 
   return {
-    icon: isDark ? 'white' : 'black',
-    bg: isDark ? '#171717' : '#f5f5f5',
-    invert: isDark ? '#000000' : '#ffffff',
-    secondary: isDark ? '#323232' : '#ffffff',
-    state: isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.3)',
-    sheet: isDark ? '#262626' : '#ffffff',
+    background: isDark ? '#151515' : '#ffffff',
+    foreground: isDark ? '#ffffff' : '#151515',
+    muted: isDark ? '#1d1d1d' : '#f7f7f7',
+    mutedForeground: isDark ? '#d7d8da' : '#62646a',
+    accent: isDark ? '#3b3c40' : '#ecedee',
+    border: isDark ? '#27282a' : '#ecedee',
+    primary: isDark ? '#1d1d1d' : '#151515',
+    primaryForeground: '#ffffff',
+    destructive: '#dc2626',
+    destructiveForeground: '#ffffff',
     highlight: '#0EA5E9',
-    lightDark: isDark ? '#262626' : 'white',
-    border: isDark ? '#404040' : '#E2E8F0',
-    text: isDark ? 'white' : 'black',
+    icon: isDark ? '#ffffff' : '#151515',
     placeholder: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)',
-    switch: isDark ? 'rgba(255,255,255,0.4)' : '#ccc',
-    chatBg: isDark ? '#262626' : '#efefef',
-    isDark
+    isDark,
   };
 };
 
 export default useThemeColors;
-

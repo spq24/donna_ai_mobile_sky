@@ -26,7 +26,7 @@ export default function VendorCarousel({
 
   return (
     <View className="w-full my-4">
-      <ThemedText className="text-sm font-medium mb-3 ml-1 text-light-subtext dark:text-dark-subtext">
+      <ThemedText className="text-sm font-medium mb-3 ml-1 text-muted-foreground dark:text-darkMutedForeground">
         I found these vendors that might fit your needs:
       </ThemedText>
 

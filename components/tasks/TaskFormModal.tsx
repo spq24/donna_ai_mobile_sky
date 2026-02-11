@@ -121,9 +121,9 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
 
   return (
     <Modal visible={isVisible} animationType="slide" presentationStyle="pageSheet" onRequestClose={onClose}>
-      <View className="flex-1 bg-light-primary dark:bg-dark-primary">
+      <View className="flex-1 bg-background dark:bg-darkBackground">
         {/* Header */}
-        <View className="flex-row items-center justify-between px-4 py-4 border-b border-light-secondary dark:border-dark-secondary">
+        <View className="flex-row items-center justify-between px-4 py-4 border-b border-border dark:border-darkBorder">
           <ThemedText className="text-xl font-bold">{task ? 'Edit Task' : 'Create Task'}</ThemedText>
           <TouchableOpacity onPress={onClose} disabled={isSubmitting}>
             <Icon name="X" size={24} />
@@ -134,7 +134,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
         <ScrollView className="flex-1 px-4 py-4">
           {/* Title */}
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Title *
             </ThemedText>
             <TextInput
@@ -142,13 +142,13 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
               onChangeText={setTitle}
               placeholder="Enter task title"
               placeholderTextColor="#999"
-              className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-4 py-3 text-base text-black dark:text-white"
+              className="bg-muted dark:bg-darkMuted rounded-xl px-4 py-3 text-base text-foreground dark:text-darkForeground"
             />
           </View>
 
           {/* Description */}
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Description
             </ThemedText>
             <MentionInput
@@ -164,7 +164,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
 
           {/* Status */}
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Status
             </ThemedText>
             <View className="flex-row flex-wrap gap-2">
@@ -175,7 +175,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
                   className={`rounded-xl px-4 py-2 ${
                     status === s.value
                       ? 'bg-blue-500'
-                      : 'bg-light-secondary dark:bg-dark-secondary'
+                      : 'bg-muted dark:bg-darkMuted'
                   }`}
                 >
                   <ThemedText
@@ -190,7 +190,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
 
           {/* Priority */}
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Priority
             </ThemedText>
             <View className="flex-row gap-2">
@@ -199,7 +199,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
                   key={p.value}
                   onPress={() => setPriority(p.value)}
                   className={`flex-1 rounded-xl py-3 items-center ${
-                    priority === p.value ? p.color : 'bg-light-secondary dark:bg-dark-secondary'
+                    priority === p.value ? p.color : 'bg-muted dark:bg-darkMuted'
                   }`}
                 >
                   <ThemedText
@@ -214,12 +214,12 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
 
           {/* Due Date */}
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Due Date
             </ThemedText>
             <TouchableOpacity
               onPress={() => setShowDatePicker(true)}
-              className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-4 py-3 flex-row items-center justify-between"
+              className="bg-muted dark:bg-darkMuted rounded-xl px-4 py-3 flex-row items-center justify-between"
             >
               <ThemedText className="text-base">
                 {dueDate ? dueDate.toLocaleDateString() : 'Select due date'}
@@ -251,7 +251,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
 
           {/* Assignee Type */}
           <View className="mb-4">
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
               Assignee Type
             </ThemedText>
             <View className="flex-row gap-2">
@@ -267,7 +267,7 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
                   className={`flex-1 rounded-xl py-3 items-center ${
                     assigneeType === a.value
                       ? 'bg-purple-500'
-                      : 'bg-light-secondary dark:bg-dark-secondary'
+                      : 'bg-muted dark:bg-darkMuted'
                   }`}
                 >
                   <ThemedText
@@ -283,27 +283,27 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
           {/* User Selection (if assignee type is user) */}
           {assigneeType === 'user' && (
             <View className="mb-4">
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-2">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-2">
                 Assign to User
               </ThemedText>
-              <ScrollView className="max-h-48 bg-light-secondary dark:bg-dark-secondary rounded-xl">
+              <ScrollView className="max-h-48 bg-muted dark:bg-darkMuted rounded-xl">
                 {(availableUsers || []).map((user) => (
                   <TouchableOpacity
                     key={user.id}
                     onPress={() => setAssigneeUserId(user.id)}
-                    className={`px-4 py-3 border-b border-light-primary dark:border-dark-primary ${
+                    className={`px-4 py-3 border-b border-border dark:border-darkBorder ${
                       assigneeUserId === user.id ? 'bg-blue-100 dark:bg-blue-900/30' : ''
                     }`}
                   >
                     <ThemedText className="text-base font-medium">{user.full_name}</ThemedText>
-                    <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+                    <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
                       {user.email}
                     </ThemedText>
                   </TouchableOpacity>
                 ))}
                 {(availableUsers || []).length === 0 && (
                   <View className="p-4">
-                    <ThemedText className="text-center text-light-subtext dark:text-dark-subtext">
+                    <ThemedText className="text-center text-muted-foreground dark:text-darkMutedForeground">
                       No users available
                     </ThemedText>
                   </View>
@@ -314,12 +314,12 @@ export function TaskFormModal({ task, isVisible, onClose }: TaskFormModalProps) 
         </ScrollView>
 
         {/* Action Buttons */}
-        <View className="px-4 py-4 border-t border-light-secondary dark:border-dark-secondary">
+        <View className="px-4 py-4 border-t border-border dark:border-darkBorder">
           <View className="flex-row gap-3">
             <TouchableOpacity
               onPress={onClose}
               disabled={isSubmitting}
-              className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl py-3 items-center"
+              className="flex-1 bg-muted dark:bg-darkMuted rounded-xl py-3 items-center"
             >
               <ThemedText className="text-base font-medium">Cancel</ThemedText>
             </TouchableOpacity>

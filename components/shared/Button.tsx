@@ -33,9 +33,9 @@ export const Button: React.FC<ButtonProps> = ({
       case 'primary':
         return 'bg-black dark:bg-white';
       case 'secondary':
-        return 'bg-light-secondary dark:bg-dark-secondary';
+        return 'bg-muted dark:bg-darkMuted';
       case 'outline':
-        return 'border border-black dark:border-white bg-transparent';
+        return 'border border-foreground dark:border-darkForeground bg-transparent';
       case 'ghost':
         return 'bg-transparent';
       default:
@@ -60,7 +60,7 @@ export const Button: React.FC<ButtonProps> = ({
     if (variant === 'primary') {
       return 'text-white dark:text-black';
     }
-    return 'text-black dark:text-white';
+    return 'text-foreground dark:text-darkForeground';
   };
 
   const getIconColor = () => {

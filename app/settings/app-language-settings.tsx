@@ -45,7 +45,7 @@ export default function AppLanguageSettings({ onBack }: AppLanguageSettingsProps
       <Pressable
         key={language.code}
         onPress={() => handleSelectLanguage(language.code)}
-        className="flex-row items-center justify-between py-3 px-3 rounded-xl mb-2 bg-light-secondary dark:bg-dark-secondary"
+        className="flex-row items-center justify-between py-3 px-3 rounded-xl mb-2 bg-muted dark:bg-darkMuted"
       >
         <ThemedText className="text-sm">{language.label}</ThemedText>
         {isSelected ? (
@@ -59,7 +59,7 @@ export default function AppLanguageSettings({ onBack }: AppLanguageSettingsProps
 
   return (
     <AnimatedView
-      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      className="flex-1 bg-background dark:bg-darkBackground"
       animation="fadeIn"
       duration={350}
     >

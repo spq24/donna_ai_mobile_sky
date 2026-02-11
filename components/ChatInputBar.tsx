@@ -21,10 +21,10 @@ export default function ChatInputBar({
 
   return (
     <View className="px-4 pb-2">
-      <View className="bg-light-primary dark:bg-dark-primary border border-light-secondary dark:border-dark-secondary rounded-2xl shadow-sm overflow-hidden">
+      <View className="bg-background dark:bg-darkBackground border border-border dark:border-darkBorder rounded-2xl shadow-sm overflow-hidden">
         {/* Placeholder Text */}
         <View className="px-2 pt-4">
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
             {placeholder}
           </ThemedText>
         </View>
@@ -34,7 +34,7 @@ export default function ChatInputBar({
           {/* Plus Button */}
           <Pressable
             onPress={onPlusPress}
-            className="w-9 h-9 rounded-full border border-light-secondary dark:border-dark-secondary items-center justify-center bg-light-primary dark:bg-dark-primary"
+            className="w-9 h-9 rounded-full border border-border dark:border-darkBorder items-center justify-center bg-background dark:bg-darkBackground"
           >
             <Icon name="Plus" size={20} />
           </Pressable>
@@ -45,7 +45,7 @@ export default function ChatInputBar({
           {/* Microphone Button */}
           <Pressable
             onPress={onMicPress}
-            className="w-9 h-9 rounded-full border border-light-secondary dark:border-dark-secondary items-center justify-center bg-light-primary dark:bg-dark-primary"
+            className="w-9 h-9 rounded-full border border-border dark:border-darkBorder items-center justify-center bg-background dark:bg-darkBackground"
           >
             <Icon name="Mic" size={20} />
           </Pressable>
@@ -53,7 +53,7 @@ export default function ChatInputBar({
           {/* Send Button */}
           <Pressable
             onPress={onSendPress}
-            className="w-9 h-9 rounded-full items-center justify-center bg-dark-primary dark:bg-light-primary"
+            className="w-9 h-9 rounded-full items-center justify-center bg-foreground dark:bg-darkForeground"
           >
             <Icon name="ArrowUp" size={20} color="white" />
           </Pressable>
@@ -65,7 +65,7 @@ export default function ChatInputBar({
         className="h-8.5 items-center justify-end"
         style={{ paddingBottom: insets.bottom + 8 }}
       >
-        <View className="w-33.5 h-1.25 rounded-full bg-dark-primary dark:bg-light-primary" />
+        <View className="w-33.5 h-1.25 rounded-full bg-foreground dark:bg-darkForeground" />
       </View>
     </View>
   );

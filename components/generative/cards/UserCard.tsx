@@ -34,7 +34,7 @@ export function UserCard({
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}
-        className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4"
+        className="bg-muted dark:bg-darkMuted rounded-2xl p-4"
       >
         <View className="flex-row items-center gap-3">
           <Avatar size="md" src={avatar_url || undefined} name={name || 'U'} />
@@ -52,7 +52,7 @@ export function UserCard({
               )}
             </View>
             {email && (
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext" numberOfLines={1}>
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground" numberOfLines={1}>
                 {email}
               </ThemedText>
             )}
@@ -65,7 +65,7 @@ export function UserCard({
 
   // Detail Mode - Full user information
   return (
-    <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+    <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
       {/* Header */}
       <View className="flex-row items-start justify-between mb-4">
         <View className="flex-row items-center gap-3">
@@ -81,7 +81,7 @@ export function UserCard({
                 </View>
               )}
             </View>
-            <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
               Family Member
             </ThemedText>
           </View>
@@ -96,12 +96,12 @@ export function UserCard({
         {/* Email */}
         {email && (
           <View className="flex-row items-center gap-3">
-            <View className="w-10 h-10 rounded-xl bg-light-primary dark:bg-dark-primary items-center justify-center">
+            <View className="w-10 h-10 rounded-xl bg-background dark:bg-darkBackground items-center justify-center">
               <Icon name="Mail" size={18} />
             </View>
             <View className="flex-1">
               <ThemedText className="text-sm">{email}</ThemedText>
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                 Email
               </ThemedText>
             </View>
@@ -111,12 +111,12 @@ export function UserCard({
         {/* Timezone */}
         {timezone && (
           <View className="flex-row items-center gap-3">
-            <View className="w-10 h-10 rounded-xl bg-light-primary dark:bg-dark-primary items-center justify-center">
+            <View className="w-10 h-10 rounded-xl bg-background dark:bg-darkBackground items-center justify-center">
               <Icon name="Globe" size={18} />
             </View>
             <View className="flex-1">
               <ThemedText className="text-sm">{timezone}</ThemedText>
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                 Timezone
               </ThemedText>
             </View>
@@ -126,12 +126,12 @@ export function UserCard({
         {/* Account ID */}
         {account_id && (
           <View className="flex-row items-center gap-3">
-            <View className="w-10 h-10 rounded-xl bg-light-primary dark:bg-dark-primary items-center justify-center">
+            <View className="w-10 h-10 rounded-xl bg-background dark:bg-darkBackground items-center justify-center">
               <Icon name="Users" size={18} />
             </View>
             <View className="flex-1">
               <ThemedText className="text-sm">Family Account</ThemedText>
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                 Account #{account_id}
               </ThemedText>
             </View>
@@ -146,7 +146,7 @@ export function UserCard({
             <Icon name="AtSign" size={16} color="#fff" />
             <ThemedText className="text-sm font-medium text-white">Assign Task</ThemedText>
           </TouchableOpacity>
-          <TouchableOpacity className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-3 flex-row items-center justify-center gap-2">
+          <TouchableOpacity className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-3 flex-row items-center justify-center gap-2">
             <Icon name="Bell" size={16} />
             <ThemedText className="text-sm font-medium">Remind</ThemedText>
           </TouchableOpacity>
@@ -154,7 +154,7 @@ export function UserCard({
       )}
 
       {is_current_user && (
-        <TouchableOpacity className="mt-4 bg-light-primary dark:bg-dark-primary rounded-xl py-3 flex-row items-center justify-center gap-2">
+        <TouchableOpacity className="mt-4 bg-background dark:bg-darkBackground rounded-xl py-3 flex-row items-center justify-center gap-2">
           <Icon name="Settings" size={16} />
           <ThemedText className="text-sm font-medium">Edit Profile</ThemedText>
         </TouchableOpacity>

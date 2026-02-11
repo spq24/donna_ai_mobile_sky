@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // ADD the NativeWind preset
   presets: [require("nativewind/preset")],
   content: [
     "./app/**/*.{js,ts,tsx}",
@@ -18,22 +17,29 @@ module.exports = {
         global: '16px'
       },
       colors: {
-        // Light theme colors
+        // ShadCN token names – light theme (default)
+        background: '#ffffff',
+        foreground: '#151515',
+        muted: '#f7f7f7',
+        'muted-foreground': '#62646a',
+        accent: '#ecedee',
+        primary: '#151515',
+        'primary-foreground': '#ffffff',
+        border: '#ecedee',
+        destructive: '#dc2626',
+        'destructive-foreground': '#ffffff',
         highlight: '#0EA5E9',
-        light: {
-          primary: '#f5f5f5', // Light gray
-          secondary: '#ffffff', // White
-          text: '#000000', // Black
-          subtext: '#64748B'
-        },
-        // Dark theme colors
-        dark: {
-          primary: '#171717', // Black
-          secondary: '#323232',
-          darker: '#000000',
-          text: '#ffffff', // White
-          subtext: '#A1A1A1'
-        },
+        // Dark theme (use with dark: prefix)
+        darkBackground: '#151515',
+        darkForeground: '#ffffff',
+        darkMuted: '#1d1d1d',
+        darkMutedForeground: '#d7d8da',
+        darkAccent: '#3b3c40',
+        darkPrimary: '#1d1d1d',
+        darkPrimaryForeground: '#ffffff',
+        darkBorder: '#27282a',
+        darkDestructive: '#dc2626',
+        darkDestructiveForeground: '#ffffff',
       },
     },
   },

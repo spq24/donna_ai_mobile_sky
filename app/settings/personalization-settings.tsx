@@ -21,7 +21,7 @@ export default function PersonalizationSettings({ onBack }: PersonalizationSetti
 
   return (
     <AnimatedView
-      className="flex-1 bg-light-primary dark:bg-dark-primary"
+      className="flex-1 bg-background dark:bg-darkBackground"
       animation="fadeIn"
       duration={350}
     >
@@ -40,20 +40,20 @@ export default function PersonalizationSettings({ onBack }: PersonalizationSetti
           {/* Header */}
           <View className="mb-4">
             <ThemedText className="text-2xl font-semibold">Header</ThemedText>
-            <View className="h-px bg-light-secondary dark:bg-dark-secondary mt-4" />
+            <View className="h-px bg-muted dark:bg-darkMuted mt-4" />
           </View>
 
           {/* Introduce yourself */}
           <View className="mb-6">
             <ThemedText className="text-sm mb-2">Introduce yourself</ThemedText>
-            <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-3 min-h-[80px]">
+            <View className="bg-muted dark:bg-darkMuted rounded-xl px-3 py-3 min-h-[80px]">
               <TextInput
                 value={introduction}
                 onChangeText={setIntroduction}
                 className="text-sm"
-                style={{ color: colors.text }}
+                style={{ color: colors.foreground }}
                 placeholder="Tell us about yourself"
-                placeholderTextColor={colors.textSecondary}
+                placeholderTextColor={colors.mutedForeground}
                 multiline
                 textAlignVertical="top"
               />
@@ -68,22 +68,22 @@ export default function PersonalizationSettings({ onBack }: PersonalizationSetti
                 <Switch
                   value={preciseLocationEnabled}
                   onValueChange={setPreciseLocationEnabled}
-                  trackColor={{ false: colors.backgroundSecondary, true: colors.primary }}
+                  trackColor={{ false: colors.muted, true: colors.primary }}
                   thumbColor={preciseLocationEnabled ? '#fff' : '#f4f3f4'}
                 />
               </View>
             </View>
-            <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl px-3 py-2">
+            <View className="bg-muted dark:bg-darkMuted rounded-xl px-3 py-2">
               <TextInput
                 value={location}
                 onChangeText={setLocation}
                 className="text-sm"
-                style={{ color: colors.text }}
+                style={{ color: colors.foreground }}
                 placeholder="Enter location"
-                placeholderTextColor={colors.textSecondary}
+                placeholderTextColor={colors.mutedForeground}
               />
             </View>
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext mt-2">
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground mt-2">
               Enter a location or enable precise location to get more accurate weather and sport
             </ThemedText>
           </View>
@@ -91,20 +91,20 @@ export default function PersonalizationSettings({ onBack }: PersonalizationSetti
           {/* Action Buttons */}
           <View className="flex-row gap-2 mt-4">
             <Pressable
-              className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl py-2 items-center"
+              className="flex-1 bg-muted dark:bg-darkMuted rounded-xl py-2 items-center"
               onPress={onBack}
             >
               <ThemedText className="text-sm">Cancel</ThemedText>
             </Pressable>
             <Pressable
-              className="flex-1 bg-dark-primary dark:bg-light-primary rounded-xl py-2 items-center"
+              className="flex-1 bg-foreground dark:bg-darkForeground rounded-xl py-2 items-center"
               style={shadowPresets.small}
               onPress={() => {
                 console.log('Save changes');
                 onBack?.();
               }}
             >
-              <ThemedText className="text-sm text-light-primary dark:text-dark-primary font-medium">
+              <ThemedText className="text-sm text-foreground dark:text-darkForeground font-medium">
                 Save Changes
               </ThemedText>
             </Pressable>

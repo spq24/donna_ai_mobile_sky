@@ -19,7 +19,7 @@ const Icon = ({ name, size = 24, color, style = {}, onPress, disabled }: any) =>
 
   const content = (
     <View style={style}>
-      <IconComponent size={size} color={color || colors.text} />
+      <IconComponent size={size} color={color || colors.foreground} />
     </View>
   );
 
@@ -36,4 +36,5 @@ const Icon = ({ name, size = 24, color, style = {}, onPress, disabled }: any) =>
 
 Icon.displayName = 'Icon';
 
+export type IconName = keyof typeof LucideIcons;
 export default Icon;

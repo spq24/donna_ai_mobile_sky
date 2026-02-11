@@ -20,7 +20,7 @@ export default function ExploreCard({
   return (
     <Pressable
       onPress={onPress}
-      className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-2xl p-3 flex-1 min-w-[165.5] max-w-[165.5]"
+      className="bg-muted dark:bg-darkMuted border border-border dark:border-darkBorder rounded-2xl p-3 flex-1 min-w-[165.5] max-w-[165.5]"
       style={shadowPresets.medium}
     >
       <Icon name={icon as any} size={20} />
@@ -28,7 +28,7 @@ export default function ExploreCard({
         <ThemedText className="text-base font-semibold mb-1">
           {title}
         </ThemedText>
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
           {description}
         </ThemedText>
       </View>

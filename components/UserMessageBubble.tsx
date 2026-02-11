@@ -27,7 +27,7 @@ export default function UserMessageBubble({
     <View className="flex-col gap-3 items-end mb-4">
       {/* Message Bubble */}
       <View
-        className="bg-light-secondary dark:bg-dark-secondary border border-light-secondary dark:border-dark-secondary rounded-2xl rounded-tr-sm px-4 py-4 max-w-[85%] flex-row items-start gap-3"
+        className="bg-muted dark:bg-darkMuted border border-border dark:border-darkBorder rounded-2xl rounded-tr-sm px-4 py-4 max-w-[85%] flex-row items-start gap-3"
         style={shadowPresets.medium}
       >
         <View className="flex-1">

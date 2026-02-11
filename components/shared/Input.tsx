@@ -31,7 +31,7 @@ export const Input: React.FC<InputProps> = ({
       )}
       <View
         className={`flex-row items-center border-b ${
-          error ? 'border-red-500' : isFocused ? 'border-black dark:border-white' : 'border-light-secondary dark:border-dark-secondary'
+          error ? 'border-red-500' : isFocused ? 'border-foreground dark:border-darkForeground' : 'border-border dark:border-darkBorder'
         } pb-2`}
       >
         <TextInput
@@ -40,15 +40,15 @@ export const Input: React.FC<InputProps> = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholderTextColor={colors.placeholder}
-          className={`flex-1 text-base text-black dark:text-white ${props.className || ''}`}
-          style={[{ color: colors.text }, props.style]}
+          className={`flex-1 text-base text-foreground dark:text-darkForeground ${props.className || ''}`}
+          style={[{ color: colors.foreground }, props.style]}
         />
         {isPassword && (
           <Pressable onPress={() => setShowPassword(!showPassword)} className="ml-2">
             <Icon
               name={showPassword ? 'EyeOff' : 'Eye'}
               size={20}
-              color={colors.text}
+              color={colors.foreground}
             />
           </Pressable>
         )}

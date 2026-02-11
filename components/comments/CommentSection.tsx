@@ -42,7 +42,7 @@ function CommentItem({ comment, commentableType, commentableId, isReply = false,
   const [editMentionedUserIds, setEditMentionedUserIds] = useState<number[]>(comment.mentioned_user_ids || []);
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const isOwner = user?.id === comment.user_id;
+  const isOwner = String(user?.id ?? '') === String(comment.user_id);
   const isEditing = editingComment === comment.id;
   const displayName = comment.user?.full_name || comment.user?.email || 'Unknown';
   const timestamp = formatDistanceToNow(new Date(comment.created_at), { addSuffix: true });
@@ -63,7 +63,7 @@ function CommentItem({ comment, commentableType, commentableId, isReply = false,
     if (!editContent.trim()) return;
     setIsUpdating(true);
     try {
-      await updateComment(comment.id, editContent.trim(), commentableType, commentableId, editMentionedUserIds);
+      await updateComment(comment.id, { content: editContent.trim(), mentioned_user_ids: editMentionedUserIds }, commentableType, commentableId);
     } catch (error) {
       // Error handled in context
     } finally {
@@ -88,21 +88,21 @@ function CommentItem({ comment, commentableType, commentableId, isReply = false,
   };
 
   return (
-    <View className={`py-3 ${isReply ? 'ml-8 pl-3 border-l-2 border-light-secondary dark:border-dark-secondary' : ''}`}>
+    <View className={`py-3 ${isReply ? 'ml-8 pl-3 border-l-2 border-border dark:border-darkBorder' : ''}`}>
       <View className="flex-row gap-3">
         <Avatar size="xs" name={getInitials(comment.user?.full_name, comment.user?.email)} />
         <View className="flex-1">
           <View className="flex-row items-center gap-2 flex-wrap">
             <ThemedText className="text-sm font-medium">{displayName}</ThemedText>
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">{timestamp}</ThemedText>
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">{timestamp}</ThemedText>
             {comment.is_edited && (
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext italic">(edited)</ThemedText>
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground italic">(edited)</ThemedText>
             )}
           </View>
 
           {isEditing ? (
             <View className="mt-2">
-              <View className="bg-light-secondary dark:bg-dark-secondary rounded-xl min-h-[60px]">
+              <View className="bg-muted dark:bg-darkMuted rounded-xl min-h-[60px]">
                 <MentionInput
                   value={editContent}
                   onChange={(text, mentionedIds) => {
@@ -117,7 +117,7 @@ function CommentItem({ comment, commentableType, commentableId, isReply = false,
                 <TouchableOpacity
                   onPress={handleCancelEdit}
                   disabled={isUpdating}
-                  className="px-3 py-1 rounded-lg bg-light-secondary dark:bg-dark-secondary"
+                  className="px-3 py-1 rounded-lg bg-muted dark:bg-darkMuted"
                 >
                   <ThemedText className="text-sm">Cancel</ThemedText>
                 </TouchableOpacity>
@@ -143,13 +143,13 @@ function CommentItem({ comment, commentableType, commentableId, isReply = false,
             <View className="flex-row gap-4 mt-2">
               {!isReply && onReply && (
                 <TouchableOpacity onPress={() => onReply(comment.id)}>
-                  <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Reply</ThemedText>
+                  <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Reply</ThemedText>
                 </TouchableOpacity>
               )}
               {isOwner && (
                 <>
                   <TouchableOpacity onPress={handleEdit}>
-                    <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">Edit</ThemedText>
+                    <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">Edit</ThemedText>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={handleDelete}>
                     <ThemedText className="text-xs text-red-500">Delete</ThemedText>
@@ -243,10 +243,10 @@ export default function CommentSection({ commentableType, commentableId }: Comme
 
   if (isLoading && comments.length === 0) {
     return (
-      <View className="py-4 border-t border-light-secondary dark:border-dark-secondary mt-4">
+      <View className="py-4 border-t border-border dark:border-darkBorder mt-4">
         <View className="flex-row items-center gap-2">
           <ActivityIndicator size="small" />
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
             Loading comments...
           </ThemedText>
         </View>
@@ -255,10 +255,10 @@ export default function CommentSection({ commentableType, commentableId }: Comme
   }
 
   return (
-    <View className="py-4 border-t border-light-secondary dark:border-dark-secondary mt-4">
+    <View className="py-4 border-t border-border dark:border-darkBorder mt-4">
       {/* Header */}
       <View className="flex-row items-center gap-2 mb-3">
-        <Icon name="MessageSquare" size={16} className="text-light-subtext dark:text-dark-subtext" />
+        <Icon name="MessageSquare" size={16} className="text-muted-foreground dark:text-darkMutedForeground" />
         <ThemedText className="text-sm font-medium">
           {totalCount === 0 ? 'Comments' : `${totalCount} ${totalCount === 1 ? 'comment' : 'comments'}`}
         </ThemedText>
@@ -266,7 +266,7 @@ export default function CommentSection({ commentableType, commentableId }: Comme
 
       {/* Comment Input */}
       <View className="flex-row gap-2 mb-4">
-        <View className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl min-h-[40px]">
+        <View className="flex-1 bg-muted dark:bg-darkMuted rounded-xl min-h-[40px]">
           <MentionInput
             value={newComment}
             onChange={(text, mentionedIds) => {
@@ -281,7 +281,7 @@ export default function CommentSection({ commentableType, commentableId }: Comme
           onPress={handleSubmitComment}
           disabled={isSubmitting || !newComment.trim()}
           className={`w-10 h-10 rounded-full items-center justify-center ${
-            newComment.trim() ? 'bg-blue-500' : 'bg-light-secondary dark:bg-dark-secondary'
+            newComment.trim() ? 'bg-blue-500' : 'bg-muted dark:bg-darkMuted'
           }`}
         >
           {isSubmitting ? (
@@ -294,7 +294,7 @@ export default function CommentSection({ commentableType, commentableId }: Comme
 
       {/* Comments */}
       {comments.length === 0 ? (
-        <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+        <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
           No comments yet. Be the first to comment!
         </ThemedText>
       ) : showAll ? (
@@ -310,9 +310,9 @@ export default function CommentSection({ commentableType, commentableId }: Comme
 
               {/* Reply Input */}
               {replyingTo === comment.id && (
-                <View className="ml-8 pl-3 border-l-2 border-light-secondary dark:border-dark-secondary py-2">
+                <View className="ml-8 pl-3 border-l-2 border-border dark:border-darkBorder py-2">
                   <View className="flex-row gap-2">
-                    <View className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl min-h-[40px]">
+                    <View className="flex-1 bg-muted dark:bg-darkMuted rounded-xl min-h-[40px]">
                       <MentionInput
                         value={replyContent}
                         onChange={(text, mentionedIds) => {
@@ -321,14 +321,13 @@ export default function CommentSection({ commentableType, commentableId }: Comme
                         }}
                         placeholder="Write a reply..."
                         multiline
-                        autoFocus
                       />
                     </View>
                   </View>
                   <View className="flex-row gap-2 mt-2">
                     <TouchableOpacity
                       onPress={() => setReplyingTo(null)}
-                      className="px-3 py-1 rounded-lg bg-light-secondary dark:bg-dark-secondary"
+                      className="px-3 py-1 rounded-lg bg-muted dark:bg-darkMuted"
                     >
                       <ThemedText className="text-sm">Cancel</ThemedText>
                     </TouchableOpacity>
@@ -377,9 +376,9 @@ export default function CommentSection({ commentableType, commentableId }: Comme
 
           {/* Reply Input for first comment */}
           {replyingTo === firstComment?.id && (
-            <View className="ml-8 pl-3 border-l-2 border-light-secondary dark:border-dark-secondary py-2">
+            <View className="ml-8 pl-3 border-l-2 border-border dark:border-darkBorder py-2">
               <View className="flex-row gap-2">
-                <View className="flex-1 bg-light-secondary dark:bg-dark-secondary rounded-xl min-h-[40px]">
+                <View className="flex-1 bg-muted dark:bg-darkMuted rounded-xl min-h-[40px]">
                   <MentionInput
                     value={replyContent}
                     onChange={(text, mentionedIds) => {
@@ -388,14 +387,13 @@ export default function CommentSection({ commentableType, commentableId }: Comme
                     }}
                     placeholder="Write a reply..."
                     multiline
-                    autoFocus
                   />
                 </View>
               </View>
               <View className="flex-row gap-2 mt-2">
                 <TouchableOpacity
                   onPress={() => setReplyingTo(null)}
-                  className="px-3 py-1 rounded-lg bg-light-secondary dark:bg-dark-secondary"
+                  className="px-3 py-1 rounded-lg bg-muted dark:bg-darkMuted"
                 >
                   <ThemedText className="text-sm">Cancel</ThemedText>
                 </TouchableOpacity>

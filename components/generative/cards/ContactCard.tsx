@@ -60,7 +60,7 @@ export function ContactCard({
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}
-        className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4"
+        className="bg-muted dark:bg-darkMuted rounded-2xl p-4"
       >
         <View className="flex-row items-center gap-3">
           <Avatar size="md" src={photo_url || undefined} name={displayName} />
@@ -69,12 +69,12 @@ export function ContactCard({
               {displayName}
             </ThemedText>
             {primaryPhone && (
-              <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+              <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
                 {primaryPhone}
               </ThemedText>
             )}
             {company && (
-              <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext" numberOfLines={1}>
+              <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground" numberOfLines={1}>
                 {company}
               </ThemedText>
             )}
@@ -111,7 +111,7 @@ export function ContactCard({
   // Detail Mode - Full contact information
   if (mode === 'detail') {
     return (
-      <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+      <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
         {/* Header */}
         <View className="flex-row items-start justify-between mb-4">
           <View className="flex-row items-center gap-3">
@@ -119,7 +119,7 @@ export function ContactCard({
             <View>
               <ThemedText className="text-lg font-bold">{displayName}</ThemedText>
               {company && (
-                <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground">
                   {company}
                 </ThemedText>
               )}
@@ -166,12 +166,12 @@ export function ContactCard({
           {/* Primary phone */}
           {phone_1 && (
             <View className="flex-row items-center gap-3">
-              <View className="w-8 h-8 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+              <View className="w-8 h-8 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
                 <Icon name="Phone" size={16} />
               </View>
               <View className="flex-1">
                 <ThemedText className="text-sm">{phone_1}</ThemedText>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   {phone_1_type || 'Mobile'}
                 </ThemedText>
               </View>
@@ -181,12 +181,12 @@ export function ContactCard({
           {/* Secondary phone */}
           {phone_2 && (
             <View className="flex-row items-center gap-3">
-              <View className="w-8 h-8 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+              <View className="w-8 h-8 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
                 <Icon name="Phone" size={16} />
               </View>
               <View className="flex-1">
                 <ThemedText className="text-sm">{phone_2}</ThemedText>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   {phone_2_type || 'Other'}
                 </ThemedText>
               </View>
@@ -196,12 +196,12 @@ export function ContactCard({
           {/* Email */}
           {email && (
             <View className="flex-row items-center gap-3">
-              <View className="w-8 h-8 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+              <View className="w-8 h-8 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
                 <Icon name="Mail" size={16} />
               </View>
               <View className="flex-1">
                 <ThemedText className="text-sm">{email}</ThemedText>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   Email
                 </ThemedText>
               </View>
@@ -211,14 +211,14 @@ export function ContactCard({
           {/* Address */}
           {(address || city || state) && (
             <View className="flex-row items-center gap-3">
-              <View className="w-8 h-8 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+              <View className="w-8 h-8 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
                 <Icon name="MapPin" size={16} />
               </View>
               <View className="flex-1">
                 <ThemedText className="text-sm">
                   {[address, city, state, postal_code].filter(Boolean).join(', ')}
                 </ThemedText>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   Address
                 </ThemedText>
               </View>
@@ -228,7 +228,7 @@ export function ContactCard({
           {/* Birthday */}
           {birthday && (
             <View className="flex-row items-center gap-3">
-              <View className="w-8 h-8 rounded-full bg-light-primary dark:bg-dark-primary items-center justify-center">
+              <View className="w-8 h-8 rounded-full bg-background dark:bg-darkBackground items-center justify-center">
                 <Icon name="Cake" size={16} />
               </View>
               <View className="flex-1">
@@ -238,7 +238,7 @@ export function ContactCard({
                     day: 'numeric',
                   })}
                 </ThemedText>
-                <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext">
+                <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground">
                   Birthday
                 </ThemedText>
               </View>
@@ -248,8 +248,8 @@ export function ContactCard({
 
         {/* Notes */}
         {notes && (
-          <View className="mt-4 p-3 bg-light-primary dark:bg-dark-primary rounded-xl">
-            <ThemedText className="text-xs text-light-subtext dark:text-dark-subtext mb-1">
+          <View className="mt-4 p-3 bg-background dark:bg-darkBackground rounded-xl">
+            <ThemedText className="text-xs text-muted-foreground dark:text-darkMutedForeground mb-1">
               Notes
             </ThemedText>
             <ThemedText className="text-sm">{notes}</ThemedText>
@@ -259,7 +259,7 @@ export function ContactCard({
         {/* Edit button */}
         <TouchableOpacity
           onPress={() => onModeChange?.('form')}
-          className="mt-4 bg-light-primary dark:bg-dark-primary rounded-xl py-3 flex-row items-center justify-center gap-2"
+          className="mt-4 bg-background dark:bg-darkBackground rounded-xl py-3 flex-row items-center justify-center gap-2"
         >
           <Icon name="Edit" size={16} />
           <ThemedText className="text-sm font-medium">Edit Contact</ThemedText>
@@ -270,7 +270,7 @@ export function ContactCard({
 
   // Form Mode - Editable contact
   return (
-    <View className="bg-light-secondary dark:bg-dark-secondary rounded-2xl p-4">
+    <View className="bg-muted dark:bg-darkMuted rounded-2xl p-4">
       {/* Header */}
       <View className="flex-row items-center justify-between mb-4">
         <ThemedText className="text-lg font-bold">Edit Contact</ThemedText>
@@ -282,11 +282,11 @@ export function ContactCard({
       {/* Form fields */}
       <View className="gap-3">
         <View>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
             First Name
           </ThemedText>
           <TextInput
-            className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+            className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
             defaultValue={first_name || ''}
             placeholder="First name"
             placeholderTextColor="#999"
@@ -294,11 +294,11 @@ export function ContactCard({
         </View>
 
         <View>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
             Last Name
           </ThemedText>
           <TextInput
-            className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+            className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
             defaultValue={last_name || ''}
             placeholder="Last name"
             placeholderTextColor="#999"
@@ -306,11 +306,11 @@ export function ContactCard({
         </View>
 
         <View>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
             Phone
           </ThemedText>
           <TextInput
-            className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+            className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
             defaultValue={primaryPhone || ''}
             placeholder="Phone number"
             placeholderTextColor="#999"
@@ -319,11 +319,11 @@ export function ContactCard({
         </View>
 
         <View>
-          <ThemedText className="text-sm text-light-subtext dark:text-dark-subtext mb-1">
+          <ThemedText className="text-sm text-muted-foreground dark:text-darkMutedForeground mb-1">
             Email
           </ThemedText>
           <TextInput
-            className="bg-light-primary dark:bg-dark-primary rounded-xl px-3 py-2 text-black dark:text-white"
+            className="bg-background dark:bg-darkBackground rounded-xl px-3 py-2 text-foreground dark:text-darkForeground"
             defaultValue={email || ''}
             placeholder="Email address"
             placeholderTextColor="#999"
@@ -336,7 +336,7 @@ export function ContactCard({
       <View className="flex-row gap-3 mt-4">
         <TouchableOpacity
           onPress={() => onModeChange?.('detail')}
-          className="flex-1 bg-light-primary dark:bg-dark-primary rounded-xl py-3 items-center"
+          className="flex-1 bg-background dark:bg-darkBackground rounded-xl py-3 items-center"
         >
           <ThemedText className="text-sm font-medium">Cancel</ThemedText>
         </TouchableOpacity>

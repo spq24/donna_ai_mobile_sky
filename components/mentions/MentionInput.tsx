@@ -17,6 +17,7 @@ import { apiClient } from '@/lib/api-client';
 import type { MentionUser } from '@/types/mention';
 import { convertToOriginalFormat, convertToLibraryFormat, parseMentions } from '@/types/mention';
 import { useThemeColors } from '@/contexts/ThemeColors';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface MentionInputProps {
   value: string;
@@ -69,7 +70,7 @@ function Suggestions({ keyword, onSelect, users, isLoading, colors }: Suggestion
 
   if (isLoading) {
     return (
-      <View style={[styles.dropdown, { backgroundColor: colors.secondary, borderColor: colors.border }]}>
+      <View style={[styles.dropdown, { backgroundColor: colors.muted, borderColor: colors.border }]}>
         <View style={styles.loadingContainer}>
           <Text style={{ color: colors.placeholder }}>Loading users...</Text>
         </View>
@@ -79,7 +80,7 @@ function Suggestions({ keyword, onSelect, users, isLoading, colors }: Suggestion
 
   if (filteredUsers.length === 0) {
     return (
-      <View style={[styles.dropdown, { backgroundColor: colors.secondary, borderColor: colors.border }]}>
+      <View style={[styles.dropdown, { backgroundColor: colors.muted, borderColor: colors.border }]}>
         <View style={styles.loadingContainer}>
           <Text style={{ color: colors.placeholder }}>No users found</Text>
         </View>
@@ -88,7 +89,7 @@ function Suggestions({ keyword, onSelect, users, isLoading, colors }: Suggestion
   }
 
   return (
-    <View style={[styles.dropdown, { backgroundColor: colors.secondary, borderColor: colors.border }]}>
+    <View style={[styles.dropdown, { backgroundColor: colors.muted, borderColor: colors.border }]}>
       <ScrollView
         keyboardShouldPersistTaps="handled"
         nestedScrollEnabled
@@ -97,7 +98,7 @@ function Suggestions({ keyword, onSelect, users, isLoading, colors }: Suggestion
         {filteredUsers.map((item) => (
           <TouchableOpacity
             key={item.id.toString()}
-            style={[styles.userItem, { backgroundColor: colors.secondary }]}
+            style={[styles.userItem, { backgroundColor: colors.muted }]}
             onPress={() => onSelect({ id: item.id.toString(), name: getDisplayName(item) })}
             activeOpacity={0.7}
           >
@@ -111,7 +112,7 @@ function Suggestions({ keyword, onSelect, users, isLoading, colors }: Suggestion
               </View>
             )}
             <View style={styles.userInfo}>
-              <Text style={[styles.userName, { color: colors.text }]} numberOfLines={1}>
+              <Text style={[styles.userName, { color: colors.foreground }]} numberOfLines={1}>
                 {getDisplayName(item)}
               </Text>
               <Text style={[styles.userEmail, { color: colors.placeholder }]} numberOfLines={1}>
@@ -135,25 +136,36 @@ export function MentionInput({
   editable = true,
 }: MentionInputProps) {
   const colors = useThemeColors();
+  const { isAuthenticated } = useAuth();
   const [users, setUsers] = useState<MentionUser[]>([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
 
-  // Fetch users for mentions on mount
+  // Fetch users for mentions only when authenticated
   useEffect(() => {
+    if (!isAuthenticated) {
+      setUsers([]);
+      setIsLoadingUsers(false);
+      return;
+    }
+
     const fetchUsers = async () => {
       setIsLoadingUsers(true);
       try {
         const fetchedUsers = await apiClient.accounts.getUsersForMentions();
         setUsers(fetchedUsers);
-      } catch (error) {
-        console.error('Failed to fetch users for mentions:', error);
+      } catch (error: any) {
+        // 401/403 expected when not authenticated; avoid noisy console
+        if (error?.response?.status !== 401 && error?.response?.status !== 403) {
+          console.error('Failed to fetch users for mentions:', error);
+        }
+        setUsers([]);
       } finally {
         setIsLoadingUsers(false);
       }
     };
 
     fetchUsers();
-  }, []);
+  }, [isAuthenticated]);
 
   // Configure triggers - must be memoized or static to avoid re-renders
   const triggersConfig: TriggersConfig<'mention'> = useMemo(() => ({
@@ -206,7 +218,7 @@ export function MentionInput({
         style={[
           styles.input,
           {
-            color: colors.text,
+            color: colors.foreground,
             minHeight: multiline ? Math.max(20, numberOfLines * 20) : undefined,
           },
           style,

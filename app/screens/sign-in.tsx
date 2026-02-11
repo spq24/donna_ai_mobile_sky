@@ -111,7 +111,7 @@ export default function SignInScreen() {
   }
 
   return (
-    <View className="flex-1 bg-light-primary dark:bg-dark-primary">
+    <View className="flex-1 bg-background dark:bg-darkBackground">
       <Stack.Screen options={{ headerShown: false }} />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -129,7 +129,7 @@ export default function SignInScreen() {
           <View className="mb-12">
             <ThemedText className="text-4xl font-bold mb-2">Donna AI.</ThemedText>
             <ThemedText className="text-2xl font-semibold mb-1">Welcome back</ThemedText>
-            <ThemedText className="text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-muted-foreground dark:text-darkMutedForeground">
               Sign in to your account
             </ThemedText>
           </View>
@@ -180,11 +180,11 @@ export default function SignInScreen() {
           />
 
           <View className="flex-row items-center mb-8">
-            <View className="flex-1 h-px bg-light-secondary dark:bg-dark-secondary" />
-            <ThemedText className="mx-4 text-sm text-light-subtext dark:text-dark-subtext">
+            <View className="flex-1 h-px bg-muted dark:bg-darkMuted" />
+            <ThemedText className="mx-4 text-sm text-muted-foreground dark:text-darkMutedForeground">
               or continue with
             </ThemedText>
-            <View className="flex-1 h-px bg-light-secondary dark:bg-dark-secondary" />
+            <View className="flex-1 h-px bg-muted dark:bg-darkMuted" />
           </View>
 
           <View className="flex-row gap-3">
@@ -205,7 +205,7 @@ export default function SignInScreen() {
           </View>
 
           <View className="mt-auto pt-8 flex-row justify-center">
-            <ThemedText className="text-light-subtext dark:text-dark-subtext">
+            <ThemedText className="text-muted-foreground dark:text-darkMutedForeground">
               Don't have an account?{' '}
             </ThemedText>
             <Pressable onPress={() => Alert.alert('Sign Up', 'Sign up flow is out of scope.')}>
