@@ -32,8 +32,6 @@ export default function AccountSettings({ onBack }: AccountSettingsProps) {
     >
       <ChatHeader
         onMenuPress={onBack}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       <ScrollView

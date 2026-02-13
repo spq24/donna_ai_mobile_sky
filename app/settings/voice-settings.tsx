@@ -65,8 +65,6 @@ export default function VoiceSettings({ onBack }: VoiceSettingsProps) {
     >
       <ChatHeader
         onMenuPress={onBack}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       <ScrollView

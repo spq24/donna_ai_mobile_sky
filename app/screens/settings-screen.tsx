@@ -228,8 +228,6 @@ export default function SettingsScreen({ onNavigateHome, onNavigateToScreen, onM
         <>
           <ChatHeader
             onMenuPress={onMenuPress}
-            userName={user?.full_name || 'User'}
-            userAvatar={undefined}
           />
           {renderMainSettings()}
         </>

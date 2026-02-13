@@ -37,8 +37,6 @@ export default function SubscriptionSettings({ onBack }: SubscriptionSettingsPro
     >
       <ChatHeader
         onMenuPress={onBack}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       <ScrollView

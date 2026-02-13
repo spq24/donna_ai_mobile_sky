@@ -65,8 +65,6 @@ export default function AppearanceSettings({ onBack }: AppearanceSettingsProps) 
     >
       <ChatHeader
         onMenuPress={onBack}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       <ScrollView

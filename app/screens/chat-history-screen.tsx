@@ -244,8 +244,6 @@ export default function ChatHistoryScreen({ onNavigateHome, onMenuPress }: ChatH
     <View className="flex-1">
       <ChatHeader
         onMenuPress={onMenuPress}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
       {/* Search and Filters */}
       <View className="px-4 pt-4 pb-3">

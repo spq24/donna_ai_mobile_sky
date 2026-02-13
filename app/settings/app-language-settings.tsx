@@ -65,8 +65,6 @@ export default function AppLanguageSettings({ onBack }: AppLanguageSettingsProps
     >
       <ChatHeader
         onMenuPress={onBack}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       <ScrollView

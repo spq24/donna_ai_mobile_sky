@@ -7,6 +7,7 @@ type AvatarProps = {
   size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
   src?: string | ImageSourcePropType;
   name?: string;
+  email?: string;
   border?: boolean;
   bgColor?: string;
   onPress?: () => void;
@@ -19,6 +20,7 @@ const Avatar: React.FC<AvatarProps> = ({
   size = 'md',
   src,
   name,
+  email,
   border = false,
   bgColor = 'bg-muted dark:bg-darkMuted',
   onPress,
@@ -38,13 +40,24 @@ const Avatar: React.FC<AvatarProps> = ({
 
   const borderStyle = border ? 'border-2 border-border dark:border-darkBorder' : '';
 
+  const getInitials = (): string => {
+    const trimmed = (name ?? '').trim();
+    if (trimmed) {
+      const parts = trimmed.split(/\s+/).filter(Boolean);
+      if (parts.length >= 2) {
+        return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+      }
+      if (parts[0]) return parts[0].slice(0, 2).toUpperCase();
+    }
+    if (email) {
+      const local = email.split('@')[0];
+      if (local) return local.slice(0, 2).toUpperCase();
+    }
+    return '?';
+  };
+
   const renderInitials = () => {
-    if (!name) return null;
-    const initials = name
-      .split(' ')
-      .map((part) => part[0].toUpperCase())
-      .join('');
-    return <ThemedText className=" font-medium text-center">{initials}</ThemedText>;
+    return <ThemedText className=" font-medium text-center">{getInitials()}</ThemedText>;
   };
 
   const getImageSource = (): ImageSourcePropType => {

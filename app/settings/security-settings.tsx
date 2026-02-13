@@ -31,8 +31,6 @@ export default function SecuritySettings({ onBack }: SecuritySettingsProps) {
     >
       <ChatHeader
         onMenuPress={onBack}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       <ScrollView

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, KeyboardAvoidingView, Platform, ScrollView, Image, Pressable } from 'react-native';
+import { router } from 'expo-router';
 import AnimatedView from '../../components/shared/AnimatedView';
 import ChatHeader from '../../components/ChatHeader';
 import GreetingSection from '../../components/GreetingSection';
@@ -454,8 +455,7 @@ export default function ChatScreen() {
         {(viewMode === 'home' || viewMode === 'explore') && (
           <ChatHeader
             onMenuPress={handleMenuPress}
-            userName={user?.full_name || 'Jason'}
-            userAvatar={undefined}
+            onNotificationPress={() => router.push('/screens/notifications-screen')}
           />
         )}
         {viewMode === 'explore' ? (

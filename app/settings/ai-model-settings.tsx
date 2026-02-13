@@ -60,8 +60,6 @@ export default function AIModelSettings({ onBack }: AIModelSettingsProps) {
     >
       <ChatHeader
         onMenuPress={onBack}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       <ScrollView

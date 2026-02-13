@@ -51,6 +51,10 @@ export default function RootLayout() {
                     name="screens/tasks-screen"
                     options={{ headerShown: false }}
                   />
+                  <Stack.Screen
+                    name="screens/notifications-screen"
+                    options={{ headerShown: false }}
+                  />
                 </Stack>
                   </GuardProvider>
                 </TagProvider>

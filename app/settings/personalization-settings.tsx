@@ -27,8 +27,6 @@ export default function PersonalizationSettings({ onBack }: PersonalizationSetti
     >
       <ChatHeader
         onMenuPress={onBack}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       <ScrollView

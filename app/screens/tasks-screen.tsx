@@ -75,8 +75,6 @@ export default function TasksScreen() {
       {/* Header */}
       <ChatHeader
         onMenuPress={handleMenuPress}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       {/* Tasks Header Section */}

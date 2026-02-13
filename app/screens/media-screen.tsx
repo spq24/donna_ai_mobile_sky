@@ -68,8 +68,6 @@ export default function MediaScreen({ onNavigateHome, onMenuPress }: MediaScreen
     <View className="flex-1">
       <ChatHeader
         onMenuPress={handleMenuPress}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
       {/* Header with Tabs */}
       <View className="px-4 pt-5 pb-4 flex-row items-center justify-between">

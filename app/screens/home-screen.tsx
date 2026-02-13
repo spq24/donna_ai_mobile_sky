@@ -51,8 +51,6 @@ export default function HomeScreen() {
     >
       <ChatHeader
         onMenuPress={handleMenuPress}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       {/* Main Content */}

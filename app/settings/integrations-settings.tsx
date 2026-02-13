@@ -46,8 +46,6 @@ export default function IntegrationsSettings({ onBack }: IntegrationsSettingsPro
     >
       <ChatHeader
         onMenuPress={onBack}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       <ScrollView

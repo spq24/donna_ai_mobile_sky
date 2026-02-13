@@ -54,8 +54,6 @@ export default function MediaScreen({
       {/* Chat Header */}
       <ChatHeader
         onMenuPress={onMenuPress}
-        userName={user?.full_name || 'User'}
-        userAvatar={undefined}
       />
 
       {/* Header with Tabs */}
